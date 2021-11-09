@@ -47,8 +47,11 @@ for song_dict in sorted(song_list, key=pick_like_value, reverse=True):
 # 이렇게 먼저 정렬. 코드는 가독성이 제일 중요함. 간결하다고 막 ~ 좋은 것은 아님
 # 가독성이 좋아야 다른 팀원들이 코드를 받았을때 이해가 가능!
 
+# sorted 방법 1
 sorted_song_list = sorted(song_list, key=pick_like_value, reverse=True)
 top10_song_list = sorted_song_list[:10]
 
+
+# sorted 방법 2
 for song_dict in sorted_song_list[:10]:
     print("{like} {title}".format(**song_dict))
