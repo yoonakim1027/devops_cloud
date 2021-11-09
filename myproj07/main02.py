@@ -20,3 +20,23 @@ sorted_song_list = sorted(song_list, key=pick_word_count_for_title, reverse=True
 top10_song_list = sorted_song_list[:10]
 
 # 띄어쓰기나 탭, 개행문자들로 구분된 연속된 문자열을 단어라고 한다면?
+
+# 이방식을 잘 익혀야 요즘 트렌드에 맞는 개발이 가능
+
+
+### 최댓값 최솟값 max/min
+a = [1, 2, 3, 4, 5]
+# 최댓값은 5 , 최솟값은 1
+
+
+# b = []
+# 최댓값, 최솟값의 개념이 되려면? 값이 최소 한개는 있어야 한다.
+
+numbers = [1, 2, 5, 4, 3]
+max(numbers)
+
+numbers1 = []
+max(numbers1, default=0)  # default는 데이터가 비어있을 경우, 정하는 수
+# 데이터가 비어있다면 채울 것 ! 0이나 1이나 등등 다 가능.
+# 목록데이터가 비어있을때, 대신 반환하는 값!
+# max/min 둘다 가능 -> 이제 잘 출력됨
