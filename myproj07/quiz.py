@@ -49,29 +49,24 @@ print(mysum2(1, 2, 3))  # 인자 3개
 
 """
 
-#### 그 책자 ppt에서
 
-### TODO라고 노란색으로 되어있는데에 바꾸면 됨 ㅋ
-### 다른건 안바꿔도 돼
-
-def myfilter(filter_fn, alter_value):
-    def wrap(fn):
-        def inner(*args):
-            # TODO ### 여기만 바꿔서 활용하면 돼 !!!! 
-        return inner
-    return wrap
+"""
+장식자가 없으면? 받으면 받은데로 뽑혀버리게 됨
+이 장식자들의 역할은?
+원래 있는 함수를 감싸는 것.
 
 
+### filter_fn에서 True로 판정된 인자는 alter_value 값으로 대체 해보자
 @myfilter(lambda i: i % 2 == 0, 0)
 def mysum(a, b, c, d, e):
     return a + b + c + d + e
+= 조건(짝수면)에 부합이 되면 0으로 바꿔라
 
 
 @myfilter(lambda i: i % 2 == 0, 1)
 def mymultiply(a, b, c, d, e):
     return a * b * c * d * e
 
+= 조건에 부합이 되면 1로 바꿔라 
 
-print(mysum(1, 2, 3, 4, 5))  # 9
-print(mymultiply(1, 2, 3, 4, 5))  # 15
-
+"""
