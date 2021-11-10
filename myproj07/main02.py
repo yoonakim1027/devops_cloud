@@ -1,7 +1,9 @@
 ### (1) 좋아요 수로 TOP10 곡명 리스트를 만들어보자
 # 내림차순으로 정렬하고 처음 부터 10개를 출력하면 이게 TOP 10 !!!
+import pandas as pd
 
-
+df = pd.read_csv("https://bit.ly/3nsLDXy")
+song_list = list(df.T.to_dict().values())
 # 각 곡명에 대한 단어 갯수
 def pick_word_count_for_title(song_dict):
     title: str = song_dict["title"]
@@ -40,3 +42,11 @@ max(numbers1, default=0)  # default는 데이터가 비어있을 경우, 정하�
 # 데이터가 비어있다면 채울 것 ! 0이나 1이나 등등 다 가능.
 # 목록데이터가 비어있을때, 대신 반환하는 값!
 # max/min 둘다 가능 -> 이제 잘 출력됨
+
+
+###  대소비교는 정수와 정수 / 문자열과 문자열끼리는 가능!
+# 사전이라는 개념에서는 대소비교가 없음.
+# 그래서 최댓값을 요청하면 비교할 수 없다는 에러가 뜸
+[{"name": "steve", "age": 10}, {"name": "Tom", "age": 8}]
+# 만약 근데 여기서 국어성적이나, 키가 가장 작은 학생이든 이런 다양한 기준으로 최댓값/최솟값을 구하고 싶다면?
+# 그래서 정렬기준값을 지정해줄 함수를 뽑아주는 것!

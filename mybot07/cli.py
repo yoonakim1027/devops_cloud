@@ -27,6 +27,8 @@
 import requests
 from bs4 import BeautifulSoup
 
+# 항상 타입을 잘 봐야함
+
 
 def naver_search(query):
     naver_search_url = "https://search.naver.com/search.naver"

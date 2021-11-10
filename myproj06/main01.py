@@ -56,7 +56,7 @@ for song_dict in song_list:
     title: str = song_dict["title"] # title로 접근해서 문자열로 곡명만 가져옴 (이 리스트는 100번 돌거임)
     # 곡명의 타입은? 문자열의 성격
     # 사랑이 포함된 곡들?
-    if "사랑" in title: #in의 뒤에 올것은? 목록의 성격을 가진 것들. 리스트, 집합, 사전 같은 목록의 성격을 가진 값들이 in 뒤에옴
+    if "사랑" in title: # in의 뒤에 올것은? 목록의 성격을 가진 것들. 리스트, 집합, 사전 같은 목록의 성격을 가진 값들이 in 뒤에옴
     # 앞에 있는 값이, 뒤에 있는 값에 포함이 되느냐?
     # 결과는 ? True /False 
         title # print로 하는 것 보다, 데이터를 반환하는 것을 쓰셈! 
@@ -80,7 +80,7 @@ for song_dict in song_list:
 # song_list에서 여러 곡들을 순회해야지만 해결 할 수 있는 문제! 
 # 필요한 자료? 좋아요수(like) / 곡명(title)
 
-title_list: List[str] = []
+title_list: List[str] = [] # title_list는 문자열로 구성된 데이터이다 ! 
 for song_dict in song_list:
     title: str  = song_dict['title'] # 이렇게 별도의 변수에 담아서 처리하는 것이 이해하기 더 쉬움
     # 이렇게 접근하는 속성이 서너개가 쌓이면, 보기 힘들어서 이렇게 개별로 끊어서 나눠서 생각하는것이 이해하기 쉬움

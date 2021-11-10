@@ -100,3 +100,18 @@ print(len(list(filter(check_above_1, song_count_dict.values()))))
 # 눈으로 잘 안보이면 노트에다가 변화를 그리기@@!!
 # 한 번 봤는데 이해 다 되는 건 어려워~~!!
 # 부단한 노력 ^__^
+
+### format 방식 새로 업데이트 ^__^
+
+person = {
+    "name" : "Tom",
+    "age" : 10,
+}
+
+"{name} {age}".format(
+    name = person['name'],
+    age = person['age'])
+)
+
+"{name} {age}".format(**person)
+"{name} {age}".format_map(person)

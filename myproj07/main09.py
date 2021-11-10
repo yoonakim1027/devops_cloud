@@ -10,7 +10,7 @@ def myfilter(filter_fn, alter_value):
             # TODO ### 여기만 바꿔서 활용하면 돼 !!!! 
         return inner
     return wrap
-
+# Decorators.py
 
 @myfilter(lambda i: i % 2 == 0, 0)
 def mysum(a, b, c, d, e):
