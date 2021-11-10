@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <title> html 시작하기 </title>
+    <!-- 문서가 가진 최소한의 코드 -->
+    <style>
+        body {
+            background-color: lightblue;
+        }
+
+        h1 {
+            font-weight: bold;
+            color: rgb(235, 113, 194);
+            border-bottom: 1px dashed steelblue;
+        }
+
+        h1:hover {
+            color: white;
+            cursor: pointer;
+
+        }
+
+        #top_nav li {
+            display: inline-block;
+
+        }
+
+        #top_nav li a {
+            color: #333333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul id="top_nav">
+            <li>
+                <a href="/"> 처음으로 </a>
+            </li>
+            <li>
+                <a href="/profile"> 프로필 </a>
+            </li>
+            <li>
+                <a href="/posts"> 블로그 </a>
+            </li>
+            <li>
+                <a href="http://github.com/yoonakim1027"> 깃허브</a>
+            </li>
+        </ul>
+
+
+    </nav>
+    {% block body %}
+    {% endblock %}
+
+
+    <div>
+        <img src="static/dog1.jpg/" style="margin : 0 auto;
+        display:block;
+        width:300px; 
+            height : 400px; 
+            border-radius:100px; 
+            box-shadow: 10px 5px 5px #333333;" />
+
+    </div>
+    <hr />
+    &copy; 2021. 초롱이 컴퍼니
+</body>
+
+</html>
