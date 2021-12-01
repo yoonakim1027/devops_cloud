@@ -31,15 +31,27 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
 
+    # third apps -> 장고, 우리가 아닌, 제 3자가 만든 것.
+
+    # local apps
+    'mall',
+]
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+
+#middleware도 하나의 리스트
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -48,6 +60,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+# middleware는 순서가 중요하다.
+# 그래서 middleware는? 새로운 리스트 더하기 + middleware
+if DEBUG:
+    MIDDLEWARE =[
+        'debug_toolbar.middleware.DebugToolbarMiddleware'
+    ] + MIDDLEWARE
 
 ROOT_URLCONF = 'mydjango13.urls'
 
@@ -119,10 +137,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
+MEDIA_URLS = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# 정해진 사람만 디버그 할 수 있어야 함
+# 개발 서버를 띄우는 컴퓨터 에서만 디버그 툴바가 보인다 .
+INTERNAL_IPS = ['127.0.0.1']
