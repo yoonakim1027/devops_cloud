@@ -51,7 +51,6 @@ if DEBUG:
 
 #middleware도 하나의 리스트
 MIDDLEWARE = [
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -149,3 +148,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 정해진 사람만 디버그 할 수 있어야 함
 # 개발 서버를 띄우는 컴퓨터 에서만 디버그 툴바가 보인다 .
 INTERNAL_IPS = ['127.0.0.1']
+
+
+# logging django에서 기본제공 해주는 것
+if DEBUG: #개발할 때에만 보겠다! -> 개발 모드에서만 확인하겠다.
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "handlers": {
+            "console": {
+                "level": "DEBUG",
+                "class": "logging.StreamHandler", # 화면에 출력해주는 것
+            },
+        },
+        "loggers": {
+            "django.db.backends": {
+                "handlers": ["console"],
+                "level": "DEBUG",
+                "propagate": False,
+            },
+        },
+    }

@@ -18,9 +18,13 @@ from django.urls import path, include
 from django.conf.urls.static import static
 # from mydjango13 import settings
 from django.conf import settings
+from mall.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index),
+
+
 ]
 
 urlpatterns += static(settings.MEDIA_URLS,
