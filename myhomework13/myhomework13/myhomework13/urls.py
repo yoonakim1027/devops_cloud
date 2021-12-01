@@ -18,10 +18,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
+from myhomework13.mall.views import index
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
