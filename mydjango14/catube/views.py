@@ -21,3 +21,14 @@ def index(request: HttpRequest) -> HttpResponse:
 # return render(request, 앱이름 한번 써주고 / 생성할 html
 # 3번째 인자도 넣을 수 있음. !
 
+def video_detail(request: HttpRequest, pk: int) -> HttpResponse:
+    video = Video.objects.get(pk=pk)
+    # 함수가 호출될때, url에서 pk에 해당하는 문자열을 뽑아와서 그걸로
+    # DB에서 찾는것
+    return render(
+                  request,
+                  "catube/video_detail.html",
+        {
+            "video" : video,
+        },)
+    #render는 인자가 세개다 !
