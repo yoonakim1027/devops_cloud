@@ -1,3 +1,8 @@
 from django.contrib import admin
+from chorong.models import ChoVideo
 
-# Register your models here.
+class ChovideoAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(ChoVideo, ChovideoAdmin)
