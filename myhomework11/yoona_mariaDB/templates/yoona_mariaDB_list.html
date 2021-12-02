@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "yoona_mariaDB/layout.html"%}
 
-</body>
-</html>
+{% block content %}
+    <form action="" method="get">
+        <input type="text" name="q" value="{{ request.GET.q }}"/>
+        <input type="submit" value="검색" />
+    </form>
+
+    <ul>
+        {% for post in post_list %}
+            <li>
+                <a href="/yoona_mariaDB/{{ post.pk }}/">
+                    {{ post.title }}
+                </a>
+                {{ post.title }}
+
+            </li>
+        {%  endfor %}
+
+    </ul>
+
+{% endblock %}

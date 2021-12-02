@@ -1,6 +1,7 @@
 from tkinter import *
 import pymysql
 from tkinter import messagebox
+from tkinter import ttk
 
 conn = None
 cur = None
@@ -17,7 +18,7 @@ win.geometry("600x1000")
 win.title("Don't buy a Family, Become the Family")
 
 # Label -> 글 ?써지는거 ?
-label1 = Label(win, text="유기동물 입양 사이트 입니다")
+label1 = Label(win, text="\n유기동물 입양 사이트 입니다",  font="NanumGothic 15")
 label1.pack() # .pack() 구동? 실행 ?
 label2 = Label(win, text="\n 소형견 : 1 ~ 8 kg \n 중형 : 8 ~ 12 kg \n 대형 : 12 ~ kg \n")
 label2.pack()
@@ -32,7 +33,7 @@ class MyFrame(Frame):  # 클래스 정의
 
 
 def main():  # 메인함수로 정의
-    win.title('이미지 보기')
+    win.title('유기동물 입양 사이트')
     win.geometry('400x850')
     myframe = MyFrame(win)  # 클래스 사용
 
@@ -506,6 +507,126 @@ def new2():
     listtodayDate = Listbox(newtwo)
     listtodayDate.pack(side=LEFT, fill=BOTH, expand=1)
 
+def matching():
+
+
+    # global newthree
+    # newnewthree = Toplevel()
+
+    matching = Tk()
+
+    matching.title("Don't buy a Family, Become the Family")
+    matching.geometry("400x400")
+    strs = StringVar()  # 변수선언
+    strs2 = StringVar()
+
+
+    conn = None  # 접속할 때 쓸 애
+    cur = None  # 내가 조정할 수 있게 execute
+    # 데이터베이스 접속
+    conn = pymysql.connect(host='127.0.0.1',
+
+                           # 데이터베이스 연동 함수
+                           user='root',
+                           password='1234',
+                           db='sqlDB',
+                           charset='utf8')  # 내 로컬 호스트에 접속
+
+    def clickButton():
+        sql = "SELECT userName, size, sex FROM matchtbl"
+        # cur.execute(sql)  # 패치를 받아서 우리가 리스트를 넣을 수 있게 되는 것
+
+        userName, size, sex = "", "", ""
+
+        # GUI에서 입력한 데이터 담기
+        userName = edit_name.get()
+        size = Combx1.get()
+        sex = Combx2.get()
+
+        cur = conn.cursor()
+        # 기본적으로 sql초기화
+        sql = ""
+        # sql 쿼리 만들기
+        sql = "INSERT INTO matchtbl(userName, size, sex) VALUES " \
+              "('" + userName + "' ,'" + size + "', '" + sex + "')"
+
+
+        try:
+            cur.execute(sql)
+        except:
+            messagebox.showerror("입력오류", "데이터 입력 오류가 발생 했습니다.")  # 오류처리
+        else:
+            # 오류가 안나면 ? -> 오류가 안나고 잘 됬다고도 말해줘야함
+            # 쿼리 실행이 완료(오류 없이)
+            # 1) 메시지 박스로 성공알림
+            messagebox.showinfo("매칭 정보 저장", "매칭 정보가 저장되었습니다")
+            # 2) 데이터 커밋 (진짜 저장)
+            conn.commit()
+
+
+
+
+
+
+
+
+    # #### 신청자 이름 받기 #### 쿼리로 받아오기 newusertbl에서
+    ## 입력으로 받기
+    # def button_make():
+
+    #이름 입력
+    label_name = Label(matching, text="\n이름을 입력해 주세요.\n")
+    label_name.grid(row=0, column=1)
+
+    edit_name = Entry(matching, width=10)
+    edit_name.grid(row=1, column=1)
+
+    # 1번 문항
+    lbl_title1 = Label(matching, text="\n선호하는 견종 크기를 선택해 주세요. ", fg="blue")
+    lbl_title1.grid(row=2, column=1)
+
+    lbl1 = Label(matching, text="	size", font="NanumGothic 10")
+    lbl1.grid(row=3, column=0)
+
+
+    Combx1 = ttk.Combobox(matching, textvariable=strs,width=20) #콤보박스 선언
+    Combx1['value'] = ('--- 선택해주세요 ---','소형','중형','대형') #콤보박스 요소 삽입
+    Combx1.current(0) #0번째로 콤보박스 초기화
+    Combx1.grid(row=3, column=1) #콤보박스 배치
+
+
+    lbl_01 = Label(matching,text="\n")
+    lbl_01.grid(row=5,column=1)
+
+    # 2번 문항
+
+    lbl_title2 = Label(matching, text="선호하는 성별을 선택해주세요. ", fg= "blue")
+    lbl_title2.grid(row=6, column=1)
+
+    lbl2 = Label(matching, text="	sex", font="NanumGothic 10")
+    lbl2.grid(row=7, column=0)
+
+
+    Combx2 = ttk.Combobox(matching, textvariable=strs2, width=20)
+    Combx2['value'] = ('--- 선택해주세요 ---','암컷','수컷')
+    Combx2.current(0)
+    Combx2.grid(row=7, column=1)
+
+
+    lbl_02 = Label(matching,text="\n")
+    lbl_02.grid(row=8,column=1)
+
+
+
+    lbl02 = Label(matching, text="\n", font="NanumGothic 10")
+    lbl02.grid(row=11, column=0)
+
+    btn = Button(matching, text="선택 완료",command=clickButton,width=7,height=1, font= 'NanumGothic 15', fg='blue', bg='light pink', relief='groove' )
+    btn.grid(row=12,column=1)
+
+    lbl4 = Label(matching, text="\n#사지마세요 #입양하세요", font="NanumGothic 11")
+    lbl4.grid(row=13, column=1)
+
 
 
 btn1 = Button(win, text="내 정보 등록")
@@ -514,6 +635,7 @@ btn3 = Button(win, text="유기동물 매칭")
 
 btn1.config(command=new2)
 btn2.config(command=new1)
+btn3.config(command=matching)
 # btn3.config(command=new2)
 
 btn1.pack()

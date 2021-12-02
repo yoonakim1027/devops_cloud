@@ -3,7 +3,7 @@
 # 설치 : pip install requests beautifulsoup4
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSo
 
 
 def naver_search(query):
@@ -20,7 +20,7 @@ def naver_search(query):
 
 while True:
     line = input("Enter question (quit: q): ")
-    if line == "q":
+    if line == "q": # 텔레그램은 어처피 계속 돌고 있어서 의미가 없음
         print("안녕. 잘 가.")
         break
     # "네이버 검색: 파이썬"

@@ -1,0 +1,7 @@
+django~=3.2.0
+pillow # 썸네일 만드는데에 필요한 것~
+우리가 imageFiled를 쓸 것인데, 이 때 필요한 것이 pillow
+
+static(settings.MEDIA_URL,
+       document_root=settings.MEDIA_ROOT) #두번째는 키워드 지정
+# static은 url리스트를 반환

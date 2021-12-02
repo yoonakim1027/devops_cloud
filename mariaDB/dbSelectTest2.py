@@ -22,7 +22,7 @@ sql = "SELECT userID, name, birthYear, addr, IFNULL(CONCAT(mobile1,'-',mobile2),
 
 
 cur.execute(sql)
-
+print(sql) # 이렇게 출력되는 쿼리문을 mariaDB에 복붙해서 되나 안되나 확인해야함
 print("회원ID  회원명 출생년도  주소     연락처      키    가입일")
 print("--------------------------------------------------------------")
 

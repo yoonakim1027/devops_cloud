@@ -27,20 +27,22 @@ def insertData():
     # 회원 정보 insert 기능 구현
     # 사용자에게 데이터를 받아야 함 (단독의 데이터 한 건씩이니까 리스트로 안해도 됨)
     # 사용자에게 입력 받은 회원 정보 초기화
-    userID, name, birthYear, addr = "", "", "", ""
+    breed, color, sex, age, size, find_date, protected_place = "", "", "", "", "", "", ""
 
     # GUI에서 입력한 데이터 담기
-    userID = edit1.get()
-    name = edit2.get()
-    birthYear = edit3.get()
-    addr = edit4.get()
-# SELECT userID, name, birthYear, mdate
+    breed = edit1.get()
+    color = edit2.get()
+    sex = edit3.get()
+    age = edit4.get()
+    size = edit5.get()
+    protected_place = edit6.get()
+
     # 기본적으로 sql초기화
     sql = ""
     # sql 쿼리 만들기
-    sql = "INSERT INTO userTBL (userID, name, birthYear, addr, mdate) VALUES " \
-          "('" + userID + "' ,'" + name + "', " + birthYear + ", '" + addr + "', CURDATE())"
-
+    sql = "INSERT INTO lostpettbl(breed, color, sex, age, size, protected_place, protected_date) VALUES " \
+          "('" + breed + "' ,'" + color + "', '" + sex + "','" + age + "', '" + size + "','" + protected_place + "', CURDATE())"
+    print(sql)
     # print(sql) #배포할 땐 지워야함 !!! 그냥 확인용으로만 ~ 공유할 때는 지우고 올려야함
     # 쿼리 실행
     # << 예외처리 >>
@@ -56,7 +58,7 @@ def insertData():
         # 오류가 안나면 ? -> 오류가 안나고 잘 됬다고도 말해줘야함
         # 쿼리 실행이 완료(오류 없이)
         # 1) 메시지 박스로 성공알림
-        messagebox.showinfo("성공","회원 정보가 등록 되었습니다.")
+        messagebox.showinfo("성공","동물친구 정보가 등록 되었습니다.")
         # 2) 데이터 커밋 (진짜 저장)
         conn.commit()
         # 3) 테이블 조회 (새로고침) -> 내가 입력한 데이터가 가장 상위에 나오도록
@@ -67,6 +69,13 @@ def insertData():
     edit2.delete(0, "end")
     edit3.delete(0, "end")
     edit4.delete(0, "end")
+    edit5.delete(0, "end")
+    edit6.delete(0, "end")
+    edit7.delete(0, "end")
+
+    # protected_date
+
+
 
     conn.close()  # 엔터치면 종료됨 !
 # 오류는 나더라도 시스템은 계속 진행되어야 하기때문에 예외/오류를 정해줘야함!
@@ -77,7 +86,8 @@ def selectData():
     cur = None  # 내가 조정할 수 있게 execute
 
     # 실제 데이터
-    lUserID, lName, lbirthYear, lAddr = [],[],[],[]
+    # breed, color, sex, age, size, find_date, protected_place
+    lbreed, lcolor, lsex, lage, lsize, lprotected_place, lprotected_date  = [],[],[],[],[],[],[]
     # 리스트
 
 
@@ -91,30 +101,45 @@ def selectData():
     cur = conn.cursor()
 
     # 데이터 초기화
-    lUserID.append("회원 ID")
-    lUserID.append("---------------")
-    lName.append("회원명")
-    lName.append("---------------")
+    # lbreed, lcolor, lsex, lage, lsize, lfind_date, lprotected_place, lprotected_date
+    lbreed.append("품종")
+    lbreed.append("---------------")
 
-    lbirthYear.append("출생년도")
-    lbirthYear.append("---------------")
+    lcolor.append("색상")
+    lcolor.append("---------------")
 
-    lAddr.append("회원 주소")
-    lAddr.append("---------------")
+    lsex.append("성별")
+    lsex.append("---------------")
+
+    lage.append("나이")
+    lsize.append("---------------")
+
+    lsize.append("몸집크기")
+    lsize.append("---------------")
+
+    lprotected_place.append("보호장소")
+    lprotected_place.append("---------------")
+
+    lprotected_date.append("보호날짜")
+    lprotected_date.append("---------------")
 
 
     #SELECT 기능 구현
-    sql = "SELECT userID, name, birthYear, addr FROM userTBL"
+    sql = "SELECT breed, color, sex, age, size, protected_place, protected_date FROM lostpettbl"
     cur.execute(sql) # 패치를 받아서 우리가 리스트를 넣을 수 있게 되는 것
 
     while(True):
         row = cur.fetchone() # 커서
         if row == None:
             break # while을 멈출 것
-        lUserID.append(row[0])
-        lName.append(row[1])
-        lbirthYear.append(row[2])
-        lAddr.append(row[3])
+        lbreed.append(row[0])
+        lcolor.append(row[1])
+        lsex.append(row[2])
+        lage.append(row[3])
+        lsize.append(row[4])
+        lprotected_place.append(row[5])
+        lprotected_date.append(row[6])
+
         # 우리는 출력이 목적이 아님!
 
     # GUI ListBox에 insert
@@ -122,28 +147,35 @@ def selectData():
     # 1) 리스트 박스 초기화(초기화 안하면 계속 뒤에 붙음)
     # 화면을 안지워주면 화면 뒤에 붙게 되어있음
     # 초기화가 항상 기본임
-    listUserID.delete(0,listUserID.size()-1) #처음 갖고있던 사이즈 -1
-    listName.delete(0, listName.size() - 1)
-    listBirthYear.delete(0, listBirthYear.size() - 1)
-    listAddr.delete(0, listAddr.size() - 1)
+    listbreed.delete(0,listbreed.size()-1) #처음 갖고있던 사이즈 -1
+    listcolor.delete(0, listcolor.size() - 1)
+    listsex.delete(0, listsex.size() - 1)
+    listage.delete(0, listage.size() - 1)
+    listsize.delete(0, listsize.size() - 1)
+    listprotected_place.delete(0, listprotected_place.size() - 1)
+    listprotected_date.delete(0, listprotected_date.size() - 1)
 
     # 2) select 해온 데이터 insert. 여기가 insert
     # 화면
-    for item1, item2, item3, item4 in zip(lUserID, lName, lbirthYear, lAddr) :
-        listUserID.insert(END, item1) #END - > 끝부터 담음
-        listName.insert(END, item2)
-        listBirthYear.insert(END, item3)
-        listAddr.insert(END, item4)
+    for item1, item2, item3, item4, item5, item6, item7\
+            in zip(lbreed, lcolor, lsex, lage, lsize,lprotected_place, lprotected_date):
+        listbreed.insert(END, item1)
+        listcolor.insert(END, item2)
+        listsex.insert(END, item3)
+        listage.insert(END, item4)
+        listsize.insert(END, item5)
+        listprotected_place.insert(END, item6)
+        listprotected_date.insert(END, item7)
 
     conn.close()  # 엔터치면 종료됨 !
 
-
+## 얘 구역 def 1
 # gui 화면구성
 window = Tk()
-window.geometry("800x300")
+window.geometry("1200x300")
 
 # 타이틀
-window.title("MariaDB 연동 GUI")
+window.title("유기견 매칭 프로그램 ")
 
 # 입력받는 것  : editFrame
 # 조회 : listframe
@@ -157,29 +189,46 @@ listFrame.pack(side=BOTTOM, fill=BOTH, expand=1)
 
 
 # 라벨 만들기 라텔 - 텍스트박스
-label1 = Label(editFrame, text="회원 ID")
+# 화면에 항목 뜨게 하기
+
+label1 = Label(editFrame, text="품종")
 label1.pack(side=LEFT, padx=10, pady=10)
 
 edit1 = Entry(editFrame, width=10)
 edit1.pack(side=LEFT, padx=10, pady=10)
 
-label2 = Label(editFrame, text="회원명")
+label2 = Label(editFrame, text="색상")
 label2.pack(side=LEFT, padx=10, pady=10)
 
 edit2 = Entry(editFrame, width=10)
 edit2.pack(side=LEFT, padx=10, pady=10)
 
-label3 = Label(editFrame, text="출생년도")
+label3 = Label(editFrame, text="성별")
 label3.pack(side=LEFT, padx=10, pady=10)
 
 edit3 = Entry(editFrame, width=10)
 edit3.pack(side=LEFT, padx=10, pady=10)
 
-label4 = Label(editFrame, text="회원 주소")
+label4 = Label(editFrame, text="나이")
 label4.pack(side=LEFT, padx=10, pady=10)
 
 edit4 = Entry(editFrame, width=10)
 edit4.pack(side=LEFT, padx=10, pady=10)
+
+label5 = Label(editFrame, text="몸집크기")
+label5.pack(side=LEFT, padx=10, pady=10)
+
+edit5 = Entry(editFrame, width=10)
+edit5.pack(side=LEFT, padx=10, pady=10)
+
+
+label6 = Label(editFrame, text="보호장소")
+label6.pack(side=LEFT, padx=10, pady=10)
+
+edit6 = Entry(editFrame, width=10)
+edit6.pack(side=LEFT, padx=10, pady=10)
+
+
 
 # 버튼영역
 # 입력
@@ -191,17 +240,32 @@ btnSelect = Button(editFrame, text="조회", command=selectData)
 btnSelect.pack(side=LEFT, padx=10, pady=10)
 
 
-listUserID = Listbox(listFrame)
-listUserID.pack(side=LEFT, fill=BOTH, expand=1)
 
-listName = Listbox(listFrame)
-listName.pack(side=LEFT, fill=BOTH, expand=1)
 
-listBirthYear = Listbox(listFrame)
-listBirthYear.pack(side=LEFT, fill=BOTH, expand=1)
+# listbreed, listcolor, listsex, listage, listsize, listprotected_place
 
-listAddr = Listbox(listFrame)
-listAddr.pack(side=LEFT, fill=BOTH, expand=1)
+
+listbreed = Listbox(listFrame)
+listbreed.pack(side=LEFT, fill=BOTH, expand=1)
+
+listcolor = Listbox(listFrame)
+listcolor.pack(side=LEFT, fill=BOTH, expand=1)
+
+listsex = Listbox(listFrame)
+listsex.pack(side=LEFT, fill=BOTH, expand=1)
+
+listage = Listbox(listFrame)
+listage.pack(side=LEFT, fill=BOTH, expand=1)
+
+listsize = Listbox(listFrame)
+listsize.pack(side=LEFT, fill=BOTH, expand=1)
+
+
+listprotected_place = Listbox(listFrame)
+listprotected_place.pack(side=LEFT, fill=BOTH, expand=1)
+
+listprotected_date = Listbox(listFrame)
+listprotected_date.pack(side=LEFT, fill=BOTH, expand=1)
 
 
 window.mainloop()

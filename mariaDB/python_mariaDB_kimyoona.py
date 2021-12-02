@@ -14,7 +14,7 @@ conn = pymysql.connect(
 
 win = Tk()
 
-win.geometry("600x900")
+win.geometry("500x900")
 win.title("Don't buy a Family, Become the Family")
 
 # Label -> 글 ?써지는거 ?
@@ -43,10 +43,9 @@ if __name__ == '__main__':  # 메인함수 호출
 
 
 
-
-
-
 # Button(버튼 만드는거)
+
+
 
 
 # 버튼 클릭하면 나오는 정보
@@ -54,6 +53,32 @@ def clickButton():
     messagebox.showinfo("유기동물 정보 저장", "동물 친구 정보가 저장되었습니다")
 
 # 버튼 누르고 나서 이동하는 화면
+
+def selectAllData():
+    conn = None
+    cur = None
+
+    userName = edit1.get()
+    region = edit2.get()
+    today_date = edit3.get()
+
+    luserName, lregion, ltoday_date = [], [], []
+
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='1234', db='mariaDB', charset='utf8')
+
+    cur = conn.cursor()
+
+    luserName.append("신청자 이름")
+    luserName.append("--------")
+
+    lregion.append("거주지역")
+    lregion.append("--------")
+
+    ltoday_date.append("신청날짜")
+    ltoday_date.append("--------")
+
+    sql = "SELECT userName, region, today_date FROM newusertbl"
+
 
 def new1():
     global new
@@ -123,8 +148,6 @@ def new1():
             lsize.append(row[4])
             lprotected_place.append(row[5])
             lprotected_date.append(row[6])
-
-            # 우리는 출력이 목적이 아님!
 
         # GUI ListBox에 insert
         # ListUserID, ListName, ListBirthYear, ListAddr
@@ -292,6 +315,35 @@ def new1():
     listprotected_date = Listbox(new)
     listprotected_date.pack(side=LEFT, fill=BOTH, expand=1)
 
+    # 삭제
+    def deleteData():
+        conn = None
+        cur = None
+
+        conn = pymysql.connect(host='127.0.0.1', user='root', password='1234', db='mariaDB', charset='utf8')
+
+        cur = conn.cursor()
+
+        memberID = listuserName.get(listuserName.curselection())
+        print(memberID)
+
+        sql = "DELETE FROM newusertbl WHERE username = '" + username + "'"
+
+        print(sql)
+
+        try:
+            cur.execute(sql)
+        except:
+            messagebox.showerror("삭제오류", "데이터 삭제 오류가 발생 했습니다.")
+        else:
+            messagebox.showinfo("성공", "회원 정보가 삭제되었습니다.")
+            conn.commit()
+            selectAllData()
+
+        conn.close()
+
+
+
 
 
 def new2():
@@ -450,6 +502,10 @@ def new2():
     btnSelect = Button(newtwo, text="조회", command=selectData1)
     btnSelect.pack(side=LEFT, padx=10, pady=10)
 
+    btnDelete = Button(newtwo, text="삭제", command=deleteData1)
+    btnDelete.pack(side=LEFT, padx=10, pady=10)
+
+
 
 
     listuserName= Listbox(newtwo)
@@ -459,7 +515,34 @@ def new2():
     listregion.pack(side=LEFT, fill=BOTH, expand=1)
 
     listtodayDate = Listbox(newtwo)
-    listtodayDate.pack(side=LEFT, fill=BOTH, expand=1)
+    listtodayDate.pack(side=RIGHT, fill=BOTH, expand=1)
+
+def deleteData1():
+    conn = None
+    cur = None
+
+    conn = pymysql.connect(host='127.0.0.1', user='root', password='1234', db='mariaDB', charset='utf8')
+
+    cur = conn.cursor()
+
+    memberID = listuserName.get(listuserName.curselection())
+    print(memberID)
+
+    sql1 = "SELECT userName, region, todayDate DELETE FROM newusertbl WHERE userName = '" + userName + "'"
+
+    print(sql1)
+
+    try:
+        cur.execute(sql1)
+    except:
+        messagebox.showerror("삭제오류", "데이터 삭제 오류가 발생 했습니다.")
+    else:
+        messagebox.showinfo("성공", "회원 정보가 삭제되었습니다.")
+        conn.commit()
+        selectData1()
+
+        conn.close()
+
 
 
 def matching():

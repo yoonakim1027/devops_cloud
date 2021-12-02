@@ -8,7 +8,7 @@ class Post(models.Model):
     # upload_to
     # - 문자열 : 파일이 저장되는 폴더의 경로
     # 파일이 저장할 때 upload_to를 사용하는 것
-    morning = models.NullBooleanField(blank=False, null=False, verbose_name="아침밥 먹었니?")
+    morning = models.NullBooleanField(blank=False, null=False, verbose_name=" 아침밥 먹었니?")
 
     # photo = models.ImageField(blank=True, upload_to = uuid_name_upload_to) # 필수 필드가 아니게 됨!
     created_at = models.DateTimeField(blank=False, null=False, auto_now_add=True) #생성할 때 자동 지정

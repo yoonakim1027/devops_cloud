@@ -30,10 +30,10 @@ sql = ""
 # 사용자에게 입력받을 데이터
 userID = ""
 name = ""
-birthYear = ""
+birthYear = "" # 초기화 하면서 타입이 정해지는것
 addr = ""
 
-# 새로
+# 새로 변수선언
 mobile1 = ""
 mobile2 = ""
 height = ""
@@ -62,6 +62,8 @@ while (True):
     if height == "":
         break  # 입력안되면 멈추기
 
+# 쿼리할 때 작은 따옴표를 붙히지 않으면 정수형태임
+    # 모든 데이터를 입력하려면? 컬럼명은 명시하지 않아도 상관없었음!
     sql = "INSERT INTO userTBL (userID, name, birthYear, addr, mobile1, mobile2, height, mdate) VALUES " \
           "('" + userID + "' ,'" + name + "', "+ birthYear + ", '" + addr + "','" + mobile1 + "','"+ mobile2 +"', " + height +", CURDATE())"
     print(sql) # 모르겠으면 이걸로 확인해

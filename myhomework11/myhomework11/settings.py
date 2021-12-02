@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'yoona_django_note'
+    'yoona_django_note',
+    'yoona_mariaDB',
 ]
 
 MIDDLEWARE = [
