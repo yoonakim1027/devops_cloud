@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,10 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third apps
 
     # local apps
     'chorong',
 ]
+
+# installed_apps에 debug 설정 추가
+if DEBUG:
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +60,15 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# middleware에 debug 설정 추가
+if DEBUG:
+    MIDDLEWARE = [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ] + MIDDLEWARE
+
+# MIDDLEWARE는 리스트 형식이라서 +=를 안해도 됨
+
 
 ROOT_URLCONF = 'myhomework14.urls'
 
@@ -128,3 +145,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# django-debug-toolbar
+INTERNAL_IPS = ['127.0.0.1']
