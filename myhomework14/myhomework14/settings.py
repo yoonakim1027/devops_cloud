@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third apps
-
+    'imagekit',
     # local apps
     'chorong',
 ]
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 # installed_apps에 debug 설정 추가
 if DEBUG:
     INSTALLED_APPS += [
-        "debug_toolbar",
+        'debug_toolbar',
     ]
 
 MIDDLEWARE = [
@@ -64,7 +64,7 @@ MIDDLEWARE = [
 # middleware에 debug 설정 추가
 if DEBUG:
     MIDDLEWARE = [
-        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
     ] + MIDDLEWARE
 
 # MIDDLEWARE는 리스트 형식이라서 +=를 안해도 됨
