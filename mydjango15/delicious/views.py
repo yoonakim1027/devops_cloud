@@ -1,5 +1,8 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
+from django.views.generic import CreateView
+
+from delicious.forms import ShopForm
 from delicious.models import Shop
 
 
@@ -72,3 +75,12 @@ def shop_new_1(request: HttpRequest) -> HttpResponse:
         )
         # 유효성 검사 후 , 뭐든 응답을 줘야 함  -> 잘 되었는지 아닌지 메시지라도~
         return redirect("/delicious/")  # DB에 저장을하고 delicious로 옮겨줘
+
+
+# view구현 -> 가장 완벽한 형태로의 뷰 구현
+shop_new = CreateView.as_view(
+    model=Shop,
+    form_class=ShopForm,
+    success_url="/delicious/",
+
+)

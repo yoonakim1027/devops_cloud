@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{%  extends "delicious/layout.html" %}
+
+{% block content %}
+    <form action="" method="post" novalidate>
+        {% csrf_token %} # 장고에서 기본으로 지원하는 보안기능
+        <table>
+            {{ form.as_table  }}
+        </table>
+        <input type="submit" value="저장하기">
+
+    </form>
+
+
+{% endblock %}
+
