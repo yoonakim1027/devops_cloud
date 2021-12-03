@@ -1,4 +1,9 @@
 from django.db import models
+from django.core.validators import RegexValidator
+# regex -> 정규표현식
+
+
+
 
 
 class Shop(models.Model):
@@ -12,7 +17,7 @@ class Shop(models.Model):
     longitude = models.FloatField(verbose_name="경도")  # 경도
 
     # TODO : 전화번호 값인지 여부를 체킹 -> 다음 주쯤~
-    telephone = models.CharField(max_length=15)
+    telephone = models.CharField(max_length=15) # 현재 아무 문자열이나 입력가능. 
 
     created_at = models.DateTimeField(auto_now_add=True)  # 생성시각
     updated_at = models.DateTimeField(auto_now=True)  # 수정시각
