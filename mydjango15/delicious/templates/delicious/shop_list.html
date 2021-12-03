@@ -2,6 +2,12 @@
 # 상속 !
 
 {% block content %}
+    # 어떤 양식을 form 이라고 함
+    <form action="" method="get">
+        <input type="text" name="query" value="{{ request.GET.query }}"/>
+
+        <input type="submit" value="검색"/>
+    </form>
     <table class="table table-hover table-bordered">
         <thead>
             <tr> #한 줄에 대한 데이터 정의
