@@ -21,10 +21,10 @@ class Shop(models.Model):
                                      RegexValidator(r"^\d{3,4}-?\d{4}-?\d{4}$",
                                                     message="전화번호를 입력해주세요"),
                                  ])
-    # validators- > 이 값은 꼭 이거어야만 한다!!
-    # 현재 아무 문자열이나 입력가능.
-    #  RegexValidator(r"\d{4}") 숫자가 4번
-    # RegexValidator(r"\d{3,4}") 3번이나 4번
+    # validators- > 이 값은 꼭 이거어야만 한다!! 
+    # 현재 아무 문자열이나 입력가능. 
+    #  RegexValidator(r"\d{4}") 숫자가 4번 
+    # RegexValidator(r"\d{3,4}") 3번이나 4번 
     # RegexValidator(r"^\d{3,4}-?\d{4}-?\d{4}$")
     created_at = models.DateTimeField(auto_now_add=True)  # 생성시각
     updated_at = models.DateTimeField(auto_now=True)  # 수정시각
