@@ -1,0 +1,35 @@
+{% extends "delicious/layout.html" %}
+# 상속 !
+
+{% block content %}
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr> #한 줄에 대한 데이터 정의
+                <th>name</th>
+                <th>telephone</th>
+                <th>description</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for shop in shop_list %}
+                    <tr>
+                        <td>
+                            <a href="/delicious/{{ shop.pk }}/">
+                                {{ shop.name }}
+                            </a>
+                        </td>
+
+                        <td>
+                            <a href="tel:{{ shop.telephone }}">
+                                {{ shop.telephone }}
+                            </a>
+
+                        </td>
+                        <td>{{ shop.description }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+{% endblock %}
+
+<a href="tel:{{ shop.telephone }}"></a>

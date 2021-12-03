@@ -1,0 +1,22 @@
+{% extends  "delicious/layout.html"%}
+
+{% block content %}
+    <h2> {{ shop }} </h2> # 이렇게 변수에 접근할 수 있음
+
+    <ul>
+        <li>TEL : {{ shop.telephone }}</li>
+        <li>주소 : {{ shop.address }}</li>
+    </ul>
+
+    {{ shop.description |linebreaks }}
+
+    <hr/>
+    <a href="/delicious/" class="btn btn-primary">목록으로</a>
+    <a href="/delicious/" class="btn btn-secondary">목록으로</a>
+    <a href="/delicious/" class="btn btn-danger">목록으로</a>
+    <a href="/delicious/" class="btn btn-info">목록으로</a>
+    <a href="/delicious/" class="btn btn-success">목록으로</a>
+    # 버튼의 개념항상 /로 시작 (/delicious)
+{% endblock %}
+
+# 템플릿은 부모로부터 상속~
