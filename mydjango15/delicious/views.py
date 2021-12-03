@@ -1,5 +1,5 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from delicious.models import Shop
 
 
@@ -13,8 +13,6 @@ def shop_list(request: HttpRequest) -> HttpResponse:
     # 없다면 "" 빈문자열을 반환해줘
     if query:  # 검색어가 있다면?
         qs = qs.filter(name__icontains=query)
-
-
 
     # template_name = "delicious/shop_list.html" #템플릿 명
     context_data = {
@@ -40,3 +38,37 @@ def shop_detail(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, "delicious/shop_detail.html", context_data)
     # 디테일을 하려면? 프라이머리키가 어떤 값을 가진 샵을
     # 디테일을 보고자하는 모델 이름 : 모델이름_detail
+
+
+def shop_new_1(request: HttpRequest) -> HttpResponse:
+    if request.method == "GET":  # 전송방식 : get/ post 방식이 있음
+        # 파이썬에서는 대소문자가 상관이 있다~
+        # 파이썬에서는 무조건 대문자 GET / POST
+        # GET방식이면 빈 form을 보여주는 것이고, POST면 유저가 입력한 값을 받게 되는 것
+        return render(request, "delicious/shop_form_1.html")
+    else:  # POST
+        name = request.POST['name']
+        description = request.POST['description']
+        address = request.POST['address']
+        latitude = request.POST['latitude']
+        longitude = request.POST['longitude']
+        telephone = request.POST['telephone']
+
+        # post방식으로 받은 데이터기 때문에, request.POST에 우리가 html에서 입력한 값이 들어감
+
+        # 이제 이런 값을 DB에 저장해야함
+        # 저장하기에 앞서, 1차적으로 유효성 검사를 해야 함
+
+        # TODO : 유효성 검사
+        # -> latitude는 실수형이어야 함! 실수가 아니라 다른값이면 DB에서 오류남
+        Shop.objects.create(
+            name=name,
+            description=description,
+            address=address,
+            latitude=latitude,
+            longitude=longitude,
+            telephone=telephone,
+
+        )
+        # 유효성 검사 후 , 뭐든 응답을 줘야 함  -> 잘 되었는지 아닌지 메시지라도~
+        return redirect("/delicious/")  # DB에 저장을하고 delicious로 옮겨줘
