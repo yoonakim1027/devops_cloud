@@ -5,8 +5,8 @@ from myhomework15_7 import settings
 from yoona import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.StuyPostList.as_view()),
+    path('<int:pk>/', views.StudyPostDetail.as_view()), #상세 페이지
+    path('', views.StuyPostList.as_view()), # 리스트 페이지
 ]
 
 if settings.DEBUG:
