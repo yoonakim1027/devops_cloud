@@ -5,13 +5,13 @@ from django.db import models
 
 class StudyPost(models.Model):
     # 글 제목
-    title = models.Charfieid(max_lenght=100)
+    title = models.CharField(max_length=100)
     # 글 내용
-    content = models.textfieild()
+    content = models.TextField()
 
     # 첨부 사진, 파일 (if /else문으로 구현) - > 필수 항목X
-    photo = models.ImageField(blank=True, NULL=True)
-    file = models.FileField(blank=True, NULL=True)
+    photo = models.ImageField(blank=True)
+    file = models.FileField(blank=True)
 
     # 최초 등록 시간
     created_at = models.DateTimeField(auto_now_add=True)
