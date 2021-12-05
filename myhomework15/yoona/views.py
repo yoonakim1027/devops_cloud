@@ -10,6 +10,12 @@ from .models import StudyPost
 
 # CBV 방식으로 페이지 만들기
 
+# list 페이지
 class StudyPostList(ListView):
     model = StudyPost
-    ordering = '-pk' # 내림차순 - 최신 포스트 부터 보여줌
+    ordering = '-pk'  # 내림차순 - 최신 포스트 부터 보여줌
+
+
+# detail 페이지
+class StudyPostDetail(DetailView):
+    model = StudyPost
