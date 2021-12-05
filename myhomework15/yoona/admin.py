@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from yoona.models import StudyPost
+
+
+class StudyPostAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(StudyPost, StudyPostAdmin)
