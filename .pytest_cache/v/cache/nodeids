@@ -1,0 +1,13 @@
+[
+  "myproj02/2021.11.04/test_main01.py::test_get_ch_count_except_space",
+  "myproj02/2021.11.04/test_main01.py::test_get_rounded_number",
+  "myproj02/2021.11.04/test_main01.py::test_get_rounded_number2[1234-1000]",
+  "myproj02/2021.11.04/test_main01.py::test_get_rounded_number2[1234567-1234000]",
+  "myproj02/2021.11.04/test_main01.py::test_get_word_count",
+  "myproj02/2021.11.04/test_main01.py::test_get_word_count2[Python Family-2]",
+  "myproj02/2021.11.04/test_main01.py::test_get_word_count2[\\uc6b0\\ub9ac\\ub294 \\ud30c\\uc774\\uc36c\\uc744 \\uc990\\uaca8\\uc694-3]",
+  "myproj02/2021.11.04/test_main01.py::test_get_word_count_",
+  "myproj09/tasks/test_predict_lotto_numbers.py::test_predict_lotto_numbers",
+  "myproj09/tasks/test_reverse_string.py::test_reverse_string",
+  "myproj09/test_reverse_string.py::test_reverse_string"
+]

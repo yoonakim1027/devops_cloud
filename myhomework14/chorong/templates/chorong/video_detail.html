@@ -1,0 +1,19 @@
+{% extends "chorong/layout.html" %}
+
+{% block content %}
+    <h2>{{ video.title }}</h2>
+
+    {{ video.description|linebreaks }}
+
+    <hr/>
+    <video controls style="width: 100%">
+        <source src="{{ video.video_file.url}}"
+                type="video/mp4"/>
+        임베디드 비디오 재생을 지원하는 브라우저입니다.
+    </video>
+    {{ video.video_file.url }}
+    <hr/>
+
+    <a href="/chorong/">목록</a>
+
+{% endblock %}
