@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -27,16 +26,25 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third apps
+
+    # django 앱을 만들고 할일 추가!
+    # 만든 앱 안에다가, urls.py를 꼭 만들어!
+    # 앱을 만들자마자 만들어!
+    # local apps
+    'blog',
+
 ]
 
 if DEBUG:
@@ -58,9 +66,8 @@ MIDDLEWARE = [
 # MIDDLEWARE = [] + MIDDLEWARE -> 빈리스트에다가 MIDDLEWARE를 추가하고 다시 저장
 if DEBUG:
     MIDDLEWARE = [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    ] + MIDDLEWARE
-
+                     'debug_toolbar.middleware.DebugToolbarMiddleware',
+                 ] + MIDDLEWARE
 
 ROOT_URLCONF = 'mydjango16.urls'
 
@@ -82,7 +89,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mydjango16.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -92,7 +98,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -112,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -126,18 +130,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media" # media 루트 저장
+MEDIA_ROOT = BASE_DIR / "media"  # media 루트 저장
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 INTERNAL_IPS = ['127.0.0.1']
