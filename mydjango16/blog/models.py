@@ -41,9 +41,11 @@ class Tag(models.Model):
     # 보통 Tag의 name을 pk로 지정할 수도 있지만~
 
     name = models.CharField(max_length=100, unique=True)
+
     # 데이터베이스에서 현재 Tag 범위 내에서는 절대 같은 name의 tag가 존재 할 수 없음
     # name - > unique라는 제약사항을 걸게 되는 것
     # 하나의 태그 - > 다수의 포스팅에 속할 수 있고
     # 하나의 포스팅 - > 다수의 태그에 속할 수 있음
 
-
+    def __str__(self) -> str:
+        return self.name
