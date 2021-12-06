@@ -18,11 +18,12 @@
         <tbody>
             {% for post in post_list %}
                 <tr>
-                    <td>{{ post.title }}</td>
                     <td>
-                        <a href="content:{{ post.content }}">
+                        <a href="{{ post.pk}}">{{ post.title }}</a>
+
+                    </td>
+                    <td>
                             {{ post.content }}
-                        </a>
 
                     </td>
                 </tr>

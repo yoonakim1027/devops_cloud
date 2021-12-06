@@ -1,31 +1,23 @@
 {% extends 'blog/layout.html' %}
-
-
-
 {% block content %}
     <table class="table table-hover table-bordered">
         <thead>
             <tr>
-                <th>title</th>
-                <th>content</th>
+                <th>{{ post.title }}</th>
             </tr>
         </thead>
         <tbody>
-            {% for post in post_list %}
-                <tr>
-                    <td>
-                        <a href="{{ post.pk}}">{{ post.title }}</a>
-
-                    </td>
-                    <td>
-
-                            {{ post.content }}
-
-
-                    </td>
-                </tr>
-            {% endfor %}
+            <tr>
+                <td>
+                    {{ post.content|linebreaks }}
+                    <image src="{{ post.image_file.url }}" alt="{{ post.title }}"></image>
+                </td>
+            </tr>
         </tbody>
     </table>
+
+    <a href="/blog/" class="btn btn-primary">목록으로</a>
+
+
 
 {% endblock %}
