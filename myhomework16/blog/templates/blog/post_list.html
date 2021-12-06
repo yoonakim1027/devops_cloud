@@ -1,0 +1,27 @@
+{% extends 'blog/layout.html' %}
+
+
+{% block content %}
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>content</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in post_list %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>
+                        <a href="content:{{ post.content }}">
+                            {{ post.content }}
+                        </a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
