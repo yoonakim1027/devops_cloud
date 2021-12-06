@@ -28,3 +28,8 @@ class Shop(models.Model):
     # RegexValidator(r"^\d{3,4}-?\d{4}-?\d{4}$")
     created_at = models.DateTimeField(auto_now_add=True)  # 생성시각
     updated_at = models.DateTimeField(auto_now=True)  # 수정시각
+
+    # Shop.send_email - > 그럼 이제 email을 보내겠지 ~
+
+    def send_email(self):
+        ''' 가게 관리자에게 이메일을 보냅니다 '''

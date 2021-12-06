@@ -1,5 +1,5 @@
 {% extends "delicious/layout.html" %}
-# 상속 !
+# 상속 , 목록을 구성해주는 html
 
 {% block content %}
     # 어떤 양식을 form 이라고 함
@@ -20,7 +20,7 @@
                 {% for shop in shop_list %}
                     <tr>
                         <td>
-                            <a href="/delicious/{{ shop.pk }}/">
+                            <a href="{% url "delicious:shop_detail" shop.pk %} ">
                                 {{ shop.name }}
                             </a>
                         </td>
