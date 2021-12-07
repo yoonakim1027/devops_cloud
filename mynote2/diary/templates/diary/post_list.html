@@ -1,6 +1,14 @@
 {% extends "diary/layout.html" %}
 
 {% block content %}
+    <form action="" method="get">
+        <input type="text"
+               name="query"
+               value="{{ request.GET.query }}" # 검색 후에도 검색어가 검색창에 남게 하려면 추가
+               placeholder="검색어를 입력해주세요."/>
+        <input type="submit" value="검색" />
+    </form>
+
     <ul>
         {% for post in post_list %}
             <li>
