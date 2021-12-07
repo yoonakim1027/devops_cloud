@@ -10,6 +10,10 @@ def post_list(request: HttpRequest) -> HttpResponse:
     context_data = {
         "post_list": qs,
     }
+    query = request.GET.get("query", "")
+    if query:
+        qs = qs.filter(title__icontains=query)
+
     return render(request, 'diary/post_list.html', {
         "post_list": qs,
     })
