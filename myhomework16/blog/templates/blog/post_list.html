@@ -19,7 +19,7 @@
             {% for post in post_list %}
                 <tr>
                     <td>
-                        <a href="{{ post.pk}}">{{ post.title }}</a>
+                        <a href="{% url "post_detail" post.pk %}">{{ post.title }}</a>
 
                     </td>
                     <td>

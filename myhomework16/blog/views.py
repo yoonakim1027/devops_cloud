@@ -22,3 +22,11 @@ def post_detail(request:HttpRequest, pk:int) -> HttpResponse:
         "post": post,
     }
     return render(request, 'blog/post_detail.html',context_data)
+
+def mainpage(request:HttpRequest, pk:int) -> HttpResponse:
+    post = Post.objects.get(pk=pk)
+    templates_name = 'blog/post_list.html'
+    context_data = {
+        "post": post,
+    }
+    return render(request, 'blog/post_detail.html',context_data)
