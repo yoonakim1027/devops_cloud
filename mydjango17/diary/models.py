@@ -36,6 +36,7 @@ class Post(TimestampedModel):  # 모델 상속을 받아서, 모델의 개념을
 
 # 1 : N 관계에서, 하나의 포스트가 삭제되었을때, 거기에 있을 댓글들은 어떻게 할래?
 # on_delete=models.CASCADE -> 포스트가 삭제되었을때, 댓글들도 같이 지워줌
+# Foreignkey추가
 class Comment(TimestampedModel):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)  # class가 위에있으니까 문자열로 지정 해도 돼
     author_name = models.CharField(max_length=20)
