@@ -22,6 +22,9 @@ class Post(TimestampedModel):  # model 상속 / pk : id(int, auto increment 정�
     def __str__(self) -> str:  # return값은 str(문자열)
         return self.title
     # pk : id
+    class Meta:
+        verbose_name = "포스팅"  # 단수
+        verbose_name_plural = "포스팅 목록"  # 복수
 
 
 class Comment(TimestampedModel):
@@ -32,6 +35,10 @@ class Comment(TimestampedModel):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "댓글"  # 단수
+        verbose_name_plural = "댓글 목록"  # 복수
+
 
 class Tag(TimestampedModel):
     # 보통 태그에는 태그 명 정도 ! -> name
@@ -39,3 +46,7 @@ class Tag(TimestampedModel):
 
     def __str__(self) -> str:
         return self.name
+
+    class Meta:
+        verbose_name = "태그"  # 단수
+        verbose_name_plural = "태그 목록"  # 복수

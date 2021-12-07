@@ -6,14 +6,17 @@ from diary.models import Post, Comment, Tag
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["title", "author_name", "created_at", "updated_at"]
+    list_display_links = ["title"]
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['pk', 'post', 'message', 'created_at']
+    list_display_links = ['post']
 
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name']
+    list_display_links = ['name']
