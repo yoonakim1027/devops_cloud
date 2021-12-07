@@ -8,7 +8,7 @@ class TimestampedModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        abstract = True  # 추상 클래스로서, DB테이블이 생기지 않는다.
+        abstract = True  # 추상 클래스로서, DB 테이블이 생기지 않는다.
         # 단순히 부모로서만 동작한다.
 
 
@@ -34,7 +34,10 @@ class Post(TimestampedModel):  # 모델 상속을 받아서, 모델의 개념을
         verbose_name_plural = "포스팅 목록"  # 복수
 
 
+# 1 : N 관계에서, 하나의 포스트가 삭제되었을때, 거기에 있을 댓글들은 어떻게 할래?
+# on_delete=models.CASCADE -> 포스트가 삭제되었을때, 댓글들도 같이 지워줌
 class Comment(TimestampedModel):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)  # class가 위에있으니까 문자열로 지정 해도 돼
     author_name = models.CharField(max_length=20)
     message = models.TextField()
 
