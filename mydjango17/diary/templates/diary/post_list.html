@@ -1,0 +1,12 @@
+{% extends "diary/layout.html" %}
+{% block content %}
+    <table class="table table-hover table-bordered">
+        <ul>
+            {% for post in post_list %}
+                <li>
+                    {{ post.title }}
+                </li>
+            {% endfor %}
+        </ul>
+    </table>
+{% endblock %}
