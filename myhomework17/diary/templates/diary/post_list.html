@@ -1,12 +1,22 @@
 {% extends "diary/layout.html" %}
 
 {% block content %}
-    <ul>
+    <div class="row" style="margin-top: 2em;">
         {% for post in post_list %}
-            <li>
-                {{ post.title }}
-	   <a href="{% url "diary:post_detail" post.pk %}">
-            </li>
+            <div class="col-sm-6 offset-sm-3" style="margin-bottom: 2em">
+                <div class="card">
+                    <img src="{{ post.photo.url }}"
+                         alt="{{ post.title }}"
+                         class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                            {{ post.content|truncatewords:20 }}
+                        <a href="{% url "diary:post_detail" post.pk %}" class="btn btn-sm btn-primary">
+                            바로가기
+                        </a>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

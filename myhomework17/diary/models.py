@@ -19,6 +19,8 @@ class Post(TimestampedModel):  # model 상속 / pk : id(int, auto increment 정�
     # media 폴더 밑에 저장이 된다
     photo = models.ImageField(upload_to='diary/post/%Y/%M/%d')
 
+    tag_set = models.ManyToManyField('Tag', blank=True)
+
     def __str__(self) -> str:  # return값은 str(문자열)
         return self.title
 
