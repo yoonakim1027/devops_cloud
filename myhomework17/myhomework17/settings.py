@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o_v85o$utp$fqk+$jclpnt^61u9n3g-8&9wnig_q&q%v_ho(1v'
+SECRET_KEY = 'django-insecure-ix8te&fs*vll!n6s@2sxlh-p16&=+kpn%inw=*w3*)-=-z_a2_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,21 +31,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # django apps
+    # django apps -> 순서가 바뀌어도 상관은 없음! 근데 이렇게 구역을 나눠주는 것이 중요
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # third apps
 
     # local apps
     'diary',
-
 ]
+# 위에 이미 DEBUG가 True로 되어있음. 얘를 참조한다는 뜻임 ! if DEBUG
 if DEBUG:
-    INSTALLED_APPS +=[
+    INSTALLED_APPS += [
         'debug_toolbar',
     ]
 
@@ -59,11 +60,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# MIDDLEWARE는 순서가 중요하다!
+# if DEBUG: 기본형태
+#   MIDDLEWARE = [] + MIDDLEWARE
 if DEBUG:
     MIDDLEWARE = [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
     ] + MIDDLEWARE
-
 
 
 ROOT_URLCONF = 'myhomework17.urls'
@@ -136,14 +139,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = BASE_DIR / 'media'
+# 현재 프로젝트 셋팅에 맞춰서, 어디에 저장할 것인가?
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-INTERNAL_IPS =['127.0.0.1']
+# django-debug-toolbar
+INTERNAL_IPS = ['127.0.0.1']
 
 
 if DEBUG:
