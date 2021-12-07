@@ -31,12 +31,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # django apps -> 순서가 바뀌어도 상관은 없음! 근데 이렇게 구역을 나눠주는 것이 중요
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # third apps
+
+    # local apps
+    'diary',
 ]
 # 위에 이미 DEBUG가 True로 되어있음. 얘를 참조한다는 뜻임 ! if DEBUG
 if DEBUG:
