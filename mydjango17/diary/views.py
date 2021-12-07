@@ -8,6 +8,16 @@ from diary.models import Post
 
 # 모든 이름은 의미 있게 지어야 한다!!!!!!!!!!!!!!!!!!!!!
 
+
+def tag_detail(request: HttpRequest, tag_name: str) -> HttpResponse:  # 태그에도 pk가 있긴한데 주로 name으로 씀
+    qs = Post.objects.all()
+    qs = qs.filter(tag_set__name=tag_name)
+    return render(request,"diary/tag_detail.html",{
+        "tag_name":tag_name,
+        "post_list":qs,
+    })
+
+
 def post_list(request: HttpRequest) -> HttpResponse:
     qs = Post.objects.all()  # 전체 포스팅 목록을 얻어올 준비
     # 얻어올 준비라는 것은? 아직 얻어오지 않는다는 것~
@@ -49,6 +59,6 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     # 주문이 들어올 때까지 DB에 접근을 안한다!
     return render(request, "diary/post_detail.html", {
         "post": post,  # qs 넘겨주기
-        "comment_list" : comment_list,
+        "comment_list": comment_list,
         "tag_list": tag_list,
     })
