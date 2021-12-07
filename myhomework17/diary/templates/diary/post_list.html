@@ -1,0 +1,13 @@
+{% extends "diary/layout.html" %}
+
+{% block content %}
+    <ul>
+        {% for post in post_list %}
+            <li>
+                {{ post.title }}
+	   <a href="{% url "diary:post_detail" post.pk %}">
+                    {{ post.title }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
