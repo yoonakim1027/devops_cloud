@@ -13,10 +13,15 @@ def post_list(request: HttpRequest) -> HttpResponse:
     # 얻어올 준비라는 것은? 아직 얻어오지 않는다는 것~
     # 요청이 들어올 때에만, 주문이 들어올때에만 하나를 생산하고 추가시킨다 ~
 
-    query= request.GET.get("query","") #query라는 이름의 값이 있으면 값을 가져오고, 없으면 빈 문자열을 반환
-    if query: # 검색어가 있다면?
+    query = request.GET.get("query", "")  # query라는 이름의 값이 있으면 값을 가져오고, 없으면 빈 문자열을 반환
+    if query:  # 검색어가 있다면?
         qs = qs.filter(title__icontains=query)
     # 주문이 들어올 때까지 DB에 접근을 안한다!
+
+    context_data = {
+        "post_list": qs,  # 이름이 같다고 담고있는 데이터도 같은 것은 아니다!
+    }
+
     return render(request, "diary/post_list.html", {
         "post_list": qs,  # qs 넘겨주기
     })
@@ -29,15 +34,21 @@ def post_list(request: HttpRequest) -> HttpResponse:
 # 모델명_detail(첫번째 인자는 항상 request: HttpRequest) -> HttpResponse
 # 두번째 인자는 pk : int (정수)
 # detail에서는 두번째 인자가 필요해서, 어떤 링크의 디테일을 보여줄지 pk:int로 받음
-def post_detail(request: HttpRequest, pk:int) -> HttpResponse:
+def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     post = Post.objects.get(pk=pk)  # 전체 포스팅 목록을 얻어올 준비
     # 매칭되는 post가 한개이길 기대!
     # pk는 절대 중복될 수 없음!
     # pk에 해당되는 애들은 한개이거나 없거나 둘 중 하나임
     # pk(모델에서 지원하는 필드명, 명시적으로 PK를 조회할거야) = pk
 
+    # 각자의 포스팅에 속한 comment을 받기
+    comment_list = post.comment_set.all()
+    tag_list = post.tag_set.all()
+
     # render(request, 모델명/모델명_detail (템플릿경로)
     # 주문이 들어올 때까지 DB에 접근을 안한다!
     return render(request, "diary/post_detail.html", {
         "post": post,  # qs 넘겨주기
+        "comment_list" : comment_list,
+        "tag_list": tag_list,
     })

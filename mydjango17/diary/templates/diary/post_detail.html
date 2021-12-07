@@ -19,8 +19,35 @@
                     <img src ="{{ post.photo.url }}" alt="{{ post.title }}"/>
                 </td>
             </tr>
+
         </tbody>
     </table>
+
+    <p>
+        태그:
+        {% for tag in tag_list %}
+            <span class="badge bg-success ">
+                {{ tag.name }}
+
+            </span>
+        {% endfor %}
+
+    </p>
+
+    <h3>댓글</h3>
+    <ul>
+        {% for comment in comment_list %}
+            <li>
+                {{ comment.message }}
+                by {{ comment_author_name }}
+                at {{ comment.created_at }}
+
+            </li>
+        {% endfor %}
+
+    </ul>
+
+
 
     <a href="{% url "diary:post_list" %}">목록으로</a>
 

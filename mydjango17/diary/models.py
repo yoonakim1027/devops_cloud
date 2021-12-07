@@ -3,6 +3,10 @@ from django.db import models
 
 # 상속받아서 정의 하기
 # 필드가 정의된 부모로서만 동작하기를 기대함 .
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
+
+
 class TimestampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -38,6 +42,12 @@ class Post(TimestampedModel):  # 모델 상속을 받아서, 모델의 개념을
 # on_delete=models.CASCADE -> 포스트가 삭제되었을때, 댓글들도 같이 지워줌
 # Foreignkey추가
 class Comment(TimestampedModel):
+    # 외래키는 정수값을 지정해야 함
+
+    # 밑에 처럼 지정해주면? post_id라는 필드를 자동으로 생성해줌
+    # 외래키에 한해서는, 이름_id라는 필드가 생기게 됨.
+    # 실제 DB의 외래키는 post_id인 거고 ~
+
     post = models.ForeignKey('Post', on_delete=models.CASCADE)  # class가 위에있으니까 문자열로 지정 해도 돼
     author_name = models.CharField(max_length=20)
     message = models.TextField()
