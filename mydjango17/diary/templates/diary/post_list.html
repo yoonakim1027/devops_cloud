@@ -1,21 +1,30 @@
 {% extends "diary/layout.html" %}
 {% block content %}
-    <form action="" method="get">
-        <input type="text" name="query" value="{{ request.GET.query }}"/>
-        <input type="button" value="검색"/>
-    </form>
 
     <table class="table table-hover table-bordered">
-        <ul>
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>content</th>
+            </tr>
+        </thead>
+
+        <tbody>
             {% for post in post_list %}
-                <li>
-                    <a href="{% url "diary:post_detail" post.pk %}">
-                    {{ post.title }}
+                <tr>
+                    <td>
+                        <a href="{% url "diary:post_detail" post.pk %}">
+                        {{ post.title }}
+                        </a>
+                    </td>
+                    <td>
+                            {{ post.content }}
 
-                    </a>
-
-                </li>
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
+
+
+        </tbody>
     </table>
 {% endblock %}
