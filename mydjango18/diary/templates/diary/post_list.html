@@ -1,24 +1,39 @@
 {% extends 'diary/layout.html' %}
 
 {% block content %}
-    <form action="" method="get">
-        <input type="text"
-               name="query"
-               value="{{ request.GET.query }}"
-               placeholder="Search.."/>
-        <input type="submit" value="검색"/>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>content</th>
+            </tr>
+        </thead>
 
-    </form>
-    <ul>
-        {% for post in post_list %}
-            <li>
-                {{ post.title }}
-                <a href="{% url 'diary:post_detail' post.pk %}"></a>
-                {{ post.title }}
+        <tbody>
 
-            </li>
+            <div class="row">
+                {% for post in post_list %}
+                    <div class="col-sm-6 offset-sm-3">
+                        <tr>
+                            <td>
+                                <img src="{{ post.photo.url }}"
+                                     alt="{{ post.title }}"
+                                     class="card-img-top"/>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ post.title }}</h5>
+                                    <a href="{% url "diary:post_detail" post.pk %}">
+                                        바로가기
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+                                {{ post.content |truncatewords:20 }}
+                            </td>
+                        </tr>
+                    </div>
+                {% endfor %}
 
-        {% endfor %}
-    </ul>
-
+            </div>
+        </tbody>
+    </table>
 {% endblock %}

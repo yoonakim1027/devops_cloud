@@ -11,7 +11,7 @@ def post_list(request: HttpRequest) -> HttpResponse:
         "post_list": qs,
     }
     # 검색 구현 기능 시 필요
-    query = request.GET.get('query','')
+    query = request.GET.get('query', '')
     if query:
         qs = qs.filter(title__icontains=query)
 
@@ -34,17 +34,18 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     comment_list = post.comment_set.all()
     tag_list = post.tag_set.all()
 
-    return render(request, 'diary/post_detail.html',{
+    return render(request, 'diary/post_detail.html', {
         "post": post,
-        "comment_list":comment_list,
-        "tag_list":tag_list,
+        "comment_list": comment_list,
+        "tag_list": tag_list,
     })
 
 
 def tag_detail(request: HttpRequest, tag_name: str) -> HttpResponse:  # 태그에도 pk가 있긴한데 주로 name으로 씀
     qs = Post.objects.all()
     qs = qs.filter(tag_set__name=tag_name)
-    return render(request,"diary/tag_detail.html",{
-        "tag_name":tag_name,
-        "post_list":qs,
+    return render(request, "diary/tag_detail.html", {
+        "tag_name": tag_name,
+        "post_list": qs,
     })
+
