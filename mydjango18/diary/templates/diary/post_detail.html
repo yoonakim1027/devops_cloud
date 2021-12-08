@@ -1,9 +1,18 @@
 {% extends 'diary/layout.html' %}
 
 {% block content %}
-
+    <table class="table table-hover table-bordered">
     <h2> {{ post.title }}</h2>
-    <p>
+
+
+
+
+
+
+
+    </table>
+
+        <p>
         태그:
         {% for tag in tag_list %}
             <a href="{% url "diary:tag_detail" tag.name %}" class = "badge bg-success">
@@ -11,6 +20,8 @@
             </a>
         {% endfor %}
     </p>
+
+
     <img src="{{ post.photo.url }}" alt="{{ post.title }}"/>
 
     {{ post.content |linebreaks }}
@@ -29,5 +40,7 @@
 
     <hr/>
 
-    <a href="{% url "diary:post_list" %}">목록으로</a>
+    <a href="{% url "diary:post_list" %}">
+        <button class="btn btn-sm btn-success">목록으로</button>
+    </a>
 {% endblock %}
