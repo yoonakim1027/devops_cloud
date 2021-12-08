@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 
     # third apps
     # local apps
-
+    'diary',
 ]
 
 if DEBUG:
