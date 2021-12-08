@@ -23,6 +23,7 @@ def post_list(request: HttpRequest) -> HttpResponse:
     # 얻어올 준비라는 것은? 아직 얻어오지 않는다는 것~
     # 요청이 들어올 때에만, 주문이 들어올때에만 하나를 생산하고 추가시킨다 ~
 
+    #검색 기능 구현 시 추가
     query = request.GET.get("query", "")  # query라는 이름의 값이 있으면 값을 가져오고, 없으면 빈 문자열을 반환
     if query:  # 검색어가 있다면?
         qs = qs.filter(title__icontains=query)

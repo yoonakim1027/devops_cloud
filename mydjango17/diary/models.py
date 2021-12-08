@@ -3,8 +3,6 @@ from django.db import models
 
 # 상속받아서 정의 하기
 # 필드가 정의된 부모로서만 동작하기를 기대함 .
-from imagekit.models import ImageSpecField
-from pilkit.processors import ResizeToFill
 
 
 class TimestampedModel(models.Model):
@@ -62,7 +60,7 @@ class Tag(TimestampedModel):
     name = models.CharField(max_length=200, db_index=True)
 
     def __str__(self) -> str:
-        return self.name
+        return f"[{self.pk}] {self.name}"
 
     class Meta:
         verbose_name = "태그"  # 단수
