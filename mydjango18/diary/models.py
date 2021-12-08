@@ -26,6 +26,8 @@ class Post(TimestampedModel):
     # 사진 -> 필수 항목이 아니기 때문에 for문으로 사진이 없을 때를 대비해서 적어줘야 함
     photo = models.ImageField(upload_to='diary/post/%Y/%M/%d', blank=True)
 
+    tag_set = models.ManyToManyField('Tag', blank=True)
+
     def __str__(self):
         return self.title
 
