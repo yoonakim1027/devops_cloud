@@ -10,6 +10,11 @@ def post_list(request: HttpRequest) -> HttpResponse:
     context_data = {
         "post_list": qs,
     }
+    # 검색 구현 기능 시 필요
+    query = request.GET.get('query','')
+    if query:
+        qs = qs.filter(title__icontains=query)
+
     # 여기서 context_data로 받는 이유는 return할때 render 함수를 쓸 건데
     # 여기서 필요한 게 사전 형식으로 받은 데이터임
 
