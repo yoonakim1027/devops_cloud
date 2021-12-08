@@ -29,6 +29,10 @@ class Post(TimestampedModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "포스팅"
+        verbose_name_plural = "포스팅 목록"
+
 
 class Comment(TimestampedModel):
     # 위의 post를 외래키로 받음 /
@@ -38,6 +42,10 @@ class Comment(TimestampedModel):
     # 댓글 내용
     message = models.TextField()
 
+    class Meta:
+        verbose_name = "댓글"
+        verbose_name_plural = "댓글 목록"
+
 
 class Tag(TimestampedModel):
     # 태그 명 -> db_index 생성하겠느냐
@@ -45,3 +53,7 @@ class Tag(TimestampedModel):
 
     def __str__(self) -> str:
         return f"[{self.pk}] {self.name}"
+
+    class Meta:
+        verbose_name = "태그"
+        verbose_name_plural = "태그 목록"
