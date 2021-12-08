@@ -39,3 +39,12 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
         "comment_list":comment_list,
         "tag_list":tag_list,
     })
+
+
+def tag_detail(request: HttpRequest, tag_name: str) -> HttpResponse:  # 태그에도 pk가 있긴한데 주로 name으로 씀
+    qs = Post.objects.all()
+    qs = qs.filter(tag_set__name=tag_name)
+    return render(request,"diary/tag_detail.html",{
+        "tag_name":tag_name,
+        "post_list":qs,
+    })
