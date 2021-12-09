@@ -1,0 +1,44 @@
+{% extends "diary/layout.html" %}
+{% block content %}
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>content</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <div class="row" >
+                {% for post in post_list %}
+                    <div class="col-sm-6 offset-sm-3">
+                        <div class="card">
+                            <tr>
+                                <td>
+                                    <img src="{{ post.photo.url }}"
+                                         alt="{{ post.title }}"
+                                         class="card-img-top"/>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ post.title }}</h5>
+
+                                        <a href="{% url "diary:post_detail" post.pk %}" class="btn btn-sm btn-primary">
+                                            바로가기
+                                        </a>
+
+                                    </div>
+                                </td>
+                                <td>
+                                        {{ post.content|truncatewords:20}}
+
+                                </td>
+                            </tr>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </tbody>
+    </table>
+{% endblock %}

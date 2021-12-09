@@ -1,0 +1,56 @@
+{% extends "diary/layout.html" %}
+
+
+{% block content %}
+
+
+
+
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th><h2>{{ post.title }}</h2></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{ post.content|linebreaks }}
+                    <img src ="{{ post.photo.url }}" alt="{{ post.title }}"/>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <p>
+        태그:
+        {% for tag in tag_list %}
+            <a href="{% url "diary:tag_detail" tag.name %}" class= "badge bg-success ">
+                {{ tag.name }}
+
+            </a>
+        {% endfor %}
+
+    </p>
+
+    <h3>댓글</h3>
+    <ul>
+        {% for comment in comment_list %}
+            <li>
+                {{ comment.message }}
+                by {{ comment_author_name }}
+                at {{ comment.created_at }}
+
+            </li>
+        {% endfor %}
+
+    </ul>
+
+
+
+    <a href="{% url "diary:post_list" %}">목록으로</a>
+
+
+
+{% endblock %}
