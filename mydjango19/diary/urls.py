@@ -9,6 +9,7 @@ app_name = 'diary'  # 보통 앱 이름을 한번 써줌
 urlpatterns = [
     path("", views.post_list, name="post_list"),  # 함수만 지정.
     path("<int:pk>/", views.post_detail, name="post_detail"),
+    path("new/", views.post_new, name="post_new"),
     path("tags/<str:tag_name>/",views.tag_detail, name='tag_detail'),
 ]
 
