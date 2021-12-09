@@ -19,8 +19,8 @@
 
 </head>
 <body>
-<div class="container.py-3">
-    <header class="p-3 bg-dark text-white">
+<div class="bg-dark text-white"/>
+    <header class="bg-dark text-white">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="{% url "root" %}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                 <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
@@ -44,25 +44,25 @@
                            placeholder="Search..."
                            aria-label="Search"
                            name="query" value="{{ request.GET.query }}">
-                    <button class="btn btn-sm btn-success" style="width: 80px;">검색</button>
+                    <button class="btn btn-sm alert-danger" style="width: 80px;">검색</button>
                 </div>
             </form>
 
             <div class="text-end">
             </div>
         </div>
+    </header>
+
 </div>
-</header>
 <main>
 {% block content %} {% endblock %}
-</div>
 
-</hr>
+
+    <hr>
 
 &copy; 2021. 김초롱 컴퍼니 ♥
 </main>
 
-</div>
 
 </body>
 </html>
