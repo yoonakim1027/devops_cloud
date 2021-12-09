@@ -81,14 +81,14 @@ def post_new(request: HttpRequest) -> HttpResponse:
     # -> 에러상황 : 에러 메시지를 보여주겠다.
     # -> 유효성 검사에 통과하면, 입력값을 보여주고, post_list로 이동
     else:
-        form = PostForm(request.POST)  # request.POST에 넘기기
+        form = PostForm(request.POST, request.FILES)  # request.POST에 넘기기
         if form.is_valid():  # 통과를 한다면?
             print("유효성 검사에 통과했습니다. :", form.cleaned_data)
+            form.save() # ModelForm에서만 지원
             return redirect("diary:post_list")
             # 통과하면 출력하고 이동하는 것.
         else:  # 통과하지 않으면 ?
             pass  # 아무것도 안하고 pass!!!
-
 
     return render(request, "diary/post_form.html", {
         "form": form,  # form을 넘기기

@@ -65,3 +65,5 @@ class Tag(TimestampedModel):
     class Meta:
         verbose_name = "태그"  # 단수
         verbose_name_plural = "태그 목록"  # 복수
+
+
