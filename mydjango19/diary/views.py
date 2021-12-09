@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from diary.form import PostForm
 from diary.models import Post
+from django.contrib import messages
 
 
 def tag_detail(request: HttpRequest, tag_name: str) -> HttpResponse:  # 태그에도 pk가 있긴한데 주로 name으로 씀
@@ -46,6 +47,7 @@ def post_new(request: HttpRequest) -> HttpResponse:
             post = form.save(commit=False)  # ModelForm에서만 지원
             post.ip = request.META['REMOTE_ADDR']
             post.save()
+            messages.success(request, "성공적으로 저장했습니다.")
             return redirect("diary:post_list")
 
     else:
@@ -66,6 +68,7 @@ def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
+            messages.success(request, "성공적으로 수정했습니다.")
             return redirect("diary:post_list")
 
     else:
