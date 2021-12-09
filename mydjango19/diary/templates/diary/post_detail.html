@@ -16,7 +16,7 @@
             <tr>
                 <td>
                     {{ post.content|linebreaks }}
-                    <img src ="{{ post.photo.url }}" alt="{{ post.title }}"/>
+                    <img src ="{{ post.photo.url }}" alt="{{ post.title }}" width="100%"/>
                 </td>
             </tr>
 
@@ -50,6 +50,7 @@
 
 
     <a href="{% url "diary:post_list" %}">목록으로</a>
+    <a href="{% url "diary:post_edit" post.pk %}">수정</a>
 
 
 

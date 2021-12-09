@@ -66,30 +66,36 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     })
 
 
-# 새로운 뷰함수 생성 . 첫번째 인자는 항상 request -> 응답은 HttpResponse
-# 새로운 response를 만들기 때문에 추가적인 인자가 필요 없음
 def post_new(request: HttpRequest) -> HttpResponse:
-    #    print("request.method:", request.method)
-    #    print("request.GET:", request.GET)
-    #    print("request.POST:", request.POST)
-    #    print("request.FILES:", request.FILES)
-
-    # 입력 서식을 보여주겠다.
-    if request.method == "GET":
-        form = PostForm()
-    # 서식 입력값을 전달받아서, 유효성 검사를 하겠다.
-    # -> 에러상황 : 에러 메시지를 보여주겠다.
-    # -> 유효성 검사에 통과하면, 입력값을 보여주고, post_list로 이동
-    else:
-        form = PostForm(request.POST, request.FILES)  # request.POST에 넘기기
-        if form.is_valid():  # 통과를 한다면?
-            print("유효성 검사에 통과했습니다. :", form.cleaned_data)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
             form.save() # ModelForm에서만 지원
             return redirect("diary:post_list")
-            # 통과하면 출력하고 이동하는 것.
-        else:  # 통과하지 않으면 ?
-            pass  # 아무것도 안하고 pass!!!
+
+        else:
+            form = PostForm()
 
     return render(request, "diary/post_form.html", {
-        "form": form,  # form을 넘기기
-    })  # _form.html도 하나의 약속!
+        "form": form,
+    })
+
+
+# 수정도 detail처럼 수정대상을 지정하기 위해 pk를 인자로 받아줘야함
+def post_edit(request: HttpRequest, pk:int) -> HttpResponse:
+    # 아래 코드는 ModelForm에 한해서 동작하는 코드 ! (Form코드는 좀 다름)
+    # 수정대상(pk)에 접근해서 읽어옴
+    post = Post.objects.get(pk=pk)
+
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect("diary:post_list")
+
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, "diary/post_form.html", {
+        "form": form,
+    })
