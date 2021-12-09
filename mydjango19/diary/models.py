@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinLengthValidator
 
 # 상속받을 클래스
 class TimestampedModel(models.Model):
@@ -13,7 +13,12 @@ class TimestampedModel(models.Model):
 # 포스트 클래스
 class Post(TimestampedModel):  # 모델 상속을 받아서, 모델의 개념을 가져오는 것
     author_name = models.CharField(max_length=20)
-    title = models.CharField(max_length=200, db_index=True)
+    title = models.CharField(
+        max_length=200,
+        db_index=True,
+        validators=[
+            MinLengthValidator(3), # 최소 3글자 여야지 유효성 검사에서 통과
+        ])
     content = models.TextField()
     photo = models.ImageField(upload_to='diary/post/%Y/%M/%d')
     tag_set = models.ManyToManyField('Tag', blank=True)
