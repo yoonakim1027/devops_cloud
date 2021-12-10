@@ -20,7 +20,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         # fields는 리스트가 아님
-        fields = "__all__" #이렇게 지정하는 것이 약속임
+       # fields = "__all__" #이렇게 지정하는 것이 약속임
         # 모든 필드의 정보를 읽어오게 하는 것
+        fields =['author_name','message']
 
+        # 항상 오타 확인, forms 이름 !!
 

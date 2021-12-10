@@ -2,7 +2,7 @@ from idlelib.autocomplete import FILES
 
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from diary.form import PostForm, CommentForm
+from diary.forms import PostForm, CommentForm
 from diary.models import Post
 from django.contrib import messages
 
@@ -88,13 +88,19 @@ def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
 # /diary/100/comments/new/
 # -> HttpResponse 리턴타입임
 def comment_new(request: HttpRequest, post_pk:int) -> HttpResponse:
+    post = Post.objects.get(pk=post_pk)
+
     # 입력서식 만들기
     if request.method =="POST":
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
         # 유효성 검사를 하고,  다 성공해야지만 is_vaild() 실행.
-            saved_comment = form.save() # 유효성검사에 다 통과된 데이터만 저장됨
+            comment = form.save(commit=False) # 유효성검사에 다 통과된 데이터만 저장됨
             # 저장된 comment만
+            # comment.post_id = post_pk #FK를 직접 채우지는 않음 / 할수는 있으나
+            comment.post = post # post모델 인스턴스
+            comment.save()
+
         return redirect("diary:post_detail",post_pk)
         # 저장되면 해당 post_detail로 넘어감
     else:
