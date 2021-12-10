@@ -25,7 +25,7 @@ class Post(TimestampedModel):  # 모델 상속을 받아서, 모델의 개념을
     ip = models.GenericIPAddressField()
 
     def __str__(self) -> str:
-        return self.title
+        return f"[{self.pk}] {self.title}"
 
     class Meta:
         verbose_name = "포스팅"  # 단수

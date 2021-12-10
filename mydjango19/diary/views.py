@@ -1,6 +1,8 @@
+from idlelib.autocomplete import FILES
+
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from diary.form import PostForm
+from diary.form import PostForm, CommentForm
 from diary.models import Post
 from django.contrib import messages
 
@@ -77,3 +79,35 @@ def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
     return render(request, "diary/post_form.html", {
         "form": form,
     })
+
+
+# 두번째 인자는 가변적으로 바뀌는 url
+# 가변적으로 바뀌는 부분을 캡쳐
+# -> 캡쳐해서, 어떤 특정 이름으로 장고가 넘겨주도록 할 수 있음
+
+# /diary/100/comments/new/
+# -> HttpResponse 리턴타입임
+def comment_new(request: HttpRequest, post_pk:int) -> HttpResponse:
+    # 입력서식 만들기
+    if request.method =="POST":
+        form = CommentForm(request.POST, request.FILES)
+        if form.is_valid():
+        # 유효성 검사를 하고,  다 성공해야지만 is_vaild() 실행.
+            saved_comment = form.save() # 유효성검사에 다 통과된 데이터만 저장됨
+            # 저장된 comment만
+        return redirect("diary:post_detail",post_pk)
+        # 저장되면 해당 post_detail로 넘어감
+    else:
+        form = CommentForm()
+    # 템플릿에서 사용할 값을 이름과 함께 넘겨줘야만,
+    # 템플릿에서 그 이름으로 접근할 수 있는 것
+    return render(request, "diary/comment_form.html", {
+        "form": form,
+
+    })
+    # _form.html은 하나의 약속임
+
+
+# /diary/100/comments/20/edit
+def comment_edit(request: HttpRequest, post_pk:int, pk:int) -> HttpRequest:
+    pass

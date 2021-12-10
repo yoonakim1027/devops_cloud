@@ -1,6 +1,10 @@
 {% extends "diary/layout.html" %}
 {% block content %}
-    <form action="" method="get">
+    <a href="{% url "diary:post_new" %}" class="btn alert-danger">
+        포스팅 쓰기
+    </a>
+
+    <form action="" method="get" >
         <input type="text"
                name="query"
                value="{{ request.GET.query }}"
@@ -15,9 +19,9 @@
                          alt="{{ post.title }}"
                          class="card-img-top" />
                     <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
+                        <h5 class="card-title">{{ post.title }}{{ post.pk }}</h5>
                         {{ post.content|truncatewords:20 }}
-                        <a href="{% url "diary:post_detail" post.pk %}" class="btn btn-sm btn-primary">
+                        <a href="{% url "diary:post_detail" post.pk %}" class="btn btn-sm alert-danger">
                             바로 가기
                         </a>
                     </div>
@@ -26,7 +30,5 @@
         {% endfor %}
     </div>
     <hr/>
-    <a href="{% url "diary:post_new" %}" class="btn btn-primary">
-        포스팅 쓰기
-    </a>
+
 {% endblock %}
