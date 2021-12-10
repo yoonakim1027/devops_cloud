@@ -1,9 +1,9 @@
 from idlelib.autocomplete import FILES
 
-from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpRequest, HttpResponse, Http404
 from diary.forms import PostForm, CommentForm
-from diary.models import Post
+from diary.models import Post, Comment
 from django.contrib import messages
 
 
@@ -31,7 +31,18 @@ def post_list(request: HttpRequest) -> HttpResponse:
 
 
 def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
-    post = Post.objects.get(pk=pk)
+    # try:  # 하단의 들여쓰기밑에 있는 코드를 실행해서, 예외가 발생하는 지 보는 것
+    #     post = Post.objects.get(pk=pk)  # DoesNotExist 예외
+    #
+    # except Post.DoesNotExist:  # 클래스.DoesNotExist -> 없다는 오류가 발생하면?
+    #     # 밑에 있는 코드를 실행해라
+    #     raise Http404
+    #     # 예외발생 시 raise
+
+    post = get_object_or_404(Post,pk=pk)
+
+
+
     comment_list = post.comment_set.all()
     tag_list = post.tag_set.all()
 
@@ -64,7 +75,7 @@ def post_new(request: HttpRequest) -> HttpResponse:
 def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
     # 아래 코드는 ModelForm에 한해서 동작하는 코드 ! (Form코드는 좀 다름)
     # 수정대상(pk)에 접근해서 읽어옴
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post,pk=pk)
 
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES, instance=post)
@@ -87,21 +98,21 @@ def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
 
 # /diary/100/comments/new/
 # -> HttpResponse 리턴타입임
-def comment_new(request: HttpRequest, post_pk:int) -> HttpResponse:
-    post = Post.objects.get(pk=post_pk)
+def comment_new(request: HttpRequest, post_pk: int) -> HttpResponse:
+    post = get_object_or_404(Post,pk=post_pk)
 
     # 입력서식 만들기
-    if request.method =="POST":
+    if request.method == "POST":
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
-        # 유효성 검사를 하고,  다 성공해야지만 is_vaild() 실행.
-            comment = form.save(commit=False) # 유효성검사에 다 통과된 데이터만 저장됨
+            # 유효성 검사를 하고,  다 성공해야지만 is_vaild() 실행.
+            comment = form.save(commit=False)  # 유효성검사에 다 통과된 데이터만 저장됨
             # 저장된 comment만
             # comment.post_id = post_pk #FK를 직접 채우지는 않음 / 할수는 있으나
-            comment.post = post # post모델 인스턴스
+            comment.post = post  # post모델 인스턴스
             comment.save()
 
-        return redirect("diary:post_detail",post_pk)
+        return redirect("diary:post_detail", post_pk)
         # 저장되면 해당 post_detail로 넘어감
     else:
         form = CommentForm()
@@ -115,5 +126,17 @@ def comment_new(request: HttpRequest, post_pk:int) -> HttpResponse:
 
 
 # /diary/100/comments/20/edit
-def comment_edit(request: HttpRequest, post_pk:int, pk:int) -> HttpRequest:
-    pass
+def comment_edit(request: HttpRequest, post_pk: int, pk: int) -> HttpResponse:
+    comment = get_object_or_404(Comment,pk=pk)
+    # 지정 pk에 Comment가 없으면 404 오류가 뜨게 !
+    if request.method =="POST":
+        form = CommentForm(request.POST, request.FILES,instance=comment)
+        if form.is_vaild():
+            form.save()
+            return redirect("diary:post_detail",post_pk)
+    else:
+        form = CommentForm(instance=comment)
+
+    return render(request,"diary/comment_form.html",{
+        "form" : form, #수정 서식만 보여줌.
+    })

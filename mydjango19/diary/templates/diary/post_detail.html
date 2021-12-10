@@ -46,6 +46,8 @@
                </span>
 
 
+                <a href="{% url "diary:comment_edit" post.pk comment.pk %}">Edit</a>
+
             </li>
         {% endfor %}
 
