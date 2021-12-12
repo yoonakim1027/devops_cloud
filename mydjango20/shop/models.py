@@ -1,5 +1,7 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 
 class TimestampedModel(models.Model):
@@ -23,6 +25,12 @@ class Shop(TimestampedModel):
                                  help_text="입력 예) 042-1234-1234", verbose_name="업체 전화번호")
 
     photo = models.ImageField(upload_to='diary/post/%Y/%M/%d',blank=False, verbose_name="업체 사진")
+    thumbnail_photo = ImageSpecField(
+        source="photo",
+        processors=[ResizeToFill(500, 700)],
+        format="JPEG",
+        options={"quality": 60},
+    )
     tag_set = models.ManyToManyField('Tag', blank=True, verbose_name="해시태그")
 
     def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음

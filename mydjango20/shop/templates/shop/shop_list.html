@@ -2,27 +2,16 @@
 
 {% block content %}
 
-    <form action="" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-        <div style="display: flex; height: 40px;">
-            <input type="search"
-                   class="form-control form-control-dark"
-                   style="margin-right: 0.3em;"
-                   placeholder="Search..."
-                   aria-label="Search"
-                   name="query" value="{{ request.GET.query }}">
-            <button class="btn btn-sm btn-success" style="width: 80px;">검색</button>
-        </div>
-    </form>
     <div class="row" style="margin-top: 1em;">
         {% for shop in shop_list %}
-            <div class="col-sm-6 offset-sm-3" style="margin-bottom: 1em;">
+            <div class="col-sm-5 offset-sm-1" style="margin-bottom: 1em;">
                 <div class="card">
-                    <img src="{{ shop.photo.url }}"
+                    <img src="{{ shop.thumbnail_photo.url }}"
                          alt="{{ shop.name }}"
                          class="card-img-top" />
                     <div class="card-body">
                         <h5 class="card-title">{{ shop.name }}{{ shop.pk }}</h5>
-                        {{ shop.description|truncatewords:20 }}
+                        {{ shop.description|truncatewords:5 }}
                         <a href="{% url "shop:shop_detail" shop.pk %}" class="btn btn-sm alert-danger">
                             바로 가기
                         </a>
