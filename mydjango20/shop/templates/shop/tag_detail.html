@@ -4,10 +4,11 @@
     <h2>{{ tag_name }}</h2>
 
     <div>
-        {% for post in post_list %}
+        {% for shop in shop_list %}
             <div>
                 <a href="{% url "shop:shop_detail" shop.pk %}">
-                    {{ shop.title }}
+                    {{ shop.name }}
+
                 </a>
             </div>
         {% endfor %}

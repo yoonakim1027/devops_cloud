@@ -18,7 +18,7 @@ class ShopForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = {
+        fields = [
             "author_name",
             "message",
-        }
+        ]

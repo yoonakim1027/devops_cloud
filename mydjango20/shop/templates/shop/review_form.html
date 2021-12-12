@@ -1,13 +1,16 @@
 {% extends "shop/layout.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 
-    <h2>♥ 리뷰 등록 ※♥</h2>
+    <h2>♥ 리뷰 등록 ♥</h2>
+    <hr/>
     <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table>
-        {{ review_form.as_table }}
-        </table>
-        <input type="submit" value="저장하기"/>
+        {%  csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit"
+               value="저장하기"
+               class="btn alert-danger"/>
     </form>
+
 {% endblock %}

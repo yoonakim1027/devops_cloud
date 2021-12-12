@@ -1,4 +1,4 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 
 # 새로운 Shop 등록 페이지
@@ -30,7 +30,6 @@ def shop_new(request: HttpRequest) -> HttpResponse:
         form = ShopForm(request.POST, request.FILES)
         if form.is_valid():
             shop = form.save(commit=False)
-            shop.ip = request.META['REMOTE_ADDR']
             shop.save()
             messages.success(request, "성공적으로 저장했습니다.")
             return redirect("shop:shop_list")
@@ -57,12 +56,13 @@ def shop_detail(request: HttpRequest, pk: int) -> HttpResponse:
 
 
 def shop_edit(request: HttpRequest, pk: int) -> HttpResponse:
-    shop = Shop.objects.get(pk=pk)  # 수정대상(pk)에 접근해서 읽어옴
+    shop = get_object_or_404(Shop, pk=pk)
 
     if request.method == "POST":
         form = ShopForm(request.POST, request.FILES, instance=shop)
         if form.is_valid():
-            saved_post = form.save(commit=False)
+            form.save()
+            messages.success(request, "성공적으로 수정했습니다.")
             return redirect("shop:shop_list")
 
     else:
@@ -84,37 +84,43 @@ def tag_detail(request: HttpRequest, tag_name: str) -> HttpResponse:  # 태그�
 
 # form - shop
 
+def review_new(request: HttpRequest, post_pk: int) -> HttpResponse:
+    shop = get_object_or_404(Shop,pk=post_pk)
 
-def review_new(request: HttpRequest) -> HttpResponse:
-    # raise NotImplementedError('곧 구현 예정') # 예외를 발생시키는 raise
-
+    # 입력서식 만들기
     if request.method == "POST":
-        review_form = ReviewForm(request.POST, request.FILES)
-        if review_form.is_valid():
-            saved_review = review_form.save()
-            # shop 디테일 뷰를 구현했다면 ?
-            return redirect("shop:shop_detail", saved_review.pk)
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            # 유효성 검사를 하고,  다 성공해야지만 is_vaild() 실행.
+            review = form.save(commit=False)  # 유효성검사에 다 통과된 데이터만 저장됨
+            review.post = shop  # post모델 인스턴스
+            review.save()
 
-
+        return redirect("shop:shop_detail", post_pk)
+        # 저장되면 해당 post_detail로 넘어감
     else:
-        review_form = ReviewForm()
+        form = ReviewForm()
+    # 템플릿에서 사용할 값을 이름과 함께 넘겨줘야만,
+    # 템플릿에서 그 이름으로 접근할 수 있는 것
     return render(request, "shop/review_form.html", {
-        "review_form": review_form,  # 빈 서식 만들기
+        "form": form,
+
     })
+    # _form.html은 하나의 약속임
 
 
-def review_edit(request: HttpRequest, pk: int) -> HttpResponse:
-    review = Review.objects.get(pk=pk)
-
-    if request.method == "POST":
-        review_form = ShopForm(request.POST, request.FILES, instance=review)
-        if review_form.is_valid():
-            saved_review = review_form.save(commit=False)
-            return redirect("shop:shop_detail", saved_review.pk)
-
+# /diary/100/comments/20/edit
+def review_edit(request: HttpRequest, post_pk: int, pk: int) -> HttpResponse:
+    review = get_object_or_404(Review,pk=pk)
+    # 지정 pk에 Comment가 없으면 404 오류가 뜨게 !
+    if request.method =="POST":
+        form = ReviewForm(request.POST, request.FILES,instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect("shop:shop_detail",post_pk)
     else:
-        review_form = ShopForm(instance=review)
+        form = ReviewForm(instance=review)
 
-    return render(request, "shop/shop_form.html", {
-        "review_form": review_form,
+    return render(request,"shop/review_form.html",{
+        "form" : form, #수정 서식만 보여줌.
     })

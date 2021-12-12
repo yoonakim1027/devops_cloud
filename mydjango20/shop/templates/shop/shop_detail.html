@@ -23,14 +23,24 @@
             <li>
                 {{ review.message }}
                 by {{ review.author_name }}
-                at {{ review.created_at }}
+                at {{ review.created_at |timesince }} 전
+                <a href="{% url "shop:review_edit" shop.pk review.pk %}" class="btn alert-danger" >Edit</a>
+
             </li>
+
         {% endfor %}
     </ul>
 
+
+	    {{ shop.created_at |timesince }} 전
     <hr />
-	    {{ shop.created_at |timesince }}
-    <a href="{% url "shop:shop_list" %}">
+
+
+
+    <a href="{% url "shop:shop_edit" shop.pk %}" class="btn alert-success">수정</a>
+    <a href="{% url "shop:shop_list" %}" class="btn alert-danger">
         목록으로
     </a>
+
+
 {% endblock %}
