@@ -5,18 +5,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 # 바뀌는 인자가 없기 때문에, pk를 안받아도 돼
 # /shop/new/
 from shop.form import ShopForm
-from shop.models import Shop
+from shop.models import Shop, Review, Tag
 
 
 # list
 def shop_list(request: HttpRequest) -> HttpResponse:
     qs = Shop.objects.all()
-    context_data = {
-        "shop_list":qs,
-    }
 
-    return render(request, "shop/shop_list.html",{
-        "shop_list":qs,
+    return render(request, "shop/shop_list.html", {
+        "shop_list": qs,
     })
 
 
@@ -42,7 +39,20 @@ def shop_new(request: HttpRequest) -> HttpResponse:
 # /shop/100/
 def shop_detail(request: HttpRequest, pk: int) -> HttpResponse:
     shop = get_object_or_404(Shop, pk=pk)
+    review_list = shop.review_set.all()
+    tag_list = shop.tag_set.all()
 
     return render(request, "shop/shop_detail.html", {
-        "shop": shop,  # shop이름으로 shop을 구현
+        "shop": shop,
+        "review_list": review_list,
+        "tag_list": tag_list,
+    })
+
+
+def tag_detail(request: HttpRequest, tag_name: str) -> HttpResponse:  # 태그에도 pk가 있긴한데 주로 name으로 씀
+    qs = Shop.objects.all()
+    qs = qs.filter(tag_set__name=tag_name)
+    return render(request, "shop/tag_detail.html", {
+        "tag_name": tag_name,
+        "shop_list": qs,
     })
