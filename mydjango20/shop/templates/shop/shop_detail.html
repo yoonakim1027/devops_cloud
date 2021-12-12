@@ -3,11 +3,33 @@
 {% block content %}
     <h2>{{ shop.name }}</h2>
 
-    {{ shop.description }}
+    <p>
+        태그:
+        {% for tag in tag_list %}
+            <span class="badge bg-success">
+                {{ tag.name }}
+            </span>
+        {% endfor %}
+    </p>
 
+    <img src="{{ shop.photo.url }}" alt="{{ shop.name }}" />
 
-    <hr/>
-    {{ shop.created_at |timesince }}
+    {{ shop.description|linebreaks }}
+
+    <h3>리뷰</h3>
+
+    <ul>
+        {% for review in review_list %}
+            <li>
+                {{ review.message }}
+                by {{ review.author_name }}
+                at {{ review.created_at }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <hr />
+	    {{ shop.created_at |timesince }}
     <a href="{% url "shop:shop_list" %}">
         목록으로
     </a>

@@ -5,14 +5,16 @@
         업체 등록
     </a>
 
-    <form action="" method="get" >
-        <label>
-            <input type="text"
-                   name="query"
-                   value="{{ request.GET.query }}"
-                   placeholder="검색어를 입력해주세요." />
-        </label>
-        <input type="submit" value="검색 " class="btn btn-sm alert-danger" />
+    <form action="" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <div style="display: flex; height: 40px;">
+            <input type="search"
+                   class="form-control form-control-dark"
+                   style="margin-right: 0.3em;"
+                   placeholder="Search..."
+                   aria-label="Search"
+                   name="query" value="{{ request.GET.query }}">
+            <button class="btn btn-sm btn-success" style="width: 80px;">검색</button>
+        </div>
     </form>
     <div class="row" style="margin-top: 1em;">
         {% for shop in shop_list %}
