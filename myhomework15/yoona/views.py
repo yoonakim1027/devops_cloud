@@ -13,7 +13,6 @@ from .models import StudyPost
 # list 페이지
 class StudyPostList(ListView):
     model = StudyPost
-    ordering = '-pk'  # 내림차순 - 최신 포스트 부터 보여줌
 
 
 # detail 페이지

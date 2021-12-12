@@ -38,7 +38,7 @@ class Post(models.Model):
 
 
 # 포스트와 Comment -> 1대 N 관계
-class Commnet(models.Model):
+class Comment(models.Model):
     post = models.ForeignKey(Post) # 외래키
     name = CharField(max_length=100)
 

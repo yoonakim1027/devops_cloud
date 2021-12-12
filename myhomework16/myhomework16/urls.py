@@ -10,7 +10,7 @@ urlpatterns = [
     path('blog/',post_list),
     path('blog/<int:pk>/',post_detail, name="post_detail"),
 ]
-
+# 꼭 링크 양옆에 / 슬러시가 필요 !! / name = 들어갈 이름 지정
 urlpatterns += static(settings.MEDIA_URL,
                       document_root=settings.MEDIA_ROOT)
 

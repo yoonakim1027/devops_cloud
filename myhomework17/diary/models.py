@@ -21,8 +21,8 @@ class Post(TimestampedModel):  # model 상속 / pk : id(int, auto increment 정�
 
     tag_set = models.ManyToManyField('Tag', blank=True)
 
-    def __str__(self) -> str:  # return값은 str(문자열)
-        return self.title
+    def __str__(self) -> str:
+        return f"[{self.pk}] {self.title}"
 
     # pk : id
     class Meta:
@@ -46,7 +46,8 @@ class Tag(TimestampedModel):
     name = models.CharField(max_length=200, db_index=True)
 
     def __str__(self) -> str:
-        return self.name
+        return f"[{self.pk}] {self.name}"
+
 
     class Meta:
         verbose_name = "태그"  # 단수

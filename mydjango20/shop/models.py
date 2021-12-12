@@ -22,6 +22,9 @@ class Shop(TimestampedModel):
                                  help_text="입력 예) 042-1234-1234")
     tag_set = models.ManyToManyField('Tag', blank=True)
 
+    def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음
+        return self.name
+
 
 # 1:N
 # 1개의 shop에 다슈의 review
@@ -36,3 +39,6 @@ class Review(TimestampedModel):  # on_delete 삭제정책
 
 class Tag(TimestampedModel):  # 유일성을 가지기 위해, unique 옵션을 넣음
     name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음
+        return self.name

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
 
@@ -9,4 +8,9 @@ from .models import StudyPost
 
 class StudyPostList(ListView):
     model = StudyPost
-    ordering = '-pk' #내림차순
+    ordering = '-pk'  # 내림차순
+    template_name = 'yoona/studypost_list.html'
+
+
+class StudyPostDetail(DetailView):
+    model = StudyPost
