@@ -8,4 +8,7 @@
 
     <hr/>
     {{ shop.created_at |timesince }}
+    <a href="{% url "shop:shop_list" %}">
+        목록으로
+    </a>
 {% endblock %}

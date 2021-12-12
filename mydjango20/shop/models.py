@@ -13,6 +13,7 @@ class TimestampedModel(models.Model):
 class Shop(TimestampedModel):
     name = models.CharField(max_length=100, db_index=True)
     # 1:N 하나의 shop에 여러 개의 태그가 가능
+
     description = models.TextField(blank=True)  # 가게 설명이 없어도 등록 가능
     telephone = models.CharField(max_length=14,
                                  validators=[
@@ -20,6 +21,8 @@ class Shop(TimestampedModel):
                                      RegexValidator(r"^\d{3}-?\d{4}-?\d{4}$", message="전화번호를 입력해주세요.")
                                  ],
                                  help_text="입력 예) 042-1234-1234")
+
+    photo = models.ImageField(upload_to='diary/post/%Y/%M/%d')
     tag_set = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음
