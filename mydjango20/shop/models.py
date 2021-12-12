@@ -25,6 +25,10 @@ class Shop(TimestampedModel):
     def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음
         return self.name
 
+    class Meta:
+        verbose_name = "상점"  # 단수
+        verbose_name_plural = "상점 목록"  # 복수
+
 
 # 1:N
 # 1개의 shop에 다슈의 review
@@ -36,6 +40,10 @@ class Review(TimestampedModel):  # on_delete 삭제정책
     author_name = models.CharField(max_length=20)
     message = models.TextField()
 
+    class Meta:
+        verbose_name = "리뷰"  # 단수
+        verbose_name_plural = "리뷰 목록"  # 복수
+
 
 class Tag(TimestampedModel):  # 유일성을 가지기 위해, unique 옵션을 넣음
     name = models.CharField(max_length=100, unique=True)
@@ -43,3 +51,6 @@ class Tag(TimestampedModel):  # 유일성을 가지기 위해, unique 옵션을 
     def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음
         return self.name
 
+    class Meta:
+        verbose_name = "태그"  # 단수
+        verbose_name_plural = "태그 목록"  # 복수

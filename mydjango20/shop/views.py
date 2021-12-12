@@ -42,6 +42,7 @@ def shop_new(request: HttpRequest) -> HttpResponse:
 # /shop/100/
 def shop_detail(request: HttpRequest, pk: int) -> HttpResponse:
     shop = get_object_or_404(Shop, pk=pk)
+
     return render(request, "shop/shop_detail.html", {
         "shop": shop,  # shop이름으로 shop을 구현
     })
