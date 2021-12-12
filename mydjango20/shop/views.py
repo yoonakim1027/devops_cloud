@@ -8,6 +8,19 @@ from shop.form import ShopForm
 from shop.models import Shop
 
 
+# list
+def shop_list(request: HttpRequest) -> HttpResponse:
+    qs = Shop.objects.all()
+    context_data = {
+        "shop_list":qs,
+    }
+
+    return render(request, "shop/shop_list.html",{
+        "shop_list":qs,
+    })
+
+
+# form
 def shop_new(request: HttpRequest) -> HttpResponse:
     # raise NotImplementedError('곧 구현 예정') # 예외를 발생시키는 raise
 
@@ -28,7 +41,7 @@ def shop_new(request: HttpRequest) -> HttpResponse:
 
 # /shop/100/
 def shop_detail(request: HttpRequest, pk: int) -> HttpResponse:
-    shop = get_object_or_404(Shop,pk=pk)
-    return render(request,"shop/shop_detail.html",{
-        "shop":shop, #shop이름으로 shop을 구현
+    shop = get_object_or_404(Shop, pk=pk)
+    return render(request, "shop/shop_detail.html", {
+        "shop": shop,  # shop이름으로 shop을 구현
     })
