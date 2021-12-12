@@ -8,4 +8,5 @@ urlpatterns =[
     path("new/",  views.shop_new, name="shop_new"),
     path("", views.shop_list, name="shop_list"),
     path("tags/<str:tag_name>/", views.tag_detail, name="tag_detail"),
+    path("review_new/", views.review_new, name="review_new"),
 ]
