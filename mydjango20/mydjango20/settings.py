@@ -60,8 +60,8 @@ MIDDLEWARE = [
 
 if DEBUG:
     MIDDLEWARE = [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-    ] + MIDDLEWARE
+                     'debug_toolbar.middleware.DebugToolbarMiddleware',
+                 ] + MIDDLEWARE
 
 ROOT_URLCONF = 'mydjango20.urls'
 
@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'UTC'
 
@@ -128,8 +128,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+INTERNAL_IPS = ['127.0.0.1']
+
+
