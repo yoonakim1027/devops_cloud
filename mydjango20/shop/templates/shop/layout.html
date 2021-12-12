@@ -37,12 +37,13 @@
 
             <form action="" method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <div style="display: flex; height: 40px;">
-                    <input type="search"
+                    <input type="text"
                            class="form-control form-control-dark"
                            style="margin-right: 0.3em;"
                            placeholder="Search..."
                            aria-label="Search"
-                           name="query" value="{{ request.GET.query }}">
+                           name="query"
+                           value="{{ request.GET.query }}">
                     <button class="btn btn-sm btn-success" style="width: 80px;">검색</button>
                 </div>
             </form>

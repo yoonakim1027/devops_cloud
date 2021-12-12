@@ -1,13 +1,15 @@
 {% extends "shop/layout.html" %}
 
 {% block content %}
-    <h2>{{ tag_name }}</h2>
-
+    <hr/>
+    <h2>  # {{ tag_name }} </h2>
+    <hr/>
     <div>
         {% for shop in shop_list %}
             <div>
                 <a href="{% url "shop:shop_detail" shop.pk %}">
-                    {{ shop.name }}
+                    <p></p>
+                    {{ shop.pk }}번 게시물 : {{ shop.name }}
 
                 </a>
             </div>
