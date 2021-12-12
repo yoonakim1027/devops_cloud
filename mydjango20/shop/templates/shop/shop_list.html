@@ -1,6 +1,10 @@
 {% extends "shop/layout.html" %}
 
 {% block content %}
+    <a href="{% url "shop:shop_new" %}" class="btn alert-danger">
+        업체 등록
+    </a>
+
     <form action="" method="get" >
         <label>
             <input type="text"

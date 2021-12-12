@@ -22,7 +22,7 @@ class Shop(TimestampedModel):
                                  ],
                                  help_text="입력 예) 042-1234-1234")
 
-    photo = models.ImageField(upload_to='diary/post/%Y/%M/%d')
+    photo = models.ImageField(upload_to='diary/post/%Y/%M/%d',blank=False)
     tag_set = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음

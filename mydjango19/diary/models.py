@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
 
+
 # 상속받을 클래스
 class TimestampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -17,7 +18,7 @@ class Post(TimestampedModel):  # 모델 상속을 받아서, 모델의 개념을
         max_length=200,
         db_index=True,
         validators=[
-            MinLengthValidator(3), # 최소 3글자 여야지 유효성 검사에서 통과
+            MinLengthValidator(3),  # 최소 3글자 여야지 유효성 검사에서 통과
         ])
     content = models.TextField()
     photo = models.ImageField(upload_to='diary/post/%Y/%M/%d')
