@@ -42,3 +42,4 @@ class Tag(TimestampedModel):  # 유일성을 가지기 위해, unique 옵션을 
 
     def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음
         return self.name
+

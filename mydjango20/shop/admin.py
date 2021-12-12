@@ -5,14 +5,17 @@ from shop.models import Shop, Review, Tag
 
 @admin.register(Shop)
 class ShopAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name", "description", "telephone", "created_at", "updated_at"]
+    list_display_links = ["name"]
 
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['shop', 'author_name', 'message', 'created_at']
+    list_display_links = ['author_name']
 
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['name']
+    list_display_links = ['name']
