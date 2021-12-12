@@ -11,6 +11,9 @@ from shop.models import Shop, Review, Tag
 # list
 def shop_list(request: HttpRequest) -> HttpResponse:
     qs = Shop.objects.all()
+    query = request.GET.get("query", "")  # query라는 이름의 값이 있으면 값을 가져오고, 없으면 빈 문자열을 반환
+    if query:  # 검색어가 있다면?
+        qs = qs.filter(name__icontains=query)
 
     return render(request, "shop/shop_list.html", {
         "shop_list": qs,

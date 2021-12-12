@@ -12,7 +12,7 @@
                    value="{{ request.GET.query }}"
                    placeholder="검색어를 입력해주세요." />
         </label>
-        <input type="submit" value="검색" />
+        <input type="submit" value="검색 " class="btn btn-sm alert-danger" />
     </form>
     <div class="row" style="margin-top: 1em;">
         {% for shop in shop_list %}
@@ -23,7 +23,7 @@
                          class="card-img-top" />
                     <div class="card-body">
                         <h5 class="card-title">{{ shop.name }}{{ shop.pk }}</h5>
-                        {{ post.content|truncatewords:20 }}
+                        {{ shop.description|truncatewords:20 }}
                         <a href="{% url "shop:shop_detail" shop.pk %}" class="btn btn-sm alert-danger">
                             바로 가기
                         </a>
