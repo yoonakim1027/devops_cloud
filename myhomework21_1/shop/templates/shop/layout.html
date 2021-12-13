@@ -1,3 +1,5 @@
+{% load bootstrap5 %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,8 +8,13 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shop</title>
+    {% bootstrap_css %}
+	{% bootstrap_javascript %}
+
+
 </head>
 <body>
+    {% bootstrap_messages %}
     <h1>대전, 어디 갈까?</h1>
     {% block content %}{% endblock %}
 
