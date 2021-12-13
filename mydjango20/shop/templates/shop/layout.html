@@ -1,3 +1,6 @@
+{# Load the tag library #}
+{% load django_bootstrap5 %}
+
 <!doctype html>
 <html lang="ko" xmlns:xlink="">
 <head>
@@ -13,7 +16,9 @@
             padding-bottom: 1em;
         }
     </style>
-
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
 </head>
 <body>
 

@@ -24,6 +24,11 @@ class Category(TimestampedModel):
 # 하나의 카테고리에는 여러 개의 상점이 속할 수 있다.
 # 하나의 샵은 하나의 카테고리에 속한다.
 
+    class Meta:  # 모델에 대한 옵션 설정
+        ordering = ["-id"]  # 정렬은 여러 개를 지정할 수 있다.
+        verbose_name = "카테고리"  # 단수
+        verbose_name_plural = "카테고리 목록"  # 복수
+
 
 class Shop(TimestampedModel):
     # Foreignkey 지정을 위해서는, on_delete 삭제 정책이 필수!
@@ -52,7 +57,9 @@ class Shop(TimestampedModel):
     def __str__(self) -> str:  # 타입힌트는 안써도 되지만, 인자와 리턴 타입은 명시하는 것이 좋음
         return self.name
 
-    class Meta:
+    class Meta: # 모델에 대한 옵션 설정
+        ordering = ["-id"] # 정렬은 여러 개를 지정할 수 있다.
+
         verbose_name = "상점"  # 단수
         verbose_name_plural = "상점 목록"  # 복수
 
@@ -70,6 +77,7 @@ class Review(TimestampedModel):  # on_delete 삭제정책
     class Meta:
         verbose_name = "리뷰"  # 단수
         verbose_name_plural = "리뷰 목록"  # 복수
+        ordering = ["-id"]  # 정렬은 여러 개를 지정할 수 있다.
 
 
 class Tag(TimestampedModel):  # 유일성을 가지기 위해, unique 옵션을 넣음
@@ -81,3 +89,4 @@ class Tag(TimestampedModel):  # 유일성을 가지기 위해, unique 옵션을 
     class Meta:
         verbose_name = "태그"  # 단수
         verbose_name_plural = "태그 목록"  # 복수
+        ordering = ["name"]  # 정렬은 여러 개를 지정할 수 있다.

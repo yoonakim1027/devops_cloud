@@ -9,18 +9,26 @@ from pyexpat.errors import messages
 from django.contrib import messages
 
 from shop.form import ShopForm, ReviewForm
-from shop.models import Shop, Review, Tag
+from shop.models import Shop, Review, Tag, Category
 
 
 # list
 def shop_list(request: HttpRequest) -> HttpResponse:
+    category_qs = Category.objects.all()
     qs = Shop.objects.all()
+
+    category_id = request.GET.get("category_id","")
+    if category_id:
+        qs = qs.filter(category__pk=category_id) #필터링 수행
+# __ 언더바 두개는 카테고리 모델로 들어가게되는 것
     query = request.GET.get("query", "")  # query라는 이름의 값이 있으면 값을 가져오고, 없으면 빈 문자열을 반환
     if query:  # 검색어가 있다면?
         qs = qs.filter(name__icontains=query)
 
     return render(request, "shop/shop_list.html", {
+        "category_list" : category_qs,
         "shop_list": qs,
+
     })
 
 

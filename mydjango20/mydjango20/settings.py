@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 
     # third apps
     'django_bootstrap5',
-
+    'imagekit',
 
     # local apps
     'shop',
