@@ -6,15 +6,28 @@ from shop.models import Shop, Category, Tag
 
 
 def shop_list(request: HttpRequest) -> HttpResponse:
-    qs = Shop.objects.all()
+    form = ShopForm(request.POST, request.FILES)
+    if form.is_valid():
+        saved_post = form.save()
 
-    ## 검색기능
-    query = request.GET.get("query", "")
-    if query:
-        qs = qs.filter(name__icontains=query)
+        ## tag 필드 구현
+        tag_list = []
+        tags = form.cleaned_data.get("tags", "")
+        for word in tags.split(","):
+            tag_name = word.strip()
+            tag, __ = Tag.objects.get_or_create(name=tag_name)
+            tag_list.append(tag)
 
-    return render(request, "shop/shop_list.html", {
-        "shop_list": qs,
+        saved_post.tag_set.clear()  # 간단구현을 위해 clear 호출
+        saved_post.tag_set.add(*tag_list)
+
+        return redirect("shop:shop_detail", saved_post.pk)
+
+
+    else:
+        form = ShopForm()
+    return render(request, "shop/shop_form.html", {
+        "form": form,
     })
 
 
