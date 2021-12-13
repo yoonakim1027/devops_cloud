@@ -41,6 +41,5 @@ class ShopForm(forms.ModelForm):
         fields = [
             "category",
             "name",
-            "telephone",
             "description",
         ]
