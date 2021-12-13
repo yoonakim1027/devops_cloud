@@ -11,5 +11,9 @@
     {{ shop.description }}
 
     <hr />
-
+    <a href="{% url "shop:shop_edit" shop.pk %}">
+        Edit
+    </a>
 {% endblock %}
+
+

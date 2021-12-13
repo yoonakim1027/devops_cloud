@@ -45,17 +45,17 @@ def shop_new(request: HttpRequest) -> HttpResponse:
 
 
 def shop_edit(request: HttpRequest, pk: int) -> HttpResponse:
-    shop = get_object_or_404(Shop, pk=pk)  # 수정대상을 알아야 하니까
-    # 내가 가져올 모델의 대상을 확실히 인지하고 써야함.
+    shop = get_object_or_404(Shop, pk=pk)
 
     if request.method == "POST":
-        form = ShopForm(request.POST, request.FILES, instance=shop)  # instance = 수정대상
+        form = ShopForm(request.POST, request.FILES, instance=shop)
+        if form.is_valid():
+            saved_shop = form.save()
+            return redirect("shop:shop_detail", saved_shop.pk)
     else:
         form = ShopForm(instance=shop)
 
-    # 유효성 검사
-    if form.is_valid():
-        saved_shop = form.save()
-        # 저장했으니 이제 이동하겠다.
-        messages.success(request, "성공적으로 수정했습니다.")
-        return redirect("shop:shop_detail", saved_shop.pk)
+    return render(request, "shop/shop_form.html", {
+        "form": form,
+    })
+
