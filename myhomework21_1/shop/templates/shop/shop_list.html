@@ -1,12 +1,44 @@
 {% extends "shop/layout.html" %}
 {% block content %}
+    <h2>Shop List</h2>
+    <div class="row">
+        <div class="col-sm-8">
+            <ul>
+                {% for shop in shop_list %}
+                    <li>
+                        {{ shop.name }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <form action="" method="get">
+            <div class="d-grid mb-3">
+                <a href="{% url "shop:shop_new" %}" class="btn btn-primary">새 포스팅 쓰기</a>
+            </div>
 
-	<h2> Shop List </h2>
-	<ul>
-	{% for shop in shop_list %}
-		<li>
-			{{shop.name}}
-		</li>
-{% endfor%}
-	</ul>
+            <form action="" method="get" class="mb-3">
+                <input type="text"
+                       name="query"
+                       placeholder="검색어를 입력해주세요."
+                       value="{{ request.GET.query }}"/>
+                <input type="submit" value="검색"/>
+            </form>
+
+            <ul>
+                <li>
+                    <a href="?category_id=">
+                        전체
+                    </a>
+                </li>
+                {% for category in category_list %}
+                    <li>
+                        <a href="?category_id={{ category.pk }}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
