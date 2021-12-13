@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib import messages
-from shop.form import ShopForm
+from shop.forms import ShopForm
 from shop.models import Shop, Category, Tag
 
 
