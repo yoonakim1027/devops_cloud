@@ -9,6 +9,10 @@ from shop.models import Shop, Category, Tag
 
 def shop_list(request: HttpRequest) -> HttpResponse:
     qs = Shop.objects.all()
+    query = request.GET.get("query", "")
+    if query:
+        qs = qs.filter(name__icontains=query)
+
     return render(request, "shop/shop_list.html", {
         "shop_list": qs,
     })

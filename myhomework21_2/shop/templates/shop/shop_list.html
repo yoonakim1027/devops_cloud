@@ -1,18 +1,21 @@
-{% extends 'shop/layout.html' %}
+{% extends "shop/layout.html" %}
 {% load bootstrap5 %}
-
-{% block content %}
+    {% block content %}
     <h2>Shop List</h2>
+
+    <form action="" method="get">
+        <input type="text"
+               name="query"
+               placeholder="검색어를 입력해주세요."
+               value="{{ request.GET.query }}" />
+        <input type="submit" value="검색" />
+    </form>
+
     <ul>
     {% for shop in shop_list %}
         <li>
-            <a href="{% url "shop:shop_detail" shop.pk %}">
-                {{ shop.name }}
-            </a>
+            <a href="{% url "shop:shop_detail" shop.pk %}">{{ shop.name }}</a>
         </li>
     {% endfor %}
-
     </ul>
-
-
 {% endblock %}
