@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third apps
-
+    'bootstrap5',
     # local apps
     'shop',
 ]
