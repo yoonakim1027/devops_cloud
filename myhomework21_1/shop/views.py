@@ -32,6 +32,7 @@ def shop_new(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             saved_post = form.save()
             # shop_detail 뷰를 구현했다면 !!!
+            messages.success(request, "성공적으로 저장했습니다.")
             return redirect("shop:shop_detail", saved_post.pk)
     else:
         form = ShopForm()
