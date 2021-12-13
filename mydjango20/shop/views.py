@@ -17,16 +17,16 @@ def shop_list(request: HttpRequest) -> HttpResponse:
     category_qs = Category.objects.all()
     qs = Shop.objects.all()
 
-    category_id = request.GET.get("category_id","")
+    category_id = request.GET.get("category_id", "")
     if category_id:
-        qs = qs.filter(category__pk=category_id) #필터링 수행
-# __ 언더바 두개는 카테고리 모델로 들어가게되는 것
+        qs = qs.filter(category__pk=category_id)  # 필터링 수행
+    # __ 언더바 두개는 카테고리 모델로 들어가게되는 것
     query = request.GET.get("query", "")  # query라는 이름의 값이 있으면 값을 가져오고, 없으면 빈 문자열을 반환
     if query:  # 검색어가 있다면?
         qs = qs.filter(name__icontains=query)
 
     return render(request, "shop/shop_list.html", {
-        "category_list" : category_qs,
+        "category_list": category_qs,
         "shop_list": qs,
 
     })
@@ -37,18 +37,9 @@ def shop_new(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = ShopForm(request.POST, request.FILES)
         if form.is_valid():
-            saved_post = form.save()# 항상 저장이 먼저임
+            saved_post = form.save()  # 항상 저장이 먼저임
             # commit=False가 되면, 할당을 못받기 때문에 안돼 !! 무조건 비어있는 상태로
 
-            tag_list = []
-            tags = form.cleaned_data.get("tags", "")
-            for word in tags.split(","):
-                tag_name = word.strip()
-                tag, __ = Tag.objects.get_or_create(name=tag_name)
-                tag_list.append(tag)
-
-            saved_post.tag_set.clear()  # 간단구현을 위해 clear 호출
-            saved_post.tag_set.add(*tag_list)
             messages.success(request, "성공적으로 저장했습니다.")
             return redirect("shop:shop_list")
 
@@ -103,7 +94,7 @@ def tag_detail(request: HttpRequest, tag_name: str) -> HttpResponse:  # 태그�
 # form - shop
 
 def review_new(request: HttpRequest, post_pk: int) -> HttpResponse:
-    shop = get_object_or_404(Shop,pk=post_pk)
+    shop = get_object_or_404(Shop, pk=post_pk)
 
     # 입력서식 만들기
     if request.method == "POST":
@@ -129,16 +120,16 @@ def review_new(request: HttpRequest, post_pk: int) -> HttpResponse:
 
 # /diary/100/comments/20/edit
 def review_edit(request: HttpRequest, post_pk: int, pk: int) -> HttpResponse:
-    review = get_object_or_404(Review,pk=pk)
+    review = get_object_or_404(Review, pk=pk)
     # 지정 pk에 Comment가 없으면 404 오류가 뜨게 !
-    if request.method =="POST":
-        form = ReviewForm(request.POST, request.FILES,instance=review)
+    if request.method == "POST":
+        form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
             form.save()
-            return redirect("shop:shop_detail",post_pk)
+            return redirect("shop:shop_detail", post_pk)
     else:
         form = ReviewForm(instance=review)
 
-    return render(request,"shop/review_form.html",{
-        "form" : form, #수정 서식만 보여줌.
+    return render(request, "shop/review_form.html", {
+        "form": form,  # 수정 서식만 보여줌.
     })
