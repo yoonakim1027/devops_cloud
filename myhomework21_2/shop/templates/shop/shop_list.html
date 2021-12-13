@@ -1,0 +1,16 @@
+{% extends 'shop/layout.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h2>Shop List</h2>
+    <ul>
+    {% for shop in shop_list %}
+        <li>
+            <a href="{% url "shop:shop_ %}"
+        </li>
+    {% endfor %}
+
+    </ul>
+
+
+{% endblock %}
