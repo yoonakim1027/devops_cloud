@@ -27,6 +27,7 @@ class Category(TimestampedModel):
 
 class Shop(TimestampedModel):
     # Foreignkey 지정을 위해서는, on_delete 삭제 정책이 필수!
+    # 항상 모든 Shop에 카테고리를 한 개씩은 등록할 것 = 그래서 null=true 옵션을 안줌
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, db_index=True, verbose_name="업체 명")
     # 1:N 하나의 shop에 여러 개의 태그가 가능
