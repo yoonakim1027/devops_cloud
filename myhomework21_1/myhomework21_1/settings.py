@@ -63,7 +63,7 @@ MIDDLEWARE = [
 
 if DEBUG:
     MIDDLEWARE = [
-                     'debug_toolbar.middleware.DebugToolbarMiddleware',	-> 공식 홈페이지 참조
+                     'debug_toolbar.middleware.DebugToolbarMiddleware',
                  ] + MIDDLEWARE
 
 
