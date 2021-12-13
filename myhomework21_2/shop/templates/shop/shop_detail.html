@@ -17,6 +17,11 @@
     <hr/>
     {{ shop.created_at |timesince }}
 
+    <hr/>
+    <a href="{% url "shop:shop_edit" shop.pk %}">
+        Edit
+    </a>
+
     <a href="{% url "shop:shop_list" %}">
             목록으로
     </a>

@@ -4,7 +4,17 @@ from shop.models import Shop, Category, Tag
 
 class ShopForm(forms.ModelForm):
 
-    tags =forms.CharField()
+    tags = forms.CharField()
+
+    def __init__(self,*args, **kwargs):
+        super().__init__(*args,**kwargs)
+
+        if self.instance.pk:
+            tag_qs = self.instance.tag_set.all()
+            tags = ",".join([tag.name for tag in tag_qs])
+            self.fields["tags"].initial = tags
+
+
     def save(self):
         saved_post = super().save()
         tag_list =[]
@@ -21,6 +31,7 @@ class ShopForm(forms.ModelForm):
     class Meta:
         model = Shop
         fields = [
+            "category",
             "name",
             "description",
             "tag_set",

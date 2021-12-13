@@ -56,11 +56,14 @@ def shop_edit(request: HttpRequest, pk: int) -> HttpResponse:
 
     if request.method == "POST":
         form = ShopForm(request.POST, request.FILES, instance=shop)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "성공적으로 수정했습니다.")
+            return redirect("shop:shop_list")
+
     else:
         form = ShopForm(instance=shop)
 
-    # 유효성 검사
-    if form.is_valid():
-        saved_shop = form.save()
-        messages.success(request, ".성공적으로 수정했습니다.")
-        return redirect("shop:shop_detail", saved_shop.pk)
+    return render(request, "shop/shop_form.html", {
+        "form": form,
+    })
