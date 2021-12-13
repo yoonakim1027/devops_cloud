@@ -14,6 +14,8 @@ class ShopForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # tags는 우리가 Form 클래스에 직접 추가한 필드니까
         # 초기값도 우리가 직접 지정해주어야 한다.
+
+        # ShopForm의 tags 필드 초기값을 생성자를 통해서 지정
         if self.instance.pk:  # 수정 시
             tag_qs = self.instance.tag_set.all()  # 다가져오기
             tags = ",".join([tag.name for tag in tag_qs])  # tag.name으로만 구성된 리스트

@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from shop.form import ShopForm
 from shop.models import Shop, Review, Tag, Category
 
 
@@ -11,6 +12,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Shop)
 class ShopAdmin(admin.ModelAdmin):
+    form = ShopForm
+    # 이 form을 사용해라 !
     list_display = ["name", "description", "telephone", "created_at", "updated_at"]
     list_display_links = ["name"]
 
