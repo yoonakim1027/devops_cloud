@@ -6,7 +6,9 @@
     <ul>
     {% for shop in shop_list %}
         <li>
-            <a href="{% url "shop:shop_ %}"
+            <a href="{% url "shop:shop_detail" shop.pk %}">
+                {{ shop.name }}
+            </a>
         </li>
     {% endfor %}
 
