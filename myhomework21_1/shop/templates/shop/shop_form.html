@@ -1,0 +1,14 @@
+{% extends 'shop/layout.html' %}
+{% load bootstrap5 %}
+
+
+{% block content %}
+    <h2>상점 등록하기</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        <input type="submit" value="저장하기"/>
+    </form>
+{% endblock %}

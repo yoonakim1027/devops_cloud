@@ -1,0 +1,15 @@
+{% extends "shop/layout.html" %}
+
+{% block content %}
+    <h2>{{ shop.name }}</h2>
+
+    {{ shop.description }}
+
+
+    <hr/>
+    {{ shop.created_at |timesince }}
+
+    <a href="{% url "shop:shop_list" %}">
+        목록으로
+    </a>
+{% endblock %}
