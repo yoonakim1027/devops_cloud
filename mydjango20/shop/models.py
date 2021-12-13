@@ -12,7 +12,22 @@ class TimestampedModel(models.Model):
         abstract = True  # DB테이블 생성 X
 
 
+# 카테고리와 shop의 관계 -> 1:N
+# CharField는 max_length를 꼭 넣어줘야함
+# unique 옵션을 지정하면 자동으로 db_index도 써짐.
+class Category(TimestampedModel):
+    name = models.CharField(max_length=100, unique=True) # 카테고리 이름은 일반적으로 unique속성을 줌
+
+    def __str__(self) -> str:
+        return self.name
+
+# 하나의 카테고리에는 여러 개의 상점이 속할 수 있다.
+# 하나의 샵은 하나의 카테고리에 속한다.
+
+
 class Shop(TimestampedModel):
+    # Foreignkey 지정을 위해서는, on_delete 삭제 정책이 필수!
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, db_index=True, verbose_name="업체 명")
     # 1:N 하나의 shop에 여러 개의 태그가 가능
 
