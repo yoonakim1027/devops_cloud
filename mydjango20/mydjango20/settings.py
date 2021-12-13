@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # third apps
-    'django_bootstrap5',
+    'bootstrap5',
     'imagekit',
 
     # local apps

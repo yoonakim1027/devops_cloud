@@ -37,8 +37,17 @@ def shop_new(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = ShopForm(request.POST, request.FILES)
         if form.is_valid():
-            shop = form.save(commit=False)
-            shop.save()
+            saved_post = form.save(commit=False)# 항상 저장이 먼저임
+
+            tag_list =[]
+            tags = form.cleaned_data.get("tags","")
+            for word in tags.split(","): #순회 돌건데, split이 먼저
+                tag_name = word.strip() # 좌우 공백을 제거한다.
+                tag, __ = Tag.objects.get_or_create(name=tag_name) #tag가 있으면 가져오고, 두번째 인자는 생성여부. 근데 이거는 안쓸거니까 언더바 두개
+                tag_list.append(tag)
+
+            saved_post.tag_set.clear() #간단 구현을 위해 clear 호출
+            saved_post.tag_set.add(*tag_list)
             messages.success(request, "성공적으로 저장했습니다.")
             return redirect("shop:shop_list")
 
