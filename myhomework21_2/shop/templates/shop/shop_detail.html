@@ -17,10 +17,29 @@
     <hr/>
     {{ shop.created_at |timesince }}
 
-    <hr/>
     <a href="{% url "shop:shop_edit" shop.pk %}">
-        Edit
+        글 수정하기
     </a>
+
+
+    <p></p>
+    <a href="{% url "shop:review_new" shop.pk %}">댓글 쓰기</a>
+
+    <ul>
+        {% for review in review_list %}
+            <li>
+                {{ review.message }}
+                by {{ review.author_name }}
+                at
+                <span title="{{ review.created_at }}">
+                    {{ review.created_at|timesince }} 전
+                </span>
+
+                <a href="{% url "shop:review_edit" shop.pk review.pk%}">Edit</a>
+            </li>
+        {% endfor %}
+    </ul>
+
 
     <a href="{% url "shop:shop_list" %}">
             목록으로

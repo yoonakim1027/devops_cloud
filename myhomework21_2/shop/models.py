@@ -28,7 +28,7 @@ class Shop(TimestamedModel):
     tag_set = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self) -> str:
-        return self.name
+        return f"[{self.pk}] {self.name}"
 
     class Meta:
         ordering = ['-id']  # 정렬
