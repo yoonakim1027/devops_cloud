@@ -47,3 +47,20 @@ class Tag(TimestamedModel):
         ordering = ['name']  # 오름정렬
         verbose_name = "태그"
         verbose_name_plural = "태그 목록"
+
+
+class Review(TimestamedModel):
+    # 외래키 지정 : 하나의 shop이 삭제 -> 이에 딸린 리뷰도 삭제
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    author_name = models.CharField(max_length=20)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        ordering = ['author_name']
+        verbose_name = "댓글"
+        verbose_name_plural = "댓글 목록"
+
+
