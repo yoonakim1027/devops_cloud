@@ -11,7 +11,8 @@ def root(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("shop/", include('shop.urls')),
+    path("shop/", include('shop.urls')), # 딴 파일에 정의되었기 때문에 include(앱이름.파일이름)
+    # shop.urls에 붙은 모든 urls가 include( 앱마다 뷰 구현 따로 / url정의도 따로 )
     path("", root, name="root"),
 
 ]

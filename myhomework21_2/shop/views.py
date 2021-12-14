@@ -42,7 +42,7 @@ def shop_new(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = ShopForm(request.POST, request.FILES)
         if form.is_valid():
-            saved_post = form.save()  # 항상 저장이 먼저임
+            saved_data = form.save()  # 항상 저장이 먼저임
             # commit=False가 되면, 할당을 못받기 때문에 안돼 !! 무조건 비어있는 상태로
 
             messages.success(request, "성공적으로 저장했습니다.")
@@ -82,7 +82,9 @@ def review_new(request: HttpRequest, post_pk: int) -> HttpResponse:
 
     # 입력서식 만들기
     if request.method == "POST":
-        form = ReviewForm(request.POST, request.FILES)
+        #
+        form = ReviewForm(request.POST, request.FILES) # 유효성검사를 하기 위해 form에 입력값을 전달
+        # instance가 None이어서 새롭게 생성되는 것
         if form.is_valid():
             # 유효성 검사를 하고,  다 성공해야지만 is_vaild() 실행.
             review = form.save(commit=False)  # 디비 지정 지연 # 유효성검사에 다 통과된 데이터만 저장됨
@@ -92,7 +94,7 @@ def review_new(request: HttpRequest, post_pk: int) -> HttpResponse:
         return redirect("shop:shop_detail", post_pk)
         # redirect : 저장되면 해당 post_detail로 넘어감
     else:
-        form = ReviewForm()
+        form = ReviewForm() # 입력서식을 보여주는 것
     # 템플릿에서 사용할 값을 이름과 함께 넘겨줘야만,
     # 템플릿에서 그 이름으로 접근할 수 있는 것
     return render(request, "shop/review_form.html", {
@@ -105,6 +107,7 @@ def review_edit(request: HttpRequest, post_pk: int, pk: int) -> HttpResponse:
     review = get_object_or_404(Review, pk=pk)
 
     if request.method == "POST":
+        # instance 대상이 지정되어있기 때문에, 위에서 받은 review 데이터가 저장이된다.. ?
         form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
             form.save()

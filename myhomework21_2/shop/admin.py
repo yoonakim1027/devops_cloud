@@ -16,7 +16,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(admin.ModelAdmin): # 해당 지정 모델이 admin에서 구동할때
     list_display = ['name']
     list_display_links = ['name']
 
@@ -25,3 +25,4 @@ class TagAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ['shop', 'author_name', 'message', 'created_at']
     list_display_links = ['author_name']
+
