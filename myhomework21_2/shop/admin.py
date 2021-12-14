@@ -5,7 +5,7 @@ from shop.models import Shop, Category, Tag, Review
 
 @admin.register(Shop)
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ["name", "description","created_at", "updated_at"]
+    list_display = ["name", "description", "created_at", "updated_at"]
     list_display_links = ["name"]
 
 
@@ -19,7 +19,6 @@ class CategoryAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
     list_display_links = ['name']
-
 
 
 @admin.register(Review)
