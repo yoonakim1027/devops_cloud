@@ -65,9 +65,9 @@ class PostUpdateView(UpdateView):
     model = Post
     form_class = PostForm
 
-    def get_success_url(self):
-        post_pk = self.object.pk
-        return reverse("blog:post_detail", args=[post_pk])
+    # def get_success_url(self):
+    #     post_pk = self.object.pk
+    #     return reverse("blog:post_detail", args=[post_pk])
 
 
 post_edit = PostUpdateView.as_view(
