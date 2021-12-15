@@ -8,11 +8,22 @@
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" />
+        <input type="submit"/>
     </form>
 
     <hr />
     <a href="{% url "blog:post_detail" post.pk %}">
         조회화면으로
-    </a>
+
+
+    <hr/>
+
+    <a href="{% url "blog:post_list" %}">
+        목록으로
+
+    {% if post %}
+        <a href="{% url "blog:post_detail" post.pk %}">
+            조회화면으로
+        </a>
+    {% endif %}
 {% endblock %}

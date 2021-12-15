@@ -30,6 +30,7 @@ urlpatterns = [
     path('', root, name="root"),
 ]
 
+
 if settings.DEBUG:
     import debug_toolbar
 
