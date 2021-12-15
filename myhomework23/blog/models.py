@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.urls import reverse
 
 
 class TimestampedModel(models.Model):
@@ -42,6 +43,10 @@ class Post(TimestampedModel):
 
     def __str__(self) -> str:
         return self.name
+
+
+    def get_absolute_url(self) -> str:
+        return reverse("blog:post_detail",args=[self.pk])
 
     class Meta:
         ordering = ["-id"]  # 정렬
