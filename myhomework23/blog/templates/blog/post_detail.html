@@ -18,4 +18,8 @@
     <a href="{% url "blog:post_edit" post.pk %}">
         포스팅 수정
     </a>
+
+    <a href="{% url "blog:post_delete" post.pk %}">
+        포스팅 삭제
+    </a>
 {% endblock %}
