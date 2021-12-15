@@ -1,5 +1,6 @@
-from django.forms import forms
+from django import forms
 from blog.models import Post, Comment, Category, Tag
+
 
 class PostForm(forms.ModelForm):
     class Meta:

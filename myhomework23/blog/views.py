@@ -36,29 +36,29 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
         "tag_list": tag_list,
     })
 
-def post_new(request:HttpRequest)
+
+def post_new(request: HttpRequest):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
 
         if form.is_vaild():
             saved_post = form.save()
-            messages.success(request,"새로운 포스팅을 저장했습니다.")
+            messages.success(request, "새로운 포스팅을 저장했습니다.")
             return redirect(saved_post)
 
     else:
         form = PostForm()
 
-
     return render(request, "blog/post_form.html", {
-        "form":form,
+        "form": form,
     })
 
 
-def post_edit(request:HttpRequest, pk:int)->HttpResponse:
+def post_edit(request: HttpRequest, pk: int) -> HttpResponse:
     post = get_object_or_404(Post, pk=pk)
 
     if request.method == "POST":
-        form = PostForm(request.POST,request.FILES, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             saved_post = form.save()
             messages.success(request, "성공적으로 수정했습니다.")
@@ -67,22 +67,20 @@ def post_edit(request:HttpRequest, pk:int)->HttpResponse:
     else:
         form = PostForm(instance=post)
 
-    return render(request, 'blog/post_form.html',{
-        "form":form,
-        "post":post,
+    return render(request, 'blog/post_form.html', {
+        "form": form,
+        "post": post,
     })
 
 
-
-def post_delete(request:HttpRequest, pk:int)-> HttpResponse:
+def post_delete(request: HttpRequest, pk: int) -> HttpResponse:
     post = get_object_or_404(Post, pk=pk)
 
-    if request.method =="POST":
+    if request.method == "POST":
         post.delete()
         messages.success(request, f"{pk} 포스팅을 삭제했습니다.")
-        return redirect("post:post_list")
+        return redirect("blog:post_list")
 
-
-    return render(request, "blog/post_confirm_delete.html",{
+    return render(request, "blog/post_confirm_delete.html", {
         "post": post,
     })
