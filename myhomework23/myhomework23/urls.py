@@ -23,10 +23,10 @@ from django.urls import path, include
 def root(request):
     return redirect("blog:post_list")
 
-
+# 생성한 앱 네임 옆에도 /슬래시가 필요!
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog', include('blog.urls')),
+    path('blog/', include('blog.urls')),
     path('', root, name="root"),
 
 ]

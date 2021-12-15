@@ -41,7 +41,7 @@ def post_new(request: HttpRequest):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
 
-        if form.is_vaild():
+        if form.is_valid():
             saved_post = form.save()
             messages.success(request, "새로운 포스팅을 저장했습니다.")
             return redirect(saved_post)
