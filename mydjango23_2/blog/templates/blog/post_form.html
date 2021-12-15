@@ -16,10 +16,12 @@
 
     <a href="{% url "blog:post_list" %}">
         목록으로
+    </a>
+
 
     {% if post %}
         <a href="{% url "blog:post_detail" post.pk %}">
-            조회화면으로
+            취소
         </a>
     {% endif %}
 {% endblock %}
