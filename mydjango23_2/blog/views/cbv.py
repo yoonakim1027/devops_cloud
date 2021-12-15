@@ -31,29 +31,34 @@ class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
 
-    def get_success_url(self):  # 함수는 필요할 때 마다 호출
-        post_pk = self.object.pk  # 장고가 기본 구현한 모델 인스턴스가 저장됨
-        # 방법 1 (인자를 넘기는 방법의 차이 )
-        return reverse_lazy("blog:post_detail", args=[post_pk])
-        # 리턴 값 : 문자열
-
-        # 방법 2 # 내부적으로 reverse를 사용
-        # return resolve_url("blog:post_detail",post_pk)
-        # 리턴 값 : 문자열
-        # 기능이 좀 더 많다 .
-
-        # 방법 3
-        # return redirect("blog:post_detail",post_pk)
-        # 리턴 값 : HttpResponse
-        # 뷰 함수에서 리턴할 때 사용
-
-        # 방법 4
-        # {% url "blog_detail" post_pk %}
-        # 리턴 값 : 문자열
-        # -> 템플릿에서 링크만들 때 사용
-
-    # 얘는 url이 고정되어 있음
-    # success_url = reverse_lazy("blog:post_list")
+    # 이거를 주석처리 하는 이유눈? get_absolute_url 을 만들었기 때문
+    # def get_success_url(self):  # 함수는 필요할 때 마다 호출
+    #     post_pk = self.object.pk  # 장고가 기본 구현한 모델 인스턴스가 저장됨
+    #     # pk를 뽑아오는 것.
+    #     # 그래서 그 때 그때 유동적으로 사용할 수 있음.
+    #     # 매번 바뀐 주소로 바꿀 수 있음
+    #
+    #     # 방법 1 (인자를 넘기는 방법의 차이 )
+    #     return reverse_lazy("blog:post_detail", args=[post_pk])
+    #     # 리턴 값 : 문자열
+    #
+    #     # 방법 2 # 내부적으로 reverse를 사용
+    #     # return resolve_url("blog:post_detail",post_pk)
+    #     # 리턴 값 : 문자열
+    #     # 기능이 좀 더 많다 .
+    #
+    #     # 방법 3
+    #     # return redirect("blog:post_detail",post_pk)
+    #     # 리턴 값 : HttpResponse
+    #     # 뷰 함수에서 리턴할 때 사용
+    #
+    #     # 방법 4
+    #     # {% url "blog_detail" post_pk %}
+    #     # 리턴 값 : 문자열
+    #     # -> 템플릿에서 링크만들 때 사용
+    #
+    # # 얘는 url이 고정되어 있음
+    # # success_url = reverse_lazy("blog:post_list")
 
 
 post_new = PostCreateView.as_view()
