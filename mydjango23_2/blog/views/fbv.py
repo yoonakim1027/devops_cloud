@@ -5,8 +5,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 # 타입 힌트를 넣으면 좀 더 수월하게 개발할 수 있음
 # 최소한 함수의 타입, 리턴타입을 쓰면 오류를 빨리 발견할 수 있음
 # 요즘 트랜드는 타입을 다 넣어주는 것
-from blog.forms import PostForm
-from blog.models import Post
+from django.views.generic import CreateView
+
+from blog.forms import PostForm, SubscriberForm
+from blog.models import Post, Subscriber
 
 
 # 조회 (list, detail)
@@ -128,3 +130,10 @@ def post_delete(request: HttpRequest, pk: int) -> HttpResponse:
 # POST 요청 : 삭제를 하고, 다른 주소로 이동을 시킨다
 # 삭제했으니까 머무를 이유가 없어서 ~
 # 삭제 했으니까 다른 주소, 다른 페이지로 이동 뭐 목록으로 ~ post_list
+
+
+
+subscriber_new = CreateView.as_view(
+    model = Subscriber,
+    form_class=SubscriberForm,
+)
