@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ shop.name }}</h2>
 
+    <h2>{{ shop.name }}</h2>
     <p>
-        {% for tag in shop.tag_set.all %}
-            <span class="badge" style="background-color: steelblue;">{{ tag.name }}</span>
-        {% endfor %}
+    {% for tag in shop.tag_set.all %}
+        <span class="badge bg-success"> {{ tag.name }}</span>
+    {% endfor %}
     </p>
 
 
@@ -30,25 +30,56 @@
         포스팅 삭제
     </a>
 
-    <p>
-        {% for review in review.review_set.all %}
-            {{ review.author_name }}{{ review.message }}
-        {% endfor %}
-    </p>
+    <hr/>
 
-    {{ shop.content|linebreaks }}
+    <h3>리뷰</h3>
+    <a href="{% url "shop:review_new" shop.pk %}" class ="btn alert-danger">
+    리뷰 쓰기
+    </a>
+
+
+
+
+    <ul>
+        {% for review in review_list %}
+            <li>
+                {{ review.message }}
+                by {{ review.author_name }}
+                at {{ review.created_at |timesince }} 전
+                <a href="{% url "shop:review_edit" shop.pk review.pk %}" class="btn alert-danger" >Edit</a>
+
+            </li>
+
+        {% endfor %}
+    </ul>
+
 
     <hr />
 
 
-    <a href="{% url "shop:review_edit" shop.pk %}">
-        리뷰 수정
-    </a>
 
     <a href="{% url "shop:review_delete" shop.pk %}">
         리뷰 삭제
     </a>
 
+    <hr/>
+    <p>
+    # 해시태그 # :
+    {% for tag in tag_list %}
+        <a href="{% url "shop:tag_detail" tag.name %}" class="badge bg-success">
+            {{ tag.name }}
+        </a>
+    {% endfor %}
+    </p>
+
+
+    {{ shop.created_at |timesince }} 전
+    <hr />
+
+    <a href="{% url "shop:shop_edit" shop.pk %}" class="btn alert-success">수정</a>
+    <a href="{% url "shop:shop_list" %}" class="btn alert-danger">
+        목록으로
+    </a>
 
 
 {% endblock %}

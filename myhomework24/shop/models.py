@@ -76,6 +76,12 @@ class Review(TimestampedModel):
         verbose_name = "댓글"
         verbose_name_plural = "댓글 목록"
 
+    def get_absolute_url(self) -> str:
+        return reverse("shop:shop_detail", args=[self.pk])
+
+
+
+
 
 class Tag(TimestampedModel):  # Tag는 유일성을 가지기 위해, unique 옵션을 넣는다.
     name = models.CharField(max_length=100, unique=True)

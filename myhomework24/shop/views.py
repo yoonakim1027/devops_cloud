@@ -58,6 +58,10 @@ class ReviewCreateView(CreateView):
     model = Review
     form_class = ReviewForm
 
+    def get_success_url(self):
+        shop_pk = self.object.shop.pk
+        return reverse('shop:shop_detail', args=[shop_pk])
+
 
 review_new = ReviewCreateView.as_view()
 
@@ -66,11 +70,23 @@ class ReviewUpdateView(UpdateView):
     model = Review
     form_class = ReviewForm
 
+    def get_success_url(self):
+        shop_pk = self.object.shop.pk
+        return reverse('shop:shop_detail', args=[shop_pk])
 
 
-# review_edit = ReviewUpdateView.as_view(
-#     success_url=reverse_lazy("shop:shop_detail")
-# )
+review_edit = ReviewUpdateView.as_view(
+    success_url=reverse_lazy("shop:shop_detail")
+)
+
+
+class ReviewDeleteView(DeleteView):
+    model = Review
+
+    def get_success_url(self):
+        shop_pk = self.object.shop.pk
+        return reverse('shop:shop_detail', args=[shop_pk])
+
 
 review_delete = DeleteView.as_view(
     model=Review,
