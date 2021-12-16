@@ -56,7 +56,13 @@ class Shop(TimestampedModel):
         return reverse("shop:shop_detail", args=[self.pk])
 
 
-class Comment(TimestampedModel):
+    class Meta:
+        ordering = ["-id"]  # 정렬
+        verbose_name = "상점"  # 단수
+        verbose_name_plural = "상점 목록"  # 복수
+
+
+class Review(TimestampedModel):
     # shop을 외래키로 지정, on_delete(삭제정책) : 하나의 shop이 삭제 -> 이에 딸린 리뷰도 삭제
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     author_name = models.CharField(max_length=20)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from shop.models import Comment, Tag, Category, Shop
+from shop.models import Comment, Tag, Category, Shop, Review
 
 
 @admin.register(Shop)
@@ -13,8 +13,8 @@ class CategoryAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
     pass
 
 
