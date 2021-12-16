@@ -2,94 +2,77 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.http import HttpRequest, HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from shop.forms import ShopForm
-from shop.models import Shop, Tag, Comment, Category
+from shop.forms import ShopForm, ReviewForm
+from shop.models import Shop, Tag, Review, Category
 
+# #  shop
+# list
+shop_list = ListView.as_view(
+    model=Shop,
+)
 
-def shop_list(request: HttpRequest) -> HttpResponse:
-    qs = Shop.objects.all()
-    query = request.GET.get("query", "")
-    if query:
-        qs = qs.filter(name__icontains=query)
+# detail
+shop_detail = DetailView.as_view(
+    model=Shop,
 
-    category_qs = Category.objects.all()
-    category_id: str = request.GET.get("category_id", "")
-    if category_id:
-        qs = qs.filter(category__pk=category_id)
-    # category 컬럼에서 __pk가 있는지 검사 하고 category_id와 같은지 확인
-
-    return render(request, "shop/shop_list.html", {
-        "shop_list": qs,
-        "category_list": category_qs,
-    })
+)
 
 
-def shop_detail(request: HttpRequest, pk: int) -> HttpResponse:
-    shop = get_object_or_404(Shop, pk=pk)
-    review_list = shop.review_set.all()
-    tag_list = shop.tag_set.all()
-
-    return render(request, "shop/shop_detail.html", {
-        "shop": shop,
-        "tag_list": tag_list,
-    })
+# new 구현을 위한 class 생성
+class ShopCreateView(CreateView):
+    model = Shop
+    form_class = ShopForm
 
 
-def shop_new(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        form = ShopForm(request.POST, request.FILES)
-        # 유효성 검사 : .is_valid()
-        if form.is_valid():
-            saved_shop = form.save()
-            messages.success(request, "새로운 포스팅을 저장했습니다.")
-            return redirect(saved_shop)
-    else:  # 들어온 요청이 GET일 경우
-        form = ShopForm()
+shop_new = ShopCreateView.as_view(
 
-    return render(request, "shop/shop_form.html", {
-        "form": form,
-    })
+)
 
 
-def shop_edit(request: HttpRequest, pk: int) -> HttpResponse:
-    shop = get_object_or_404(Shop, pk=pk)
-    if request.method == "POST":
-        form = ShopForm(request.POST, request.FILES, instance=shop)
-
-        # 유효성 검사
-        if form.is_valid():
-            saved_shop = form.save()
-            messages.success(request, "성공적으로 수정했습니다.")
-            return redirect(saved_shop)
+# edit 구현을 위한 class 생성
+class ShopUpdateView(UpdateView):
+    model = Shop
+    form_class = ShopForm
 
 
-    else:
-        form = ShopForm(instance=shop)
+shop_edit = ShopUpdateView.as_view(
+    success_url=reverse_lazy("shop:shop_list")
+    # 프로젝트가 로딩될 때까지 기다렸나가 나중에 실행
+)
 
-    return render(request, 'shop/shop_form.html', {
-        "form": form,
-        "shop": shop,
-    })
-
-
-def shop_delete(request: HttpRequest, pk: int) -> HttpResponse:
-
-    shop = get_object_or_404(Shop, pk=pk)
-
-# GET 요청 : 정말 삭제를 할 것인지, 한 번 더 물어봅니다.
-# POST 요청 : 삭제를 하고, 다른 주소로 이동을 시킵니다.
-
-    if request.method == "POST":
-        shop.delete()  # 실제로 DB에 DELETE 쿼리 실행
-        messages.success(request, f"#{pk} 포스팅을 삭제했습니다.")
-        return redirect("shop:shop_list")
-
-    return render(
-        request,
-        "shop/shop_confirm_delete.html",{
-            "shop": shop,
-        },
-    )
+# delete
+shop_delete = DeleteView.as_view(
+    model=Shop,
+    success_url=reverse_lazy("shop:shop_list")
+    # 삭제 후 list로 이동하는 이유는 삭제 했으면 해당하는 detail 페이지가 없기 때문에
+)
 
 
+# review_new, review_edit, review_delete 뷰 구현
+# # Review
+
+class ReviewCreateView(CreateView):
+    model = Review
+    form_class = ReviewForm
+
+
+review_new = ReviewCreateView.as_view()
+
+
+class ReviewUpdateView(UpdateView):
+    model = Review
+    form_class = ReviewForm
+
+
+review_edit = ReviewUpdateView.as_view(
+    success_url=reverse_lazy("shop:shop_detail")
+)
+
+
+review_delete = DeleteView.as_view(
+    model=Review,
+    success_url=reverse_lazy("shop:shop_list")
+)
