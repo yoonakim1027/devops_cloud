@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from shop.models import Comment, Tag, Category, Shop, Review
+from shop.models import Tag, Category, Shop, Review
 
 
 @admin.register(Shop)

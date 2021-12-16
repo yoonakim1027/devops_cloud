@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 
 from django.http import HttpRequest, HttpResponse
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from shop.forms import ShopForm, ReviewForm
@@ -67,10 +67,10 @@ class ReviewUpdateView(UpdateView):
     form_class = ReviewForm
 
 
-review_edit = ReviewUpdateView.as_view(
-    success_url=reverse_lazy("shop:shop_detail")
-)
 
+# review_edit = ReviewUpdateView.as_view(
+#     success_url=reverse_lazy("shop:shop_detail")
+# )
 
 review_delete = DeleteView.as_view(
     model=Review,

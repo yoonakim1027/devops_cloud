@@ -1,0 +1,42 @@
+{% extends 'shop/layout.html' %}
+
+{% block content %}
+    <a href="{% url "shop:shop_new" %}" class ="btn alert-danger">
+    포스팅 쓰기
+    </a>
+    <form action="" method="get" >
+        <input type="text"
+               name="query"
+               value="{{ request.GET.query }}"
+               placeholder="검색어를 입력해주세요." />
+        <input type="submit" value="검색" />
+    </form>
+    <ul>
+        {% for shop in shop_list %}
+            <li>
+                <a href="{% url "shop:shop_detail" shop.pk %}">{{ shop.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul>
+        <li>
+            <a href="?category_id=">
+                전체
+            </a>
+        </li>
+        {% for category in category_list %}
+            <li>
+                <a href="?category_id={{ category.pk }}">
+                    {{ category.name }}
+                </a>
+            </li>
+        {% endfor %}
+
+    </ul>
+
+
+
+
+
+
+{% endblock %}
