@@ -1,12 +1,13 @@
 # CBV 방식으로 구현
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, request
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, resolve_url
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 # class명.view()
 from shop.forms import ReviewForm
+from shop.mixins import ReviewUserCheckMixin
 from shop.models import Shop, Category, Review
 
 
@@ -86,11 +87,18 @@ review_new = ReviewCreateView.as_view()
 
 # 이렇게 되면 클래스의 부모가 둘! -> 다중 상속 (두개 이상 가능)
 # 언어에 따라 다중상속을 지원하는 언어가 다름 ~
-class ReviewUpdateView(LoginRequiredMixin, UpdateView):
-    model = Review,
-    form_class = ReviewForm,
+
+# UserPassesTestMixin 로그인 했는지 안했는지 결정
+class ReviewUpdateView(LoginRequiredMixin, ReviewUserCheckMixin, UpdateView):
+    model = Review
+    form_class = ReviewForm
     # FIXME : shop detail로 보내기
-    success_url = reverse_lazy("shop:shop_list"),
+    # success_url = reverse_lazy("shop:shop_list")
+
+    def get_success_url(self):
+        review = self.object
+        return resolve_url(review.shop)#주소
+# 자기가 수정할 수 있는 리뷰만 볼 수 있게 하려면 ?
 
 
 # 이렇게 하면? 로그인 안하면 댓글 수정이 안됨

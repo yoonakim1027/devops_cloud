@@ -35,9 +35,12 @@
             {{ review.message }}
             by {{ review.user }} {# 누가 썼어? #}
             at {{ review.created_at }} {# 언제 썼어?#}
-            <a href="{% url "shop:review_edit" shop.pk review.pk %}">
-                Edit
-            </a>
+            {% if review.user == request.user %} {# 그냥 user 써도 되고 request.user 써도 됨 request도 user 값을 가지고 있음  #}
+                {# 리뷰 쓴 사람이 유저랑 같은지 확인 !  #}
+                <a href="{% url "shop:review_edit" shop.pk review.pk %}">
+                    Edit
+                </a>
+            {% endif %}
         </div>
 
     {% empty %}
