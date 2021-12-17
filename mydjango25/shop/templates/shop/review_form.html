@@ -1,0 +1,9 @@
+{% extends 'shop/layout.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+    <h2>Review Form</h2>
+
+    {# 그 안에 있는 함수를 상속받고자 할때, include를 사용  #}
+    {% include "_form.html" with submit_label="리뷰저장" %}
+{% endblock %}
