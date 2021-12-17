@@ -22,6 +22,8 @@ class Category(TimestampedModel):
         # 정렬기준은 한 개만 넣어주는 것이 좋음 !
         # 카테고리는 생성시점이 중요하지 않으니까 ~ 그냥 이름기준으로 오름차순 정렬
         ordering = ['name']
+        verbose_name = "카테고리"
+        verbose_name_plural ="카테고리 목록"
 
 
 class Shop(TimestampedModel):
@@ -49,6 +51,8 @@ class Shop(TimestampedModel):
 
     class Meta:
         ordering = ['-id']
+        verbose_name = "상점"
+        verbose_name_plural ="상점 목록"
 
 
 
@@ -65,7 +69,8 @@ class Review(TimestampedModel):
     # 리뷰랑 샵은 생성시점이 중요하니까 내림차순
     class Meta:
         ordering = ['-id']
-
+        verbose_name = "리뷰"
+        verbose_name_plural = "리뷰 목록"
 
 
 class Tag(TimestampedModel):
@@ -78,3 +83,5 @@ class Tag(TimestampedModel):
     class Meta:
         # 이름을 기준으로 오름차순 정렬
         ordering = ['name']
+        verbose_name = "태그"
+        verbose_name_plural ="태그 목록"
