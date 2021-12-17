@@ -7,5 +7,10 @@
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %} {# 항상 form 태그를 쓰면 csrf_token #}
     {% bootstrap_form form %}
-    <input type="submit" class="btn btn-primary" value="가입신청"/>
+    <input type="submit"
+           class="btn btn-primary"
+           {% if submit_label %} {# submit_label 값이 있다면? #}
+                value="{{ submit_label }}"
+           {% endif %}
+    />
 </form>
