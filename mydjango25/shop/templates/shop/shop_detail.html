@@ -19,5 +19,21 @@
     {% endif %}
 
     {# 뽑아낼데이터|default:"" 앞의 값이 거짓이라면? ""를 반환하겠다. #}
-    {{ shop.description|default:"" }}
+    {{ shop.description|default:"설명이 없습니다." }}
+
+    <hr/>
+    <h3>리뷰</h3>
+
+    {# for문의 구조는 기존 파이썬의 구조와 같다 !  #}
+    {% for review in shop.review_set.all %}
+        <div>
+            {{ review.message }}
+            by {{ review.user }} {# 누가 썼어? #}
+            at {{ review.created_at }} {# 언제 썼어?#}}
+        </div>
+
+    {% empty %}
+         등록된 리뷰가 없습니다.
+    {% endfor %}
+
 {% endblock %}

@@ -37,3 +37,8 @@ shop_detail = DetailView.as_view(
     model = Shop,
     template_name="shop/shop_detail.html"
 )
+
+# 상점과 리뷰간의 관계는 1 :N
+# 리뷰에 샵이라는 외래키만 생성하면?
+# 샵 측에 shop.review_set이라는 것이 생성
+# 그래서 여기에 shop.review_set.all()을 쓰면 내용 다 가져올 수 있음
