@@ -14,6 +14,8 @@ from shop.models import Shop, Category, Review
 # ListView를 상속받음
 class ShopListView(ListView):
     model = Shop
+    # 페이징 : 한 페이지에 몇개씩 보여줄지?
+    paginate_by = 5
 
     # 원래 이 함수는 모든 클래스 기반 뷰에 다 존재함
     # 템플릿에서 사용할 변수목록(사전)을 만들어주는 함수
