@@ -14,4 +14,6 @@ urlpatterns = [
 
     # 어떤 샵에 속한 리뷰이기 때문에 pk가 필요함.
     path("<int:shop_pk>/reviews/new/", views.review_new, name="review_new"),
+    path("<int:shop_pk>/reviews/<int:pk>/edit/", views.review_edit, name="review_edit"),
+
 ]

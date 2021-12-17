@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, request
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 # class명.view()
 from shop.forms import ReviewForm
@@ -78,12 +78,15 @@ class ReviewCreateView(LoginRequiredMixin,CreateView):
 
 # TODO : shop_detail로 이동
 # (1) 먼저 shop_list로 연결
-review_new = CreateView.as_view(
-    # 폼을 이용해서 생성하는 것은 form_class를 써야함
-    model=Review,  # 모델을 지정해야 ~ 템플릿명도 호출이 되는 것
-    form_class=ReviewForm,
-    # 입력값에 대한 유효성 검사도 실행하고, 이상이 없으면 shop_list로 이동
-    # FIXME : shop detail로 이동
+review_new = ReviewCreateView.as_view()
+
+
+# 로그인을 해야 댓글을 수정할 수 있게 하려면 ?
+# 그러면 custom class  view를 만들어야 함 
+review_edit = UpdateView.as_view(
+    model = Review,
+    form_class = ReviewForm,
+    #FIXME : shop detail로 보내기
     success_url=reverse_lazy("shop:shop_list"),
 
 )

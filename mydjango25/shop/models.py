@@ -24,7 +24,7 @@ class Category(TimestampedModel):
         # 카테고리는 생성시점이 중요하지 않으니까 ~ 그냥 이름기준으로 오름차순 정렬
         ordering = ['name']
         verbose_name = "카테고리"
-        verbose_name_plural ="카테고리 목록"
+        verbose_name_plural = "카테고리 목록"
 
 
 class Shop(TimestampedModel):
@@ -51,14 +51,18 @@ class Shop(TimestampedModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("shop:shop_detail", args=self.pk)
+        return reverse("shop:shop_detail", args=[self.pk])
 
+        # reverse -> reverse가 list를 인자로 원함 (pk를 여러개로 )
+        # ("shop:shop_list
+        # 두번째가 사전지정
+        # 위치인자
+        # 키워드인자)
 
     class Meta:
         ordering = ['-id']
         verbose_name = "상점"
-        verbose_name_plural ="상점 목록"
-
+        verbose_name_plural = "상점 목록"
 
 
 # 샵과 리뷰는 외래키 관계. 샵이 1 : 리뷰가 N
@@ -67,10 +71,11 @@ class Review(TimestampedModel):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     # 한 명의 유저가 여러 개의 리뷰를 작성할 수 있다.
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    message = models.TextField() # 메시지 입력은 꼭 받아야하니까 블랭크 옵션 X
+    message = models.TextField()  # 메시지 입력은 꼭 받아야하니까 블랭크 옵션 X
 
     def __str__(self):
         return self.message
+
     # 리뷰랑 샵은 생성시점이 중요하니까 내림차순
     class Meta:
         ordering = ['-id']
@@ -89,4 +94,4 @@ class Tag(TimestampedModel):
         # 이름을 기준으로 오름차순 정렬
         ordering = ['name']
         verbose_name = "태그"
-        verbose_name_plural ="태그 목록"
+        verbose_name_plural = "태그 목록"

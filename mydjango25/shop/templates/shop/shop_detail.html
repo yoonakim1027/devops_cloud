@@ -35,6 +35,9 @@
             {{ review.message }}
             by {{ review.user }} {# 누가 썼어? #}
             at {{ review.created_at }} {# 언제 썼어?#}
+            <a href="{% url "shop:review_edit" shop.pk review.pk %}">
+                Edit
+            </a>
         </div>
 
     {% empty %}
