@@ -53,7 +53,7 @@ shop_detail = DetailView.as_view(
 # 여기에 현재 로그인이 되었을 때에만 리뷰를 쓰게 하려면?
 # class ReviewCreateView(LoginRequiredMixin,CreateView):
 # 첫번째 인자로 LoginRequiredMixin 사용
-class ReviewCreateView(LoginRequiredMixin,CreateView):
+class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
 
@@ -82,11 +82,16 @@ review_new = ReviewCreateView.as_view()
 
 
 # 로그인을 해야 댓글을 수정할 수 있게 하려면 ?
-# 그러면 custom class  view를 만들어야 함 
-review_edit = UpdateView.as_view(
+# 그러면 custom class  view를 만들어야 함
+
+# 이렇게 되면 클래스의 부모가 둘! -> 다중 상속 (두개 이상 가능)
+# 언어에 따라 다중상속을 지원하는 언어가 다름 ~
+class ReviewUpdateView(LoginRequiredMixin, UpdateView):
     model = Review,
     form_class = ReviewForm,
-    #FIXME : shop detail로 보내기
-    success_url=reverse_lazy("shop:shop_list"),
+    # FIXME : shop detail로 보내기
+    success_url = reverse_lazy("shop:shop_list"),
 
-)
+
+# 이렇게 하면? 로그인 안하면 댓글 수정이 안됨
+review_edit = ReviewUpdateView.as_view()
