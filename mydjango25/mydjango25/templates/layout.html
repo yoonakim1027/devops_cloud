@@ -1,0 +1,29 @@
+{% load bootstrap5 %}
+<!doctype html>
+<html lang=ko>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {% block page_title %} 김유나 웹서비스 {% endblock %}
+    {# 타이틀은 항상 최대한 위에 있어야 한다. #}
+    </title>
+    {# 디폴트로 CDN버전 #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+</head>
+<body>
+    <div class="container">
+        <h1>김유나 웹서비스</h1>
+        {% block content %} {% endblock %}
+
+        <hr/>
+        &copy; 김초롱 컴퍼니
+
+    </div>
+
+</body>
+</html>
