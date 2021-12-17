@@ -17,6 +17,16 @@ class ShopListView(ListView):
     # 페이징 : 한 페이지에 몇개씩 보여줄지?
     paginate_by = 5
 
+    # CBV에서 검색기능 구현 -> shop 인스턴스 안의 name에서 검색할 것
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        query = self.request.GET.get("query", "")
+        if query:
+            qs = qs.filter(name__icontains=query)
+
+        return qs
+
     # 원래 이 함수는 모든 클래스 기반 뷰에 다 존재함
     # 템플릿에서 사용할 변수목록(사전)을 만들어주는 함수
     def get_context_data(self, **kwargs):
@@ -94,12 +104,15 @@ review_new = ReviewCreateView.as_view()
 class ReviewUpdateView(LoginRequiredMixin, ReviewUserCheckMixin, UpdateView):
     model = Review
     form_class = ReviewForm
+
     # FIXME : shop detail로 보내기
     # success_url = reverse_lazy("shop:shop_list")
 
     def get_success_url(self):
         review = self.object
-        return resolve_url(review.shop)#주소
+        return resolve_url(review.shop)  # 주소
+
+
 # 자기가 수정할 수 있는 리뷰만 볼 수 있게 하려면 ?
 
 

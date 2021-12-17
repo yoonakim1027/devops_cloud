@@ -4,6 +4,15 @@
     {# shop_list에서 하나씩 꺼내와서 샵에 담고, #}
     {# 이를 하나씩 순회를 돈다 #}
     {# hover -> 마우스 올렸을 때 색 변하는것 #}
+    <form action="" method="get" >
+        <input type="text"
+               name="query"
+               value="{{ request.GET.query }}"
+               placeholder="검색어를 입력해주세요." />
+        <input type="submit" value="검색" />
+    </form>
+
+
     <p>
         {% for category in category_list %}
             <span class="badge bg-info">
