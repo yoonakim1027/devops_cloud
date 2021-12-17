@@ -1,0 +1,14 @@
+{% extends 'accounts/layout.html' %}
+{% load bootstrap5 %} {# 매번 해줘야 함  #}
+
+{% block content %}
+
+    <h2>회원가입</h2>
+
+    {# form태그 구현  #}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %} {# 항상 form 태그를 쓰면 csrf_token #}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-primary" value="가입신청"/>
+    </form>
+{% endblock %}
