@@ -1,0 +1,23 @@
+{% extends 'shop/layout.html' %}\
+{% load bootstrap5 %}
+
+{% block content %}
+    <h2>{{ shop.name }}</h2>
+    <p>
+        {% for tag in shop.tag_set.all %}
+            {{ tag.name }}
+
+        {% empty %} {# 태그가 없을 시 ~ django 템플릿만 갖고 있는 문법 #}
+            등록된 태그가 없습니다.
+        {% endfor %}
+    </p>
+
+    {% if shop.photo %}
+        <img src ="{{ shop.photo.url }}" alt="{{ shop.name }}"/>
+    {% else %}
+        등록된 사진이 없습니다.
+    {% endif %}
+
+    {# 뽑아낼데이터|default:"" 앞의 값이 거짓이라면? ""를 반환하겠다. #}
+    {{ shop.description|default:"" }}
+{% endblock %}

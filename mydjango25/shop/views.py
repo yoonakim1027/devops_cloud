@@ -1,5 +1,5 @@
 # CBV 방식으로 구현
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # class명.view()
 from shop.models import Shop, Category
@@ -27,4 +27,13 @@ shop_list = ShopListView.as_view(
     # 다른 것들은 다 옵션임 - > 안쓰면 적용될 디폴트 값이 존재하다는 뜻
     template_name="shop/shop_list.html"
 
+)
+
+# template_name = 모델명/생성할템플릿이름.html 쓰면
+# 생성할 수 있음
+
+shop_detail = DetailView.as_view(
+    # DetailView에선, 어떤 뷰에대한 Detail인지 모델 지정이 필요
+    model = Shop,
+    template_name="shop/shop_detail.html"
 )

@@ -22,7 +22,12 @@
         <tbody>
             {% for shop in shop_list %}
                 <tr>
-                    <td>{{ shop.name }}</td>
+                    <td>
+                        <a href="{% url "shop:shop_detail" shop.pk%}">
+                            {{ shop.name }}
+                        </a>
+                    </td>
+
                     <td>{{ shop.created_at }}</td>
 
                 </tr>
