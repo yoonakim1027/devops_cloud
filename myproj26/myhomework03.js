@@ -17,6 +17,7 @@ shuffle(animals);
 
 let counter = 0;
 // 파이썬의 f스트링 같은 용법 : `${변수명}`
+
 for (let i = 0; i <5; i++){
     let shuffleAnimal = animals[i];
     console.log("♥ 따라 입력해보세요 ♥");
@@ -32,7 +33,7 @@ for (let i = 0; i <5; i++){
     }
 
 }
-
+i = 0;
 //STtime
 let finishTime = new Date();
 let FTtime = finishTime.getTime();
