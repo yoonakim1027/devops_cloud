@@ -108,6 +108,7 @@ class ReviewUpdateView(LoginRequiredMixin, ReviewUserCheckMixin, UpdateView):
     # FIXME : shop detail로 보내기
     # success_url = reverse_lazy("shop:shop_list")
 
+
     def get_success_url(self):
         review = self.object
         return resolve_url(review.shop)  # 주소

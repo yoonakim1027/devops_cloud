@@ -35,9 +35,7 @@ class Shop(TimestampedModel):
 
     # 외래키는 n측에 생성 , 삭제 정책은 CASCADE
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    # 소스코드를 읽어들인 시점에 실행. 위에서부터 순차적으로 실행
-    # 태그는 밑에 있기 때문에, 이 시점에는 Tag가 없는상태
-    # 그래서 문자열로 지정을 하면 django가 알아서 찾아서 값을 넣어줌
+
     name = models.CharField(max_length=200, db_index=True)
     # 이름만으로 검색할 수도 있기 때문에 db_index를 넣어줌
     description = models.TextField(blank=True)
@@ -45,7 +43,11 @@ class Shop(TimestampedModel):
     #
     photo = models.ImageField(upload_to="shop/shop/%Y/%m/%d", blank=True)
 
+    # 소스코드를 읽어들인 시점에 실행. 위에서부터 순차적으로 실행
+    # 태그는 밑에 있기 때문에, 이 시점에는 Tag가 없는상태
+    # 그래서 문자열로 지정을 하면 django가 알아서 찾아서 값을 넣어줌
     tag_set = models.ManyToManyField('Tag', blank=True)
+
 
     def __str__(self):
         return self.name

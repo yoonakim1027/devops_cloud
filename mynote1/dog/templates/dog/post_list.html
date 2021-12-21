@@ -1,0 +1,35 @@
+
+{% extends "dog/layout.html" %}
+
+{% block content %}
+    <form action="" method="get">
+        <input type="text" name="query" value="{{ request.GET.query }}" />
+        <input type="submit" value="검색" />
+
+    </form>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>content</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in post_list %}
+                <tr>
+                    <td>
+                        <a href="{{ post.pk}}">{{ post.title }}</a>
+
+                    </td>
+                    <td>
+
+                            {{ post.content }}
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

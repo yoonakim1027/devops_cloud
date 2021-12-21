@@ -52,3 +52,4 @@ const base_10 = (fn) => (x, y) => fn(x, y) + 10;
 
 
 // wrap 만들자 마자 리턴 -> 
+

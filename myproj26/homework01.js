@@ -10,6 +10,8 @@ const animal_names = [
     "wolf",
 ]
 
+
+
 // 자바스크립트에서 array를 슬라이싱해서 5개만 뽑기
 
 // TODO : shuffle 
@@ -41,7 +43,7 @@ const { question } = require("readline-sync");
 // question 이라는 함수에 다이렉트로 접근할 수 있음
 // 이를 input하듯이 쓰면 돼
 const number = question("Enter a number:");
-console.log("당신의 번호는"+number);
+console.log("당신의 번호는" + number);
 
 // 인풋 값 받기
 const readlineSync = require('readline-sync'),
@@ -50,4 +52,6 @@ const readlineSync = require('readline-sync'),
 console.log(animals[index] + "가 당신이 선택한 동물입니다.");
 
 
+
+// 0이상 1 미만 랜덤 수(실수) 출력
 

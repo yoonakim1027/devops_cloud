@@ -1,3 +1,9 @@
+/* npm install readline-sync
+-> 이는 꼭 !! 꼭 사용하고자 하는 폴더에서 설치해야 한다
+
+*
+* */
+
 // 필요한 것 : 우선 랜덤값 인출을 위한 리스트
 const readlineSync = require("readline-sync");
 const animals = ["cat", "dog", "fox", "monkey", "mouse", "panda", "frog", "snake", "wolf"];

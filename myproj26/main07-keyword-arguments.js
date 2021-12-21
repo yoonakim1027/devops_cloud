@@ -38,7 +38,17 @@ const people = [
 ];
 
 // 파이썬의 for와 비슷
-for (const person of people) {
-    console.log(person)
-}
-// 객체를 하나씩 받아와서 출력하게 됨 
+// for (const person of people) {
+//     console.log(person)
+// }
+// // 객체를 하나씩 받아와서 출력하게 됨 
+
+
+for (const {name, age}of people){
+    console.log(name, age);
+};
+
+// 위와 밑은 같음! 
+// for (const {name, age}of people){
+//     console.log(person.name, person.age);
+// };

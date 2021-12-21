@@ -1,0 +1,23 @@
+{% extends "dog/layout.html" %}
+{% block content %}
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>{{ post.title }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{ post.content|linebreaks }}
+                    <image src="{{ post.image_file.url }}" alt="{{ post.title }}"></image>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/dog/" class="btn btn-primary">목록으로</a>
+
+
+
+{% endblock %}
