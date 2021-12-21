@@ -1,4 +1,4 @@
-const { melon_data: song_array, melon_data } = require("./melon_data");
+const { melon_data: song_array } = require("./melon_data");
 
 // console.log(song_array);
 
@@ -70,6 +70,7 @@ bubble sort dance
 
 /// 현재 melon_data가 저장된 변수는 song_array
 
+
 const songs = song_array.sort(
     (song_array1, song_array2) => {
         return song_array1.like - song_array2.like;
@@ -87,7 +88,7 @@ const songs = song_array.sort(
  */
 
 for (const song1 of songs) {
-    console.log(song1.like, song1.title);
+    console.log(`[${song1.like}] ${song1.title}`);
 }
 
 // 현재 songs 는 array(배열)형태. 그래서 따로 songs.like이렇게 한다고 값이 출력되지 않음 
