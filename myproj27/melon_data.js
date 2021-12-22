@@ -5,3 +5,5 @@ const melon_data = [{ 'Unnamed: 0': 0, 'song_no': 32872978, 'title': 'Dynamite',
 module.exports = {
     melon_data,
 };
+
+// 자바스크립트는 노출할 대상만 지정할 수 있음

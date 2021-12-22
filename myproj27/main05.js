@@ -10,7 +10,8 @@ function like_filter(song_array) {
 const like_filter_result = song_array.filter(like_filter);
 
 
-like_filter_result.sort(function (a, b) { // 한글 오름차순
+// 곡명 오름차순 정렬
+like_filter_result.sort(function (a, b) { 
     return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
 });
 
@@ -32,10 +33,6 @@ for (const like_20 of like_filter_result) {
 //     }
 
 // );
-
-
-
-
 
 
 

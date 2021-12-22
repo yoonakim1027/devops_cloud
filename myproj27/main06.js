@@ -35,12 +35,6 @@ console.log(arrary_title_words);
 
 
 
-// {
-//     title: "Dynamite", => "Dynamite/1 "
-// }
-
-
-
 // //
 // console.log("<<<<<< 곡 단어 수 >>>>>>")
 // const arrary_title_like_words = song_array.map(function (obj) {

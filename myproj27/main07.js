@@ -14,9 +14,9 @@ console.log("<<<<<< 방탄소년단 곡명 출력 >>>>>>") // 배열에서 map�
 
 const bts_filter_result = song_array.filter(filter_bts);
 
-const arrary_title = bts_filter_result.map(function (obj) {
+const arrary_title = bts_filter_result.map(function (song) {
     let bts_title_list = [];
-    bts_title_list.push(obj.title);
+    bts_title_list.push(song.title);
     return bts_title_list;
 });
 
