@@ -27,9 +27,13 @@ function MelonSearch() {
         placeholder="검색어를 입력해주세요."
         onChange={handleChange} // 유저가 입력을 할때 호출되는 함수
         onPressEnter={handlePressEnter} // 유저가 엔터키를 눌렀을 때 호출되는 함수
+        //Enter키를 눌렀을 때 호출되는 함수!
       />
     </div>
   );
 }
 
 export default MelonSearch;
+
+// input의 i를 그냥 소문자로 하면? 리액트에서 지원하는 input 스타일
+// Input으로 쓰면 위에서 스타일 적용한 대로 나옴
