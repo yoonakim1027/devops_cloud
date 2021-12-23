@@ -4,6 +4,7 @@ import Axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
 import { List, Typography, Divider, Avatar } from 'antd';
 import { Layout, Menu, Breadcrumb } from 'antd';
+import { SmileOutlined } from '@ant-design/icons';
 
 const { Header, Content, Footer } = Layout;
 
@@ -12,6 +13,7 @@ function MelonSearch() {
   const [query, setQuery] = useState(''); // 조회할때이름은 query, 변경하는 함수는 setQuery
   const [songList, setSongList] = useState([]); // 새로운 상탯값을 정의하면서 그 상태값의 디폴트 값은 빈 array로 지정
   const handleChange = (e) => {
+    // e -> event
     const {
       target: { value },
     } = e;
@@ -51,7 +53,7 @@ function MelonSearch() {
 
         setSongList(searchedSongList); //값을 참조해서 이어서쓰는것
       })
-      // error가 발생하면 .catch를 호출
+      // error가 발생하면 .catch를 호출 => 에러발생에 대한 조치를 꼭 취해야함
       .catch((error) => {
         console.group('멜론 검색 에러');
         console.error(error);
@@ -59,17 +61,12 @@ function MelonSearch() {
       });
   };
   const data = [{ title: '' }];
-  const contentStyle = {
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-  };
 
   return (
     <div style={{ width: 300, margin: '0 auto' }}>
-      <h2>멜론 검색</h2>
+      <h2>
+        <SmileOutlined size="10px" /> 멜론 검색
+      </h2>
       검색어 : {query}
       <Input
         placeholder="검색어를 입력해주세요."
