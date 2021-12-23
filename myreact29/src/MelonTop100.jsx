@@ -11,6 +11,7 @@
 */
 
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import initialSongList from 'data/melon_data.json';
 import 'MelonTop100.css';
 // 전역변수 : 바뀌지 않는 데이터
@@ -27,7 +28,7 @@ function MelonTop100() {
   return (
     <div>
       <h2>멜론 top 100</h2>
-      <button onClick={handleClick}>로딩</button>
+      <Button onClick={handleClick}>로딩</Button>
       <ul className="songList">
         {songList.map((song) => {
           // 한곡씩(song)나옴
