@@ -6,7 +6,7 @@ import MelonSearch from 'MelonSearch';
 function App() {
   return (
     <div>
-      <h1>안녕 리액트</h1>
+      <h1> 유나의 리액트 </h1>
       <MelonSearch />
       {/* <MelonTop100 />
       <Counter />

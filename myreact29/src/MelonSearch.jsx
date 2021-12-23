@@ -2,6 +2,10 @@ import { Input } from 'antd';
 import { useState } from 'react';
 import Axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
+import { List, Typography, Divider, Avatar } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
+
+const { Header, Content, Footer } = Layout;
 
 function MelonSearch() {
   // 새로운 상탯값 정의
@@ -54,6 +58,14 @@ function MelonSearch() {
         console.groupEnd();
       });
   };
+  const data = [{ title: '' }];
+  const contentStyle = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  };
 
   return (
     <div style={{ width: 300, margin: '0 auto' }}>
@@ -66,11 +78,28 @@ function MelonSearch() {
         //Enter키를 눌렀을 때 호출되는 함수!
       />
       {songList.map((song) => {
+        // 여기가 출력되는 부분
         return (
-          <div>
-            <img src={song.ALBUMIMG} />
-            {song.SONGNAME} by {song.ARTISTNAME}
-          </div>
+          <List
+            itemLayout="horizontal"
+            dataSource={data}
+            renderItem={(item) => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<Avatar src={song.ALBUMIMG} />}
+                  title={song.SONGNAME}
+                  description={song.ARTISTNAME}
+                />
+              </List.Item>
+            )}
+          />
+
+          // (
+          //   // <div>
+          //   //   <img src={song.ALBUMIMG} />
+          //   //   {song.SONGNAME} by {song.ARTISTNAME}
+          //   // </div>
+          // )
         );
       })}
       {/* song 내역을 리액트 상에서 확인 가능 */}
