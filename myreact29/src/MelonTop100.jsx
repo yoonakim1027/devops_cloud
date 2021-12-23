@@ -13,6 +13,7 @@
 import { useState } from 'react';
 import { Button as BootstrapButton } from 'react-bootstrap';
 import { Button as AntdButton } from 'antd'; // import 이름을 바꾸려면? as 바꿀 이름 !
+import Axios from 'axios'; // import 옆의 이름은 자기가 맘대로 조정가능
 import initialSongList from 'data/melon_data.json';
 import 'MelonTop100.css';
 
@@ -23,18 +24,39 @@ import 'MelonTop100.css';
 // const handleClick = () =>{};  -> arrow function
 function MelonTop100() {
   const [songList, setSongList] = useState([]); // songlist를 담을 것. -> 빈 [array]에서 시작
-  const handleClick = () => {
+  const handleClick1 = () => {
     setSongList(initialSongList); // 현재 상수
+  };
+  const handleClick2 = () => {
+    const url = 'https://antigravity-daejeon-2021.herokuapp.com/api/melon/';
+    Axios.get(url) // 응답을 받아야함
+      .then((response) => {
+        const { data } = response;
+        setSongList(data); // 서버로부터 받아오는 것
+        // console.log('응답을 받았습니다.');
+        // console.log(response);
+      })
+      .catch((error) => {
+        console.error(error); // error는 .catch
+      }); // 에러처리도 항상 수반되어야 한다
+  };
+
+  const handleClick3 = () => {
+    setSongList([]); // setSongList에는 빈 array가 들어간다
   };
 
   return (
     <div>
       <h2>멜론 top 100</h2>
-      <BootstrapButton variant="success" onClick={handleClick}>
-        부트스트랩 버튼 로딩
+      <BootstrapButton variant="success" onClick={handleClick1}>
+        파일 로딩
       </BootstrapButton>
-      <AntdButton type="primary" onClick={handleClick}>
-        앤트 버튼 로딩
+      <AntdButton type="primary" onClick={handleClick2}>
+        서버 로딩
+      </AntdButton>
+
+      <AntdButton type="dashed" onClick={handleClick3}>
+        클리어
       </AntdButton>
       <ul className="songList">
         {songList.map((song) => {
