@@ -1,6 +1,8 @@
 import PageAbout from 'pages/PageAbout';
 import PageCounter from 'pages/PageCounter';
 import TopNav from 'components/TopNav';
+import PageLotto from 'pages/PageLotto';
+import PagePlaylist from 'pages/PagePlaylist';
 import { useState } from 'react';
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
       <TopNav changePageName={setPageName} />
       {pageName === 'about' && <PageAbout />}
       {pageName === 'counter' && <PageCounter />}
+      {pageName === 'lotto' && <PageLotto />}
+      {pageName === 'playlist' && <PagePlaylist />}
     </>
   );
 }

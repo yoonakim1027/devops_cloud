@@ -1,0 +1,18 @@
+.top-nav {
+  padding: 0;
+  margin: 0;
+}
+
+.top-nav li {
+  display: inline-block;
+  margin-right: 1em;
+  cursor: pointer;
+  background-color: lightyellow;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid yellow;
+}
+
+.top-nav li:hover {
+  background-color: yellow;
+}
