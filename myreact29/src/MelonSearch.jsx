@@ -1,27 +1,23 @@
-import { Input } from 'antd';
+import { Avatar, Input, List, Typography, notification } from 'antd';
 import { useState } from 'react';
+
 import Axios from 'axios';
 import jsonpAdapter from 'axios-jsonp';
-import { List, Typography, Divider, Avatar } from 'antd';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { SmileOutlined } from '@ant-design/icons';
-
-const { Header, Content, Footer } = Layout;
 
 function MelonSearch() {
-  // 새로운 상탯값 정의
-  const [query, setQuery] = useState(''); // 조회할때이름은 query, 변경하는 함수는 setQuery
-  const [songList, setSongList] = useState([]); // 새로운 상탯값을 정의하면서 그 상태값의 디폴트 값은 빈 array로 지정
+  const [query, setQuery] = useState('');
+  const [songList, setSongList] = useState([]);
+
   const handleChange = (e) => {
-    // e -> event
     const {
       target: { value },
     } = e;
     console.group('handleChange');
-    console.log(value); // event 안에서 target 참조
+    console.log(value);
     console.groupEnd();
-    setQuery(value); // 쿼리라는 상탯값에서 검색어를 읽어오는 것
+    setQuery(value);
   };
+
   const handlePressEnter = () => {
     console.group('handlePressEnter');
     console.log(`검색어 ${query}로 검색합니다.`);
@@ -37,74 +33,80 @@ function MelonSearch() {
         query: query,
       },
     })
-      // .then이 결과값을 받음(오후 4시20분 경)
       .then((response) => {
-        // 이름으로도 접근해서 데이터를 참조하고 싶다!
         // ALBUMCONTENTS, ARTISTCONTENTS
         const {
-          data: { SONGCONTENTS: searchedSongList },
+          data: { SONGCONTENTS: searchedSongList = [] },
         } = response;
-        // 응답에서 참조되는 값은 SONGCONTENTS이지만, (참조된 값은 변경할수 없고! )
-        // 저장된 값은 searchedSongList라고 바꿔서 의미있게 저장할 수 있다.
+
         console.group('멜론 검색결과');
         console.log(response);
         console.log(searchedSongList);
         console.groupEnd();
 
-        setSongList(searchedSongList); //값을 참조해서 이어서쓰는것
+        setSongList(searchedSongList);
+
+        const type = 'info';
+        notification[type]({
+          message: '멜론 검색',
+          description: `${searchedSongList.length}개의 노래 검색결과가 있습니다.`,
+        });
       })
-      // error가 발생하면 .catch를 호출 => 에러발생에 대한 조치를 꼭 취해야함
       .catch((error) => {
         console.group('멜론 검색 에러');
         console.error(error);
         console.groupEnd();
+
+        notification.error({
+          message: '멜론 검색 에러',
+          // 주의: 유저 친화적인 에러 메세지는 아닙니다.
+          description: JSON.stringify(error),
+        });
       });
   };
-  const data = [{ title: '' }];
 
   return (
     <div style={{ width: 300, margin: '0 auto' }}>
-      <h2>
-        <SmileOutlined size="10px" /> 멜론 검색
-      </h2>
+      <h2>멜론 검색</h2>
       검색어 : {query}
       <Input
         placeholder="검색어를 입력해주세요."
-        onChange={handleChange} // 유저가 입력을 할때 호출되는 함수
-        onPressEnter={handlePressEnter} // 유저가 엔터키를 눌렀을 때 호출되는 함수
-        //Enter키를 눌렀을 때 호출되는 함수!
+        onChange={handleChange}
+        onPressEnter={handlePressEnter}
       />
-      {songList.map((song) => {
-        // 여기가 출력되는 부분
+      <List
+        bordered={false}
+        dataSource={songList}
+        renderItem={(song) => {
+          return (
+            <List.Item>
+              <List.Item.Meta avatar={<Avatar src={song.ALBUMIMG} />} />
+              <Typography.Text
+                onClick={() => {
+                  console.log(`clicked ${JSON.stringify(song)}`);
+                }}
+              >
+                <a
+                  href={`https://www.melon.com/song/detail.htm?songId=${song.SONGID}`}
+                  target={'_blank'}
+                >
+                  {song.SONGNAME}
+                </a>
+              </Typography.Text>
+            </List.Item>
+          );
+        }}
+      />
+      {/* {songList.map((song) => {
         return (
-          <List
-            itemLayout="horizontal"
-            dataSource={data}
-            renderItem={(item) => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={song.ALBUMIMG} />}
-                  title={song.SONGNAME}
-                  description={song.ARTISTNAME}
-                />
-              </List.Item>
-            )}
-          />
-
-          // (
-          //   // <div>
-          //   //   <img src={song.ALBUMIMG} />
-          //   //   {song.SONGNAME} by {song.ARTISTNAME}
-          //   // </div>
-          // )
+          <div key={song.SONGID}>
+            <img src={song.ALBUMIMG} />
+            {song.SONGNAME} by {song.ARTISTNAME}
+          </div>
         );
-      })}
-      {/* song 내역을 리액트 상에서 확인 가능 */}
+      })} */}
     </div>
   );
 }
 
 export default MelonSearch;
-
-// input의 i를 그냥 소문자로 하면? 리액트에서 지원하는 input 스타일
-// Input으로 쓰면 위에서 스타일 적용한 대로 나옴
