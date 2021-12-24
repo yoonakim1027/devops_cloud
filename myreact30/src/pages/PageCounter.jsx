@@ -1,6 +1,5 @@
 import Counter from 'components/Counter';
 
-//리액트 컴포넌트 문법을 그대로 쓴것
 function PageCounter() {
   return (
     <>

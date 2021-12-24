@@ -5,28 +5,27 @@ import { useState } from 'react';
 
 function App() {
   const [pageName, setPageName] = useState('about');
+  // 상탯값의 타입은 설정하기 나름! 가급적이면 타입을 유지시켜주는 것이 좋음 !
+
+  // const changePageName = (pageName) => {
+  //   setPageName(pageName);
+  // };
 
   // 클릭하는 코드
-  const handleClick = () => {
-    setPageName(pageName === 'counter' ? 'about' : 'counter');
-  };
+  // 함수지만? 그냥 보면 일반 변수랑 같아보임
+  // 함수나 클래스도 변수처럼 취급받을 수 있음
+  // 함수도 속성값으로 내려줄 수 있음
 
-  // 우클릭하면 번호가 줄어드는 코드
-  const handleContextMenu = (e) => {
-    // context menu의 기본 동작을 막는 코드
-    e.preventDefault();
-    setPageName(pageName - 1);
-  };
+  // const changePageName = () => {
+  //   setPageName(pageName === 'counter' ? 'about' : 'counter');
+  // };
+  // 페이지 이름을 바꾸는 것
 
   return (
     <>
       <h1>김융구의 리액트</h1>
 
-      <button onClick={handleClick} onContextMenu={handleContextMenu}>
-        페이지 토굴;
-      </button>
-
-      <TopNav />
+      <TopNav changePageName={setPageName} />
       {pageName === 'about' && <PageAbout />}
       {pageName === 'counter' && <PageCounter />}
     </>
