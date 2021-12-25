@@ -4,7 +4,7 @@ function PageLotto() {
   return (
     <>
       <h2>Predict Lotto Number</h2>
-      <LottoPrecict color="blue" />
+      <LottoPrecict />
 
       <p></p>
     </>

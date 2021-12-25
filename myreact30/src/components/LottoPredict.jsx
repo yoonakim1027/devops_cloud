@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { Button, Tooltip } from 'antd';
+import { Button, Tooltip, List, Avatar } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { DollarCircleOutlined } from '@ant-design/icons';
 
 // 로또 번호 예측
 // 로또 번호는 1~45, 보너스번호 포함 6개
 
-function LottoPrecict(props) {
-  const { color } = props;
+function LottoPrecict() {
   const [numList, setNumberList] = useState([]);
 
   //예지 버튼을 눌렀을 때 구현
@@ -38,7 +38,6 @@ function LottoPrecict(props) {
 
   // 우클릭하면 번호가 줄어듬 !
 
-  console.log('props :', props);
   // map - > 숫자 하나씩 뽑을 수 있다. 그리고 스타일을 적용하려면?
   //  숫자 마다 스타일을 걸어야 ...........
 
@@ -46,7 +45,10 @@ function LottoPrecict(props) {
 
   return (
     <div>
-      <h2>로또 번호 출력 </h2>
+      <h2>
+        <DollarCircleOutlined />
+        로또 번호 출력
+      </h2>
 
       <div onClick={handleClick}>
         <Button type="primary" icon={<SearchOutlined />}>
@@ -54,7 +56,11 @@ function LottoPrecict(props) {
         </Button>
       </div>
       {numList.map((num) => {
-        return <div style={{ ...style, backgroundColor: 'red' }}>{num}</div>;
+        return (
+          <div key={num} style={{ ...style, backgroundColor: 'red' }}>
+            {num}
+          </div>
+        );
       })}
     </div>
   );

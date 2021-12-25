@@ -3,7 +3,6 @@ import PlayList from 'components/PlayList';
 function PagePlaylist() {
   return (
     <>
-      <h2>Youtube play list</h2>
       <PlayList />
 
       <p></p>
