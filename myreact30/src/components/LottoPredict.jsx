@@ -15,21 +15,35 @@ function LottoPrecict() {
 
     console.log('로또번호를 출력합니다.');
 
-    let number = [];
+    let numbers = [];
     for (let i = 1; i < 46; i++) {
-      number.push(i);
+      numbers.push(i);
     }
     // 이 번호를 섞어줄 함수
-    const shuffledNumber = number
-      .map((number_random) => ({
-        number_random,
+    const shuffledNumber = numbers
+      // map을 통해 numbers의 숫자를 하나씩 빼기
+      .map((number) => ({
+        number,
         value: Math.random(),
       }))
+
+      // random 으로 정렬 하려면? 위에서 받은 난수값 value(Math.random)-> 이것들의 비교가 필요
       .sort((obj_a, obj_b) => {
         return obj_a.value - obj_b.value;
       })
-      .map(({ number_random }) => number_random)
-      .slice(0, 7);
+
+      // 위에서 인자를 두개 받았기 때문에, number값만 따로 받기
+      .map(({ number }) => {
+        return number;
+      })
+
+      // 받은 값에서 slice 7개 슬라이싱
+      .slice(0, 7)
+
+      // 오름차순 정렬
+      .sort((obj_a, obj_b) => {
+        return obj_a - obj_b; // 이거는 위에서 random으로 안하니까 !!!
+      });
 
     setNumberList(shuffledNumber);
   };
