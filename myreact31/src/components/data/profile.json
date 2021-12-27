@@ -1,0 +1,35 @@
+[
+    {
+        "user":"user1",
+        "name": "김초롱",
+        "role": "강아지",
+        "github_url": "github.com/yoonakim1027",
+        "email": "rlddbsk123@naver.com",
+        "image": "src/img/image1.jpg"
+    },
+    {
+        "user":"user2",
+        "name": "황꼬마",
+        "role": "강아지",
+        "github_url": "github.com/yoonakim1027",
+        "email": "rlddbsk123@naver.com",
+        "image": "src/img/image2.jpg"
+    },
+    {
+        "user":"user3",
+        "name": "김설",
+        "role": "강아지",
+        "github_url": "github.com/yoonakim1027",
+        "email": "rlddbsk123@naver.com",
+        "image": "src/img/image3.jpg"
+    },
+    {
+        "user":"user4",
+        "name": "황꼼",
+        "role": "강아지",
+        "github_url": "github.com/yoonakim1027",
+        "email": "rlddbsk123@naver.com",
+        "image": "src/img/image4.jpg"
+    }
+]
+
