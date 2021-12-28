@@ -9,6 +9,7 @@ function ProfileCard({
   github_url,
   email,
   changeUserPage,
+  children,
 }) {
   return (
     <>
@@ -42,13 +43,7 @@ function ProfileCard({
           <span> {email}</span>
         </li>
       </ul>
-      <nav className="others">
-        <a onClick={() => changeUserPage('user0')}></a>
-        <a onClick={() => changeUserPage('user1')}></a>
-        <a onClick={() => changeUserPage('user2')}></a>
-        <a onClick={() => changeUserPage('user3')}></a>
-        <a onClick={() => changeUserPage('user4')}></a>
-      </nav>
+      <nav className="others"> {children}</nav>
     </>
   );
 }

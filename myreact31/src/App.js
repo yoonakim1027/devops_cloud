@@ -21,8 +21,15 @@ function App() {
                   github_url={user.github_url}
                   email={user.email}
                   profileImage={`/profile-images/member${index}.jpg`}
-                  changeUserPage={setUserNum}
-                />
+                >
+                  <nav className="others">
+                    <a onClick={() => setUserNum('user0')}></a>
+                    <a onClick={() => setUserNum('user1')}></a>
+                    <a onClick={() => setUserNum('user2')}></a>
+                    <a onClick={() => setUserNum('user3')}></a>
+                    <a onClick={() => setUserNum('user4')}></a>
+                  </nav>
+                </ProfileCard>
               </section>
             </div>
           );
