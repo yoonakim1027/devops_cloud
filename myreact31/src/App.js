@@ -29,18 +29,13 @@ function App() {
                 >
                   {/* 이게 children이 되는 이유는? 부모 jsx안에 <nav>{children}</nav> 이라고 적용했기 때문에 !순서 대로 되는 것*/}
                   {userList.map((user) => {
-                    if (userNum == user.userID) {
-                      return (
-                        <a
-                          onClick={() => setUserNum(user.userID)}
-                          class="on"
-                        ></a>
-                      );
-                    } else {
-                      return <a onClick={() => setUserNum(user.userID)}></a>;
-                    }
+                    return (
+                      <a
+                        onClick={() => setUserNum(user.userID)}
+                        className={user.userID == userNum ? 'on' : ''}
+                      ></a>
+                    );
                   })}
-                  {/* 코드 정리 하기 ! ! 페이지 이름을 setUserNum으로 바꿔준다. 원래는 user1 이렇게 일일이 지정해줬었음  */}
                 </ProfileCard>
               </section>
             </div>

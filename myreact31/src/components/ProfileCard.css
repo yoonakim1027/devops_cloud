@@ -70,7 +70,7 @@ section nav.menu {
   width: 100%;
 }
 
-section nav.menu ::after {
+section nav.menu::after {
   content: '';
   display: block;
   clear: both;
