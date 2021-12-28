@@ -2,13 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faStickyNote } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 function ProfileCard({
-  user,
   profileImage,
   name,
   role,
   github_url,
   email,
-  changeUserPage,
   children,
 }) {
   return (
@@ -43,7 +41,7 @@ function ProfileCard({
           <span> {email}</span>
         </li>
       </ul>
-      <nav className="others"> {children}</nav>
+      <nav className="others">{children}</nav>
     </>
   );
 }

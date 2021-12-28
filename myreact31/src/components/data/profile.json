@@ -1,6 +1,6 @@
 [
     {
-        "user":"user0",
+        "userID":"user0",
         "name": "김초롱",
         "role": "애기개발자",
         "github_url": "https://github.com/yoonakim1027",
@@ -8,7 +8,7 @@
         "image": "/profile-images/member0.jpg"
     },
     {
-        "user":"user1",
+        "userID":"user1",
         "name": "이준수",
         "role": "강아지",
         "github_url": "https://github.com/yoonakim1027",
@@ -16,7 +16,7 @@
         "image": "/profile-images/member1.jpg"
     },
     {
-        "user":"user2",
+        "userID":"user2",
         "name": "권하은",
         "role": "강아지",
         "github_url": "https://github.com/yoonakim1027",
@@ -24,7 +24,7 @@
         "image": "/profile-images/member2.jpg"
     },
     {
-        "user":"user3",
+        "userID":"user3",
         "name": "허성우",
         "role": "강아지",
         "github_url": "https://github.com/yoonakim1027",
@@ -32,7 +32,7 @@
         "image": "/profile-images/member3.jpg"
     },
     {
-        "user":"user4",
+        "userID":"user4",
         "name": "최열",
         "role": "강아지",
         "github_url": "https://github.com/yoonakim1027",
