@@ -1,27 +1,30 @@
 import PageLotto from 'pages/PageLotto';
 import ProfileCard from 'components/ProfileCard';
 import userList from 'components/data/profile.json';
-
-// import profileImage1 from 'img/member4.jpg';
-// import profileImage2 from 'img/member3.jpg';
-// import profileImage3 from 'img/member2.jpg';
-// import profileImage4 from 'img/member1.jpg';
 import { useState } from 'react';
 
+// index를 받으면 숫자를 받아옴
 function App() {
-  const [userNum, setuserNum] = useState('user1');
+  const [userNum, setUserNum] = useState('user0');
   return (
     <>
-      {userList.map((user) => {
+      {userList.map((user, index) => {
         if (userNum === user.user) {
           return (
-            <ProfileCard
-              name={user.name}
-              role={user.role}
-              github_url={user.github_url}
-              email={user.email}
-              changeUserPage={setuserNum}
-            />
+            <div className={`user${index}`}>
+              {/* 백틱을 사용한 방법2 */}
+              <section>
+                <ProfileCard
+                  user={user.user}
+                  name={user.name}
+                  role={user.role}
+                  github_url={user.github_url}
+                  email={user.email}
+                  profileImage={`/profile-images/member${index}.jpg`}
+                  changeUserPage={setUserNum}
+                />
+              </section>
+            </div>
           );
         }
       })}
