@@ -1,38 +1,49 @@
 import PageLotto from 'pages/PageLotto';
 import ProfileCard from 'components/ProfileCard';
-import userList from 'components/data/profile.json';
+//import userList from 'components/data/profile.json';
 import { useState } from 'react';
 import { Children } from 'react/cjs/react.production.min';
+import Axios from 'axios';
 
-// index를 받으면 숫자를 받아옴
-// Stage 12. useState의 초기값을 하드코딩하지 마시고,
-//  json 데이터를 참조하여, json 데이터 배열의 첫번째 값을 상탯값 초기값으로 활용해주세요.
-// userList[0] - > 키를 참조할 때에는 "" 를 안쓰고 바로 참조가 가능하다.
+const { useEffect } = require('react');
+
 function App() {
-  const [userNum, setUserNum] = useState(userList[0].userID); // 원래는 여기서 그냥 user0 이름으로 받았는데,
-  // 페이지 네임이 유저와 같을때 ? 어떤 데이터를 보여줄지가 밑의 코드
+  const [profileList, setProfileList] = useState([]);
+  useEffect(() => {
+    Axios.get(
+      'https://classdevopscloud.blob.core.windows.net/data/profile-list.json',
+    )
+      .then((response) => {
+        setProfileList(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const [userNum, setUserNum] = useState('bts-jin'); // 페이지 넘어가기 위한 용도
   return (
     <>
-      {userList.map((user, index) => {
-        if (userNum === user.userID) {
+      {profileList.map((user, index) => {
+        if (userNum === user.unique_id) {
           return (
-            <div className={`user${index}`}>
-              {/* 백틱을 사용한 방법2 */}
+            <div key={user.unique_id} className={`user${index % 4}`}>
               <section>
                 <ProfileCard
-                  user={user.userID}
+                  user={user.unique_id}
                   name={user.name}
                   role={user.role}
-                  github_url={user.github_url}
-                  email={user.email}
-                  profileImage={`/profile-images/member${index}.jpg`}
+                  mbti={user.mbti}
+                  instagram_url={user.instagram_url}
+                  profile_image_url={user.profile_image_url}
                 >
-                  {/* 이게 children이 되는 이유는? 부모 jsx안에 <nav>{children}</nav> 이라고 적용했기 때문에 !순서 대로 되는 것*/}
-                  {userList.map((user) => {
+                  {profileList.map((user) => {
                     return (
                       <a
-                        onClick={() => setUserNum(user.userID)}
-                        className={user.userID == userNum ? 'on' : ''}
+                        key={user.unique_id}
+                        onClick={() => setUserNum(user.unique_id)}
+                        className={user.unique_id === userNum ? 'on' : ''}
                       ></a>
                     );
                   })}
