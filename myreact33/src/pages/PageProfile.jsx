@@ -3,16 +3,11 @@ import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
 function PageProfile() {
-  const [profileList, setProfileList] = useState([]); // useState는 초깃값으로 []빈 어레이를 초깃값으로 지정
+  const [profileData, setProfileData] = useState([]); // 전체 데이터 받을 상탯값
+  const [profileList, setProfileList] = useState([]); // search 시 변화 필드를 받을 상탯값
+  const [query, setQuery] = useState(null); // query 입력 값 받을 상탯값
+  const [error, setError] = useState(null); // error 발생 시 객체를 받을 상탯값
 
-  //Arrow function을 사용하기 위해선? const 변수명 () => {내용}
-
-  // Stage 7. profile-list.json 조회에 실패했을 때,
-  // "조회 시에 오류가 발생했습니다. 잠시 후 다시 시도해주세요." 라는 에러메세지를 띄워줍니다.
-  // - 에러 여부를 기록하는 error 상탯값을 추가로 정의하고, 디폴트값은 null로 둡니다.
-  //- 에러가 발생하면 에러객체를 저장하고, 통신이 시작될 때에는 에러 상탯값을 null로 초기화합니다.
-  // - 본 동작을 테스트하기 위해, 조회 URL을 엉뚱하게 변경하고, 새로고침 버튼을 눌러 에러메세지 노출을 테스트합니다.
-  const [error, setError] = useState(null);
   const handleRefresh = () => {
     setError(null); // 매 통신시 에러 초기화
     Axios.get(
@@ -20,46 +15,66 @@ function PageProfile() {
     )
       .then((response) => {
         const axiosProfileList = response.data.map((profile) => ({
-          ...profile, // ... 하면 다 갖고온다 (unpacking)
+          ...profile,
           uniqueId: profile.unique_id,
           profileImageUrl: profile.profile_image_url,
           instagramUrl: profile.instagram_url,
-        })); // 사용할 이름 : 데이터.데이터에 들어있는 key
-        // () -> 변수를 여러개를 넘겨주는 거라서 소괄호는 리턴값을 보여주는 거고
-        // {} -> 중괄호는 의미가 없는애고 원래 변수를 여러 개 넘겨주기 위해서는 중괄호를 써야한다
-        setProfileList(axiosProfileList);
-        // response.data<-  위에서 .get으로 받아온 데이터가 들어있음!
+        }));
+        setProfileData(axiosProfileList);
       })
       .catch((error) => {
         setError(error);
       });
-    // 애초에 Axios 과정 자체를 리턴하게 되는 것
   };
-
-  // 처음 실행 시, 새로 고침 시 바로 행해지는 함수
-  // yarn start 해서 띄울때 바로 실행하기 위한 함수
-  // 마운트는 한번...
+  // 재시동 !
   useEffect(() => {
-    handleRefresh();
-  }, []);
-  // -> useEffect()는 마지막 인자로 [ ]를 받아줘야 함 .. 얘도.. 약속...
-  // 비어있는 [] 가 언제 호출? 마운트되었을때. 초기 시작에 동작하려고 할때 이 함수가 자동호출이 되는것
+    profileData.length === 0 && handleRefresh();
+    setProfileList(profileData);
+  }, [profileData]); // 전체 데이터인 profileData를 dependent
 
-  // 삭제 버튼
-  const clearClick = () => {
-    console.log(`clicked`);
-    setProfileList([]);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+    // e는 이벤트 감지. e가 target -> click를 감지
   };
 
+  // profile : JSON 파일의 모든 데이터
+  // Object.values(profile) : profile의 (키)값만 받아옴
+  // .some : some() 메서드는 배열 안의 어떤 요소라도 주어진 판별 함수를 통과하는지 테스트,
+  //        => True, False로 반환. 빈 배열일 경우에도 False 반환
+  //        .some((search) => search에 들어갈 값은, 위에서 profile의 값만 받아온 데이터
+  // .include : includes() -> 배열이 특정 요소를 포함하고 있는지 판별
+  // 결국, search.includes(query)  -> query의 값이 search(profile의 모든 value 값)에 포함되어있는지 판별
+
+  const handleKeyPress = (e) => {
+    // e는 이벤트 감지
+    if (e.key === 'Enter') {
+      if (
+        query &&
+        setProfileList(
+          // query가 포함된 값만 남는걸로 상탯값 변경
+          profileData.filter((profile) =>
+            Object.values(profile).some((info) => info.includes(query)),
+          ), // 포함되어 있는 값만 profile에 남게 됨
+        )
+      );
+    }
+  };
   return (
     <>
       <h2>PageProfile</h2>
+      <>
+        <input
+          type="text"
+          placeholder="검색어를 입력해주세요."
+          onChange={handleChange}
+          onKeyPress={handleKeyPress}
+        />
+      </>
 
-      {/* 이 부분에 버튼으로 onClick -> 클리어 구성  */}
-      <button onClick={clearClick}>Clear</button>
+      <button onClick={() => setProfileList([])}>Clear</button>
       <button onClick={handleRefresh}>Refresh</button>
-      {/* 선택적 랜더링. && 앞에 있는 조건이 맞으면 뒤에 것을 렌더링(화면에 보여지는것) */}
-      {/* .length -> 배열의 길이를 반환(배열은 순서가 있음) */}
+
       {profileList.length === 0 && <h4>등록된 프로필이 없습니다.</h4>}
       {error !== null && (
         <h3>조회 시에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</h3>
