@@ -1,5 +1,4 @@
 import PageProfile from 'pages/PageProfile';
-import Axios from 'axios';
 
 /*Stage 2. PageProfile에 profileList 상탯값을 정의하고, 
 초기 상탯값으로 배열 안에 하나의 object만 선언하고, 
