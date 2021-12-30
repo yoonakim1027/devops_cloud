@@ -5,7 +5,7 @@
 => components/ProfileCard.css 를 만들고 연결합니다. 컴포넌트에는 className=""profile-card"" 를 기본으로 지정합니다." */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faStickyNote } from '@fortawesome/free-solid-svg-icons';
-// import './profileCard.css';
+import 'components/ProfileCard.css';
 
 function ProfileCard({
   profileImageUrl,

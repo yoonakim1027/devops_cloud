@@ -68,7 +68,7 @@ function PageProfile() {
   };
 
   return (
-    <>
+    <div className="page-profile">
       <h2>PageProfile</h2>
       <>
         <input
@@ -86,7 +86,7 @@ function PageProfile() {
         <h3>조회 시에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</h3>
       )}
       <ProfileList dataProfile={profileList} />
-    </>
+    </div>
   );
 }
 

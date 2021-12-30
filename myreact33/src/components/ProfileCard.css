@@ -1,0 +1,259 @@
+/*
+ > pages/PageProfile 컴포넌트 (1개)
+                    => 프로필 페이지에 대한 표현 및 데이터 관리를 합니다.
+                    => profileList 상탯값을 직접 관리하며, 프로필 페이지의 전체 레이아웃을 관리합니다.
+                    => 하위 컴포넌트인 ProfileList 컴포넌트에 프로필 목록 상탯값을 속성값으로 넘겨줍니다.
+                    => pages/ProfileProfile.css 를 만들고 연결합니다. 컴포넌트에는 className=""page-profile"" 를 기본으로 지정합니다."
+*/
+@charset 'utf-8';
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+div {
+  padding: 50px;
+}
+
+div.user0 {
+  background-color: #b6d6f5;
+}
+
+div.user1 {
+  background-color: #f1dca3;
+}
+
+div.user2 {
+  background-color: #bbe7c3;
+}
+
+div.user3 {
+  background-color: #c9c8f0;
+}
+
+section {
+  width: 340px;
+  padding: 30px;
+  background-color: rgb(241, 196, 196);
+  margin: 50px auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+div.user0 section {
+  width: 340px;
+  padding: 30px;
+  background-color: rgb(238, 167, 167);
+  margin: 50px auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+div.user1 section {
+  width: 340px;
+  padding: 30px;
+  background-color: rgb(238, 221, 123);
+  margin: 50px auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+div.user2 section {
+  width: 340px;
+  padding: 30px;
+  background-color: rgb(127, 231, 150);
+  margin: 50px auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.user3 section {
+  width: 340px;
+  padding: 30px;
+  background-color: rgb(136, 134, 236);
+  margin: 50px auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+section nav.menu {
+  width: 100%;
+}
+
+section nav.menu::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+section nav.menu a {
+  font-size: 20px;
+  color: #666;
+}
+
+section nav.menu a:nth-of-type(1) {
+  float: left;
+}
+
+section nav.menu a:nth-of-type(2) {
+  float: right;
+}
+
+section article.profile-card {
+  width: 100%;
+  text-align: center;
+}
+
+section article.profile-card img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+section article.profile-card h1 {
+  font-weight: bold;
+  font-size: 25px;
+  font-family: 'arial';
+  line-height: 1;
+  color: rgb(31, 5, 5);
+  margin-bottom: 5px;
+}
+
+section article.profile-card h2 {
+  font-weight: normal;
+  font-size: 25px;
+  font-family: 'arial';
+  line-height: 1;
+  color: rgb(26, 13, 13);
+  margin-bottom: 30px;
+}
+
+section a.btnView {
+  display: block;
+  width: 180px;
+  height: 32px;
+  margin: 0px auto 20px;
+  background-color: #444;
+  border-radius: 16px;
+  font-weight: bold;
+  font-size: 10px;
+  font-family: 'arial';
+  line-height: 1;
+  color: #fff;
+  line-height: 32px;
+  text-align: center;
+  background: linear-gradient(45deg, #4affff, #34e0f7);
+  box-shadow: 5px 10px 20px rgba(0, 255, 255, 0.493);
+}
+
+section ul.contact {
+  margin-bottom: 25px;
+}
+
+section ul.contact li {
+  width: 100%;
+  padding: 10px 0px;
+  border-bottom: 1px solid #eee;
+}
+
+section ul.contact li:last-child {
+  border-bottom: none;
+}
+
+section ul.contact li i {
+  width: 20%;
+  text-align: center;
+  color: #555;
+  font-size: 15px;
+  text-shadow: 2px 2px 2px #ddd;
+}
+
+section ul.contact li span {
+  font-weight: normal;
+  font-size: 11px;
+  font-family: 'orbitron';
+  color: #555;
+  letter-spacing: 1px;
+}
+
+section nav.others {
+  width: 100%; /*너빗값*/
+  text-align: center; /*자식요소인 a를 가운데로 정렬*/
+}
+
+section nav.others a {
+  display: inline-block; /*디스플레이 속성을 inline-block로 지정*/
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /*동그라미로 지정-> 둥글게를 50%로 하면 동그라미가 된다*/
+  margin: 0px 10px;
+}
+
+/* 색 지정 + 그림자 */
+section nav.others a:nth-of-type(1) {
+  background-color: #35e0f7;
+  box-shadow: 5px 5px 10px rgba(74, 255, 255, 0.7);
+}
+
+section nav.others a:nth-of-type(2) {
+  background-color: #55f5cd;
+  box-shadow: 5px 5px 10px rgba(85, 245, 178, 0.7);
+}
+
+section nav.others a:nth-of-type(3) {
+  background-color: #ff80df;
+  box-shadow: 5px 5px 10px rgba(255, 128, 223, 0.7);
+}
+
+section nav.others a:nth-of-type(4) {
+  background-color: #a794fd;
+  box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7);
+}
+
+section nav.others a:nth-of-type(5) {
+  background-color: #a794fd;
+  box-shadow: 5px 5px 10px rgba(167, 148, 253, 0.7);
+}
+/* 멤버별 링크 버튼에 on 클래스가 있어야 버튼이 활성화 되도록 하는 작업 
+*/
+
+section nav.others a {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /*동그랗게 모양 지정 */
+  margin: 0px 10px; /*좌우 여백 10*/
+  opacity: 0.4; /*흐리게*/
+  filter: saturate(0.7); /*채도 낮게*/
+}
+
+section nav.others a.on {
+  opacity: 1;
+  filter: saturate(1);
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+
+/*
+멤버별 전체 배경색, 프로필 이미지의 그림자색, 버튼의 배경색과 그림자색 추가
+*/
+
+/*member1*/
+
+section article.profile-card img {
+  box-shadow: 5px 15px 30px rbga(173, 216, 230, 0.8);
+}
+
+section a.btnView {
+  background: linear-gradient(45deg, #4affff, #35e0f7);
+  box-shadow: 5px 10px 20px rgba(0, 255, 255, 0.493);
+}

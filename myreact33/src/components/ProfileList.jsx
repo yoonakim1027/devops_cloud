@@ -10,7 +10,7 @@ import ProfileCard from './ProfileCard';
 
 function ProfileList({ dataProfile }) {
   return (
-    <div>
+    <div className="profile-list">
       <h2>Profile List</h2>
       {dataProfile.length === 0 && <h4>등록된 프로필이 없습니다.</h4>}
       {dataProfile.map((profile) => {
