@@ -33,32 +33,29 @@ function PageProfile() {
   }, [profileData]); // 전체 데이터인 profileData를 dependent
 
   const handleChange = (e) => {
+    // 변화를 감지 하라고 ......
     const value = e.target.value;
     setQuery(value);
+
     // e는 이벤트 감지. e가 target -> click를 감지
   };
-
-  // profile : JSON 파일의 모든 데이터
-  // Object.values(profile) : profile의 (키)값만 받아옴
-  // .some : some() 메서드는 배열 안의 어떤 요소라도 주어진 판별 함수를 통과하는지 테스트,
-  //        => True, False로 반환. 빈 배열일 경우에도 False 반환
-  //        .some((search) => search에 들어갈 값은, 위에서 profile의 값만 받아온 데이터
-  // .include : includes() -> 배열이 특정 요소를 포함하고 있는지 판별
-  // 결국, search.includes(query)  -> query의 값이 search(profile의 모든 value 값)에 포함되어있는지 판별
-
+  // 값이 있을때만 호출하고, 값이 없을때는 호출안함 -> 값이 없을때도 뭔가를 호출하도록 개선
   const handleKeyPress = (e) => {
-    // e는 이벤트 감지
+    // e는 이벤트 내역을 알려주는 이벤트 객체
+    // 여기서 값을 변경하면 안됨
     if (e.key === 'Enter') {
-      if (
-        query &&
-        setProfileList(
-          // query가 포함된 값만 남는걸로 상탯값 변경
-          profileData.filter((profile) =>
-            Object.values(profile).some((info) => info.includes(query)),
-          ), // 포함되어 있는 값만 profile에 남게 됨
-        )
-      );
+      const profileQuery = profileData.filter((member) => {
+        return (
+          // filter는
+          member.name.includes(query) ||
+          member.role.includes(query) ||
+          member.mbti.includes(query)
+        );
+      });
+      setProfileList(profileQuery);
     }
+
+    // 포함되어 있는 값만 profile에 남게 됨
   };
   return (
     <>
