@@ -1,5 +1,15 @@
-import Axios from 'axios';
+import './PageProfile.css';
+/*
+> components/ProfileList 컴포넌트 (1개)
+=> 다수 프로필에 대한 표현을 하며, 1개 프로필에 대한 표현은 ProfileCard 컴포넌트에 위임합니다.
+=> 프로필 목록에 대한 레이아웃을 관리합니다.
+=> 속성값으로 profileList 를 받고, 자식 컴포넌트인 ProfileCard 컴포넌트에는 속성값으로 profile 을 전달합니다.
+=> components/ProfileList.css 를 만들고 연결합니다. 컴포넌트에는 className=""profile-list"" 를 기본으로 지정합니다."
+전체 출력 페이지 -> 모든 상탯값을 여기서 정의해야 함
 
+*/
+import ProfileList from 'components/ProfileList';
+import Axios from 'axios';
 import { useState, useEffect } from 'react';
 
 function PageProfile() {
@@ -37,7 +47,7 @@ function PageProfile() {
     const value = e.target.value;
     setQuery(value);
 
-    // e는 이벤트 감지. e가 target -> click를 감지
+    // e는 이벤트 내역을 알려주는 이벤트 객체
   };
   // 값이 있을때만 호출하고, 값이 없을때는 호출안함 -> 값이 없을때도 뭔가를 호출하도록 개선
   const handleKeyPress = (e) => {
@@ -46,17 +56,17 @@ function PageProfile() {
     if (e.key === 'Enter') {
       const profileQuery = profileData.filter((member) => {
         return (
-          // filter는
-          member.name.includes(query) ||
-          member.role.includes(query) ||
-          member.mbti.includes(query)
+          member.name.toUpperCase().includes(query.toUpperCase()) ||
+          member.role.toUpperCase().includes(query.toUpperCase()) ||
+          member.mbti.toUpperCase().includes(query.toUpperCase())
         );
-      });
-      setProfileList(profileQuery);
+      }); // 여기서 리턴할 값을 profileQuery에 담았기 때문에,
+      setProfileList(profileQuery); // 여기서 다시 페이지 정보를 넘기면 됨
     }
 
     // 포함되어 있는 값만 profile에 남게 됨
   };
+
   return (
     <>
       <h2>PageProfile</h2>
@@ -72,24 +82,10 @@ function PageProfile() {
       <button onClick={() => setProfileList([])}>Clear</button>
       <button onClick={handleRefresh}>Refresh</button>
 
-      {profileList.length === 0 && <h4>등록된 프로필이 없습니다.</h4>}
       {error !== null && (
         <h3>조회 시에 오류가 발생했습니다. 잠시 후 다시 시도해주세요.</h3>
       )}
-      {profileList.map((profile) => {
-        return (
-          <div key={profile.uniqueId}>
-            <ul>
-              <img src={profile.profileImageUrl} alt="프로필 이미지" />
-              <li>{profile.uniqueId}</li>
-              <h3>{profile.name}</h3>
-              <li>{profile.role}</li>
-              <li>{profile.mbti}</li>
-              <li>{profile.instagramUrl}</li>
-            </ul>
-          </div>
-        );
-      })}
+      <ProfileList dataProfile={profileList} />
     </>
   );
 }

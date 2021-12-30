@@ -1,0 +1,7 @@
+/*
+ > pages/PageProfile 컴포넌트 (1개)
+                    => 프로필 페이지에 대한 표현 및 데이터 관리를 합니다.
+                    => profileList 상탯값을 직접 관리하며, 프로필 페이지의 전체 레이아웃을 관리합니다.
+                    => 하위 컴포넌트인 ProfileList 컴포넌트에 프로필 목록 상탯값을 속성값으로 넘겨줍니다.
+                    => pages/ProfileProfile.css 를 만들고 연결합니다. 컴포넌트에는 className=""page-profile"" 를 기본으로 지정합니다."
+*/

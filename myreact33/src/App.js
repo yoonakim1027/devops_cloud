@@ -7,15 +7,7 @@ import PageProfile from 'pages/PageProfile';
 */
 
 function App() {
-  return (
-    <>
-      <PageProfile>
-        <div>
-          <h2>PageProfile</h2>
-        </div>
-      </PageProfile>
-    </>
-  );
+  return <PageProfile className="page-profile" />;
 }
 
 export default App;
