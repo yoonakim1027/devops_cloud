@@ -1,73 +1,72 @@
 import { useState } from "react";
 
 /*
-6. value/color 2개의 상탯값을 하나의 상탯값으로 처리합니다.
-  const [state, setState] = useState({ value: 0, color: "red" });
-  
-  value/setValue/color/setColor를 참조하는 코드를 
-  state/setState를 참조토록 모두 변경해주세요.
-  // 새로운 값을 리턴 -> 원래의 값(뭔가를)을 변경 X
-  */
+
+1. (+/- 버튼의 이벤트 핸들러에서만) reducer 함수를 선언하고, action, prevState 2개의 인자를 받도록 하고
+ action, prevState 기반에서 /  새로운 상탯값을 반환토록 구현해주세요.
+
+2. (green/blue/red 버튼의 이벤트 핸들러에서만) reducer 함수에서 새로운 상탯값을 반환토록 구현해주세요. 
+  // reducer 함수를 호출하여, 새로운 상탯값을 계산해냅니다.
+*/
+// setter(prevState => reducer(action, prevState))
+// 리턴값은 객체로 반환 !
+function reducer(action, prevState) {
+  const { type, amount, color } = action; // 객체
+
+  // 객체니까 리턴도 객체로 받아야 함!!
+  // -> 이름을 통일 시키기!
+  // 증감
+  if (type === "COUNT") {
+    return { ...prevState, value: prevState.value + amount };
+  } else if (type === "CHANGE_COLOR") {
+    return { ...prevState, color: color };
+  }
+  // 버그 !
+  return prevState;
+}
 
 function Counter3() {
   const [state, setState] = useState({ value: 0, color: "red" }); // 초깃값을 {오브젝트: 객체}로 지정했기 때문에?
   const { value, color } = state; // -> 객체로 받아야 한다.
 
-  // setState 에는 "함수"를 넘겨야함 ! -> 인자로 직전값인 prevState가 넘어온다
-
   // 증가 버튼
   const handlePlus = () => {
-    const newState = (prevState) => {
-      return {
-        ...prevState, // unpacking -> 전체를 다 풀어와서~
-        value: prevState.value + 1, // 그 중 바꿀값의 키 :
-      };
-    };
-    setState(newState);
+    const action = { type: "COUNT", amount: 1 };
+    setState((prevState) => {
+      return reducer(action, prevState);
+    });
+    // 새로운 상탯값이 reducer를 통해서 생성되고, 이게 setState로 적용되는 것
   };
 
   // 감소 버튼
   const handleMinus = () => {
-    const newState = (prevState) => {
-      return {
-        ...prevState,
-        value: prevState.value - 1,
-      };
-    };
-    setState(newState);
+    const action = { type: "COUNT", amount: -1 }; // 음수 ...
+    setState((prevState) => {
+      return reducer(action, prevState);
+    });
   };
 
   // red
   const handleColorRed = () => {
-    const newState = (prevState) => {
-      return {
-        ...prevState,
-        color: "red",
-      };
-    };
-    setState(newState);
+    const action = { type: "CHANGE_COLOR", color: "red" };
+    setState((prevState) => {
+      return reducer(action, prevState);
+    });
   };
 
   // green
   const handleColorGreen = () => {
-    const newState = (prevState) => {
-      return {
-        ...prevState,
-        color: "green",
-      };
-    };
-    setState(newState);
+    const action = { type: "CHANGE_COLOR", color: "green" };
+    setState((prevState) => {
+      return reducer(action, prevState);
+    });
   };
-
   // blue
   const handleColorBlue = () => {
-    const newState = (prevState) => {
-      return {
-        ...prevState,
-        color: "blue",
-      };
-    };
-    setState(newState);
+    const action = { type: "CHANGE_COLOR", color: "blue" };
+    setState((prevState) => {
+      return reducer(action, prevState);
+    });
   };
 
   return (
@@ -80,9 +79,11 @@ function Counter3() {
       <button onClick={handleMinus}>-</button>
 
       <br />
-      <button onClick={handleColorRed}>Red</button>
-      <button onClick={handleColorGreen}>Green</button>
-      <button onClick={handleColorBlue}>Blue</button>
+      <button onClick={handleColorRed}>red</button>
+      <button onClick={handleColorGreen}>green</button>
+      <button onClick={handleColorBlue}>blue</button>
+      <hr />
+      {JSON.stringify(state)}
     </div>
   );
 }
