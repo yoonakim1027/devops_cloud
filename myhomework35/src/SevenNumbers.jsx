@@ -26,11 +26,13 @@ function reducer(prevState, action) {
       .slice(0, 7);
     return { ...prevState, numbers: generateNumber };
   } else if (type === 'SHUFFLE_NUMBERS') {
-    let shuffleNumbers = [];
-    shuffleNumbers = prevState.numbers.sort(() => Math.random() - 0.5);
-    return { ...prevState, numbers: shuffleNumbers };
-  } else if (type === 'COLOR') {
-    return { prevState };
+    let shuffledNumbers = [];
+    shuffledNumbers = prevState.numbers.sort(() => Math.random() - 0.5);
+    return { ...prevState, numbers: shuffledNumbers };
+  } else if (type === 'SHUFFLE_COLORS') {
+    let shuffledColors = [];
+    shuffledColors = prevState.colors.sort(() => Math.random() - 0.5);
+    return { ...prevState, colors: shuffledColors };
   }
 }
 
@@ -56,6 +58,10 @@ function SevenNumbers() {
     dispatch({ type: 'SHUFFLE_NUMBERS' });
   };
 
+  const SHUFFLE_COLORS = () => {
+    dispatch({ type: 'SHUFFLE_COLORS' });
+  };
+
   return (
     <div>
       <h2>7개의 숫자</h2>
@@ -76,15 +82,19 @@ function SevenNumbers() {
             );
           })}
       </div>
-      <br />
+      <hr />
 
       <div>
         <button onClick={SHUFFLE_NUMBERS}>SHUFFLE NUMBERS</button>
         <br />
       </div>
 
-      <button>SHUFFLE COLORS</button>
       <hr />
+      <div>
+        <button onClick={SHUFFLE_COLORS}>SHUFFLE COLORS</button>
+        <br />
+      </div>
+
       {JSON.stringify(state)}
     </div>
   );
