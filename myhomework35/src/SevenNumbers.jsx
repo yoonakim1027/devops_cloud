@@ -50,17 +50,19 @@ function SevenNumbers() {
     ],
   });
 
-  const GENERATE_NUMBERS = () => {
-    dispatch({ type: 'GENERATE_NUMBERS' });
-  };
+  // dispatch 함수 따로 정의
 
-  const SHUFFLE_NUMBERS = () => {
-    dispatch({ type: 'SHUFFLE_NUMBERS' });
-  };
+  // const GENERATE_NUMBERS = () => {
+  //   dispatch({ type: 'GENERATE_NUMBERS' });
+  // };
 
-  const SHUFFLE_COLORS = () => {
-    dispatch({ type: 'SHUFFLE_COLORS' });
-  };
+  // const SHUFFLE_NUMBERS = () => {
+  //   dispatch({ type: 'SHUFFLE_NUMBERS' });
+  // };
+
+  // const SHUFFLE_COLORS = () => {
+  //   dispatch({ type: 'SHUFFLE_COLORS' });
+  // };
 
   return (
     <div>
@@ -81,18 +83,25 @@ function SevenNumbers() {
             );
           })}
         <hr />
-        <button onClick={GENERATE_NUMBERS}>GENERATE_NUMBERS</button>
+        {/* dispatch 함수 따로 정의 없이, 화살표 함수로 바로 적용 */}
+        <button onClick={() => dispatch({ type: 'GENERATE_NUMBERS' })}>
+          GENERATE_NUMBERS
+        </button>
       </div>
       <hr />
 
       <div>
-        <button onClick={SHUFFLE_NUMBERS}>SHUFFLE NUMBERS</button>
+        <button onClick={() => dispatch({ type: 'SHUFFLE_NUMBERS' })}>
+          SHUFFLE NUMBERS
+        </button>
         <br />
       </div>
 
       <hr />
       <div>
-        <button onClick={SHUFFLE_COLORS}>SHUFFLE COLORS</button>
+        <button onClick={() => dispatch({ type: 'SHUFFLE_COLORS' })}>
+          SHUFFLE COLORS
+        </button>
         <hr />
       </div>
       <hr />
