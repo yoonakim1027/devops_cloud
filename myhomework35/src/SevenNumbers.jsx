@@ -66,7 +66,6 @@ function SevenNumbers() {
     <div>
       <h2>7개의 숫자</h2>
       <div>
-        <button onClick={GENERATE_NUMBERS}>GENERATE_NUMBERS</button>
         <br />
         {state.numbers &&
           state.numbers.map((num, index) => {
@@ -81,6 +80,8 @@ function SevenNumbers() {
               </div>
             );
           })}
+        <hr />
+        <button onClick={GENERATE_NUMBERS}>GENERATE_NUMBERS</button>
       </div>
       <hr />
 
@@ -92,8 +93,9 @@ function SevenNumbers() {
       <hr />
       <div>
         <button onClick={SHUFFLE_COLORS}>SHUFFLE COLORS</button>
-        <br />
+        <hr />
       </div>
+      <hr />
 
       {JSON.stringify(state)}
     </div>
