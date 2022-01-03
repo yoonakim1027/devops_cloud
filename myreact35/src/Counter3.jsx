@@ -1,79 +1,73 @@
 import { useState } from "react";
 
-/*1. Counter 컴포넌트 기본 모양을 만듭니다. (오른쪽 첫번째 스샷 참고) 
-- App.js에서 Counter 컴포넌트를 렌더링합니다. (V)
-2. +/- 버튼을 추가하고, click 이벤트 핸들러를 통해 setValue에 직접적으로 값을 넘겨 상탯값을 변경합니다. (no 함수)
-(v)
-3, +/- 버튼에 대한 이벤트 핸들러에서 setValue에 함수를 넘겨 상탯값을 변경합니다. (value를 참조 X)
-(v)
-4. green/blue/red 버튼을 추가하고, click 이벤트 핸들러를 통해 setColor에 직접적으로 값을 넘겨 상탯값을 변경합니다. (no 함수)
-(v)
-
-5. green/blue/red 버튼에 대한 이벤트 핸들러에서 setColor에 함수를 넘겨 상탯값을 변경합니다. ( color를 참조 X)
--- 4번까지의 과정을 주석처리 해야 가능 
-*/
+/*
+6. value/color 2개의 상탯값을 하나의 상탯값으로 처리합니다.
+  const [state, setState] = useState({ value: 0, color: "red" });
+  
+  value/setValue/color/setColor를 참조하는 코드를 
+  state/setState를 참조토록 모두 변경해주세요.
+  // 새로운 값을 리턴 -> 원래의 값(뭔가를)을 변경 X
+  */
 
 function Counter3() {
-  const [value, setValue] = useState(0);
-  const [color, setColor] = useState("red");
+  const [state, setState] = useState({ value: 0, color: "red" }); // 초깃값을 {오브젝트: 객체}로 지정했기 때문에?
+  const { value, color } = state; // -> 객체로 받아야 한다.
 
-  // 2. 함수 없이 구현 -> 이게 직접 값을 변경해서 넘겨주는 것
-  // 증가
-  //   const handlePlus = () => {
-  //     setValue(value + 1);
-  //   };
+  // setState 에는 "함수"를 넘겨야함 ! -> 인자로 직전값인 prevState가 넘어온다
 
-  // 감소
-  //   const handleMinus = () => {
-  //     setValue(value - 1);
-  //   };
-
-  // red
-  //   const handleColorRed = () => {
-  //     setColor("red");
-  //   };
-
-  // green
-  //   const handleColorGreen = () => {
-  //     setColor("green");
-  //   };
-
-  // blue
-  //   const handleColorBlue = () => {
-  //     setColor("blue");
-  //   };
-
-  // 새로운 값을 리턴 -> 원래의 값(뭔가를)을 변경 X
-  // 5번 //
   // 증가 버튼
   const handlePlus = () => {
-    setValue((prevValue) => prevValue + 1);
-  }; // 직전상탯값
+    const newState = (prevState) => {
+      return {
+        ...prevState, // unpacking -> 전체를 다 풀어와서~
+        value: prevState.value + 1, // 그 중 바꿀값의 키 :
+      };
+    };
+    setState(newState);
+  };
 
   // 감소 버튼
   const handleMinus = () => {
-    setValue((prevValue) => prevValue - 1);
+    const newState = (prevState) => {
+      return {
+        ...prevState,
+        value: prevState.value - 1,
+      };
+    };
+    setState(newState);
   };
-
-  // 색은 이전값이 있지만? 어처피 그냥 색변환이라서 참조하지 않아도 됨  -> 항상 모든 것은 절댓값. 읽기 전용
-  // setter(함수) : 이 함수에게 기대하는 것은? 새로운 상탯값을 반환해주는 것(return)
-  // 값을 직접 할당하는 것은 우리가 하는 것이 아님!
-  // () => {} 이게 함수임 !
 
   // red
   const handleColorRed = () => {
-    setColor(() => "red");
-  }; // 직전값 있는데(아까 useState로 'red'로 정했음), 근데? 안쓰는 거라 안받음
-  // -> 안쓰면 안받아도 오류가 안남 ! 참조할필요가 없어서 (파이썬은 오류남)
+    const newState = (prevState) => {
+      return {
+        ...prevState,
+        color: "red",
+      };
+    };
+    setState(newState);
+  };
 
   // green
   const handleColorGreen = () => {
-    setColor(() => "green");
+    const newState = (prevState) => {
+      return {
+        ...prevState,
+        color: "green",
+      };
+    };
+    setState(newState);
   };
 
   // blue
   const handleColorBlue = () => {
-    setColor(() => "blue");
+    const newState = (prevState) => {
+      return {
+        ...prevState,
+        color: "blue",
+      };
+    };
+    setState(newState);
   };
 
   return (
