@@ -6,27 +6,31 @@ import { useReducer } from 'react';
  - SHUFFLE_COLORS : 기존 colors의 순서를 랜덤하게 섞습니다. 순서만 바꿀 뿐.
 */
 function reducer(prevState, action) {
-  const { type, color } = action;
+  const { type } = action;
   if (type === 'GENERATE_NUMBERS') {
     let numList = [];
     for (let i = 1; i < 46; i++) {
       numList.push(i);
     }
-    const shuffledNumber = numList
+    const generateNumber = numList
       .map((num_random) => ({
         num_random,
         value: Math.random(),
       }))
       .sort((obj_a, obj_b) => {
-        return obj_a.value - obj_b.value; // 난수를 생성해서 ? 그걸 통해서 섞어주는 거라서 이부분이 섞는 것
+        return obj_a.value - obj_b.value;
       })
       .map(({ num_random }) => {
         return num_random;
       })
       .slice(0, 7);
-    return { number: shuffledNumber };
+    return { ...prevState, numbers: generateNumber };
+  } else if (type === 'SHUFFLE_NUMBERS') {
+    let shuffleNumbers = [];
+    shuffleNumbers = prevState.numbers.sort(() => Math.random() - 0.5);
+    return { ...prevState, numbers: shuffleNumbers };
   } else if (type === 'COLOR') {
-    return { prevState, color };
+    return { prevState };
   }
 }
 
@@ -48,23 +52,37 @@ function SevenNumbers() {
     dispatch({ type: 'GENERATE_NUMBERS' });
   };
 
+  const SHUFFLE_NUMBERS = () => {
+    dispatch({ type: 'SHUFFLE_NUMBERS' });
+  };
+
   return (
     <div>
       <h2>7개의 숫자</h2>
       <div>
         <button onClick={GENERATE_NUMBERS}>GENERATE_NUMBERS</button>
         <br />
-        {state.number &&
-          state.number.map((num) => {
+        {state.numbers &&
+          state.numbers.map((num, index) => {
             return (
-              <div style={{ ...defaultStyle, backgroundColor: 'red' }}>
+              <div
+                style={{
+                  ...defaultStyle,
+                  backgroundColor: state.colors[index],
+                }}
+              >
                 {num}
               </div>
             );
           })}
       </div>
+      <br />
 
-      <button>SHUFFLE NUMBERS</button>
+      <div>
+        <button onClick={SHUFFLE_NUMBERS}>SHUFFLE NUMBERS</button>
+        <br />
+      </div>
+
       <button>SHUFFLE COLORS</button>
       <hr />
       {JSON.stringify(state)}
