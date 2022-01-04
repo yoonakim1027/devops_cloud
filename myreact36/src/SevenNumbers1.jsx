@@ -49,8 +49,7 @@ function SevenNumbers1({ title }) {
     }));
   };
 
-  // 이벤트 처리 -> if 사용 -> 클릭했을 때 들어온 인덱스가 같으면 컬러를 변경
-  // 맵으로 뽑는 인덱스가 받아온 인덱스와 같다면
+  // 클릭한 circle만 색 변경
   const changeCirleColor = (circleIndex) => {
     setState((prevState) => ({
       ...prevState,
@@ -64,8 +63,20 @@ function SevenNumbers1({ title }) {
       }),
     }));
   };
-
-  // const removeCirle = (circleIndex) => {};
+  //우클릭했을때는 => numbers와 colors를 제거 -> filter를 사용해서 해당되는 인덱스만 제거
+  //우클릭 시에 클릭한 Circle만 제거 (numbers/colors 배열의 filter 사용)
+  const removeCirle = (circleIndex) => {
+    setState((prevState) => ({
+      ...prevState,
+      numbers: prevState.numbers.filter(
+        (number, index) => index !== circleIndex,
+      ),
+      colors: prevState.colors.filter((color, index) => index !== circleIndex),
+    }));
+  };
+  // filter에서 === -> 같은 것만 filtering
+  // filter에서 !== -> 다른 것만 찾게 되니까? 같은 것은 filtering이 안된다.
+  // 그렇기 때문에 filter가 된 결과는 ? 다른 것들만 남은 배열
 
   return (
     <div>
@@ -74,9 +85,13 @@ function SevenNumbers1({ title }) {
         <Circle // 특정 circle을 클릭했을때 동작하는 밑의 함수들
           number={number}
           backgroundColor={color}
-          onClick={() => changeCirleColor(index)}
+          onClick={() => {
+            console.log(`clicked : ${index}`);
+            changeCirleColor(index);
+          }}
           onContextMenu={(e) => {
             e.preventDefault();
+            removeCirle(index);
             console.log(`right clicked : ${index}`);
           }}
         />
