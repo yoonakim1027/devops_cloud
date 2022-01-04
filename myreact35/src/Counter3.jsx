@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 
 /*
 상탯값 정의를 useState가 아니라 useReducer로 변경
