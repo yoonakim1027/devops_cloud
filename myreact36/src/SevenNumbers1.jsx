@@ -65,13 +65,15 @@ function SevenNumbers1({ title }) {
   };
   //우클릭했을때는 => numbers와 colors를 제거 -> filter를 사용해서 해당되는 인덱스만 제거
   //우클릭 시에 클릭한 Circle만 제거 (numbers/colors 배열의 filter 사용)
+  // 조건에 대한 값이 True면 남고, False면 안남음
+
+  // 반환하는 인수를 사용하지 않기때문에 언더바_ 로 사용하지 않겠다고 명시
+
   const removeCirle = (circleIndex) => {
     setState((prevState) => ({
       ...prevState,
-      numbers: prevState.numbers.filter(
-        (number, index) => index !== circleIndex,
-      ),
-      colors: prevState.colors.filter((color, index) => index !== circleIndex),
+      numbers: prevState.numbers.filter((_, index) => index !== circleIndex),
+      colors: prevState.colors.filter((_, index) => index !== circleIndex),
     }));
   };
   // filter에서 === -> 같은 것만 filtering
