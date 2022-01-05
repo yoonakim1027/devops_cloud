@@ -1,7 +1,7 @@
 import './App.css';
-
+import PageCounter from './pages/PageCounter';
 function App() {
-  return <div className="App"></div>;
+  return <PageCounter />;
 }
 
 export default App;
