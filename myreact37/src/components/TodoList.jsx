@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Todo from './Todo';
+import TodoForm from './TodoForm';
 import './TodoList.css';
 
 // 하나의 Todo만 가질 것이 아니라, 여러 개의 Todo를 해야 하니까
@@ -51,12 +52,13 @@ function TodoList() {
   return (
     <div className="todo-list">
       <h2>Todo List</h2>
-      <input
+      <TodoForm />
+      {/* <input
         type="text"
         value={inputText}
         onChange={changedInputText}
         onKeyPress={appendInputText}
-      />
+      /> */}
       {todoList.map((todo, index) => (
         <Todo todo={todo} onClick={() => removeTodo(index)} />
         // <div onClick={() => removeTodo(index)}>{todo.content}</div>
