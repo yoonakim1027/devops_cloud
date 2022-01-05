@@ -50,14 +50,13 @@ function SevenNumbers1({ title }) {
   };
 
   // 클릭한 circle만 색 변경
+  // 바로 할당 없이 바로 return
   const changeCirleColor = (circleIndex) => {
     setState((prevState) => ({
       ...prevState,
       colors: prevState.colors.map((color, index) => {
         if (index === circleIndex) {
-          return (color = `#${Math.round(Math.random() * 0xffffff).toString(
-            16,
-          )}`);
+          return `#${Math.round(Math.random() * 0xffffff).toString(16)}`;
         }
         return color;
       }),
