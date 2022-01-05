@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import Todo from './Todo';
 // 하나의 Todo만 가질 것이 아니라, 여러 개의 Todo를 해야 하니까
 const INITIAL_STATE = [
   { content: '22년에는 꼭 취업하기' },
@@ -24,7 +24,10 @@ function TodoList() {
       console.log('inputText:', inputText);
       setTodoList((prevTodoList) => {
         return [...prevTodoList, { content: inputText }];
-      });
+      }); // ... -> 원래 있던 배열 불러오기
+      // 객체 {}
+      // 위에서 {content : ''} 이런식으로 객체를 넣어줬기 때문에
+      // 여기서도 {content: inputText} 이렇게 넣은 것
 
       setInputText('');
 
@@ -53,7 +56,8 @@ function TodoList() {
         onKeyPress={appendInputText}
       />
       {todoList.map((todo, index) => (
-        <div onClick={() => removeTodo(index)}>{todo.content}</div>
+        <Todo todo={todo} onClick={() => removeTodo(index)} />
+        // <div onClick={() => removeTodo(index)}>{todo.content}</div>
       ))}
     </div>
   );

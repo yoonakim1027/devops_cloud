@@ -34,7 +34,7 @@ function Counter() {
 
   //useReducer
   const reduceHandleClick = () => {
-    dispatch({ type: ACTION_TYPES.HANDLECLICK, amount: 1 }); // amout 값 추가
+    dispatch({ type: ACTION_TYPES.HANDLECLICK, amount: 1 }); // amount 값 추가
   };
 
   const reduceHandleRightClick = (e) => {
@@ -44,6 +44,7 @@ function Counter() {
 
   return (
     <>
+      <h2> Counter : useState</h2>
       <div
         className="counter"
         style={{
@@ -54,7 +55,8 @@ function Counter() {
       >
         {value}
       </div>
-
+      <hr />
+      <h2> Counter : useReducer</h2>
       <div
         className="counter"
         style={{
@@ -65,6 +67,7 @@ function Counter() {
       >
         {state.value}
       </div>
+      <hr />
     </>
   );
 }
