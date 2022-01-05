@@ -1,0 +1,7 @@
+.review {
+  background-color: rgb(214, 231, 237);
+}
+
+.review:hover {
+  background-color: blue;
+}

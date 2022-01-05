@@ -1,3 +1,9 @@
 .review-list {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.review--list {
+  width: 370px;
   margin: 0 auto;
 }

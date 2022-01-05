@@ -44,8 +44,10 @@ function ReviewForm({ fieldValues, handleChange, handleSubmit }) {
             </select>
           </label>
           <br />
-          <input
-            type="textarea"
+          <textarea
+            cols="47"
+            rows="5"
+            type="text"
             className="appearance-none block w-full h-full bg-gray-200 text-gray-700 border border-green-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-first-name"
             onChange={handleChange}
