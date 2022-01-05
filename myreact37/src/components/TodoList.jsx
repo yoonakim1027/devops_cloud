@@ -6,9 +6,9 @@ import './TodoList.css';
 
 // 하나의 Todo만 가질 것이 아니라, 여러 개의 Todo를 해야 하니까
 const INITIAL_STATE = [
-  { content: '22년에는 꼭 취업하기' },
-  { content: '파이썬 익히기' },
-  { content: '리액트 익히기' },
+  { content: '22년에는 꼭 취업하기', color: 'blue' },
+  { content: '파이썬 익히기', color: 'red' },
+  { content: '리액트 익히기', color: 'red' },
 ];
 
 function TodoList() {
@@ -19,7 +19,7 @@ function TodoList() {
   const [fieldValues, handleChange, clearFieldValues] = useFieldValues({
     // 초기값 지정하면 돼! 상황에 맞는 초깃값지정. 그냥 빈 오브젝트로 바꾸기만 할 게 아니라~
     content: '',
-    color: 'Orange',
+    color: 'red',
   });
 
   // 현재 fieldValues에 todo내역이 저장되어 있음

@@ -20,9 +20,9 @@ function TodoForm({ fieldValues, handleChange, handleSubmit }) {
       />
       <button onClick={() => handleSubmit()}>저장</button>
       <select onChange={handleChange} name="color" value={fieldValues.color}>
-        <option>Amber</option>
-        <option>Orange</option>
-        <option>Yellow</option>
+        <option>blue</option>
+        <option>red</option>
+        {/* <option>yellow</option> */}
       </select>
     </div>
   );
