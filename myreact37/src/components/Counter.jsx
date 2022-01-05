@@ -8,6 +8,11 @@ function Counter() {
     setValue(value + 1);
   };
 
+  const handleRightClick = (e) => {
+    e.preventDefault();
+    setValue(value - 1);
+  };
+
   return (
     <div
       className="counter"
@@ -15,6 +20,7 @@ function Counter() {
         backgroundColor: 'red',
       }}
       onClick={handleClick}
+      onContextMenu={handleRightClick}
     >
       {value}
     </div>
