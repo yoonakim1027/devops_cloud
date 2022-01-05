@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Todo from './Todo';
+import './TodoList.css';
+
 // 하나의 Todo만 가질 것이 아니라, 여러 개의 Todo를 해야 하니까
 const INITIAL_STATE = [
   { content: '22년에는 꼭 취업하기' },
@@ -47,7 +49,7 @@ function TodoList() {
     ); // 인덱스만 가지고 true, false 리턴 -> 앞은 필요 없어서 언더바로 !
   }; // 다른 것만 삭제시킬 것이니까 index !== todoIndex
   return (
-    <div>
+    <div className="todo-list">
       <h2>Todo List</h2>
       <input
         type="text"
