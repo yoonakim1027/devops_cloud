@@ -15,7 +15,12 @@ function TodoList() {
   // onChange가 발생하면? inputText에 반영해야함
   const [todoList, setTodoList] = useState(INITIAL_STATE);
 
-  const [fieldValues, handleChange] = useFieldValues();
+  //custom hook
+  const [fieldValues, handleChange, clearFieldValues] = useFieldValues({
+    // 초기값 지정하면 돼! 상황에 맞는 초깃값지정. 그냥 빈 오브젝트로 바꾸기만 할 게 아니라~
+    content: '',
+    color: 'Orange',
+  });
 
   // const changedInputText = (e) => {
   //   setInputText(e.target.value);
@@ -44,6 +49,19 @@ function TodoList() {
   //   }
   // };
 
+  // 현재 fieldValues에 todo내역이 저장되어 있음
+  const appendTodo = () => {
+    // setter에 값 지정방식
+    console.log('새로운 TODO를 추가하겠습니다');
+    const todo = { ...fieldValues }; // 오브젝트
+    // 배열 !
+    setTodoList([
+      ...todoList, //기존의 todoList 추가
+      todo,
+    ]);
+    clearFieldValues();
+  };
+
   // // 이 함수는 todoINdex를 받으면 해당 인덱스를 삭제 하겠다.
   // // 그럼 onclick으로 선택되면 ~
   const removeTodo = (todoIndex) => {
@@ -54,9 +72,21 @@ function TodoList() {
   return (
     <div className="todo-list">
       <h2>Todo List</h2>
-      <TodoForm handleChange={handleChange} />
+
+      <TodoForm
+        fieldValues={fieldValues}
+        handleChange={handleChange}
+        handleSubmit={appendTodo}
+      />
       <hr />
       {JSON.stringify(fieldValues)}
+      <button
+        className="bg-red-500 text-gray-100 cursor-pointer"
+        onClick={() => clearFieldValues()}
+      >
+        clear
+      </button>
+
       {/* <input
         type="text"
         value={inputText}
