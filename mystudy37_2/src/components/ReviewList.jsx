@@ -22,26 +22,45 @@ const INITIAL_STATE = [
 
 function ReviewList() {
   const [reviewList, setReviewList] = useState(INITIAL_STATE);
-  const [fieldValues, handleChange, clearFieldValues] = useFieldValues({
-    content: '',
-    rating: 5,
-  });
+  const [fieldValues, handleChange, clearFieldValues, setFieldValues] =
+    useFieldValues({
+      content: '',
+      rating: 5,
+    });
 
-  const [editForm, setEditForm] = useState(false);
+  // handlechange를 통해서 setFieldValues를 사용해야함(수정목적으로만 )
   const [viewForm, setViewForm] = useState(false);
 
   const changeBF = () => {
-    setViewForm((prevState) => !prevState);
+    setViewForm((viewForm) => !viewForm);
   };
-  // 새로운 리뷰 저장
+  // 새로운 리뷰 저장 + 기존 리뷰 수정 -> id 유무로 구분
   const appendReview = () => {
-    // review는 데이터베이스에 저장하면 id를 할당해준다
-    console.log('새로운 Review를 추가하겠습니다.');
-    const reviewId = new Date().getTime();
-    const review = { ...fieldValues, id: reviewId }; //fieldValues에서 다 가져와서 리뷰를 구성
+    // 새로운 거 저장 : id X / 기존 것 저장 : id O
+    let { id: reviewId } = fieldValues; // id가 있으면 가져올 것이고, 없으면 안가져올 것(undefined)
 
-    setReviewList((prevReviewList) => [...prevReviewList, review]);
+    // 새로운 리뷰 저장
+    if (!reviewId) {
+      reviewId = new Date().getTime();
+      const createdreview = { ...fieldValues, id: reviewId }; //fieldValues에서 다 가져와서 리뷰를 구성
+      setReviewList((prevReviewList) => [...prevReviewList, createdreview]);
+    }
+    // 기존 리뷰 수정 (map, filter 적절히 수정 )
+    else {
+      const editedReview = { ...fieldValues }; // 값을 새로 다시 받아옴!
+      setReviewList((prevReviewList) =>
+        prevReviewList.map((review) => {
+          // 매 리뷰를 받음
+          if (review.id === reviewId)
+            //  매 루프를 도는 review.id 와, 수정된 대상인 reviewId가 같으면 ?
+            return editedReview;
+          return review;
+        }),
+      );
+    }
     clearFieldValues();
+
+    // review는 데이터베이스에 저장하면 id를 할당해준다
   };
 
   const deleteReview = (deletingReview) => {
@@ -52,10 +71,13 @@ function ReviewList() {
     ); // 배열안에 있는 항목들이 하나씩 넘어옴
   };
 
-  const editReview = (editingReview, id) => {
-    setEditForm((prevReviewList) =>
-      prevReviewList.filter((_, index) => index === editingReview),
-    );
+  // 새롭게 저장할 때에는 id가 없고
+  // 수정할 때에는 id가 있음
+  // id 유무를 통해 구분할 수 있음
+  const willEditReview = (editingReview, id) => {
+    console.log('willEditReview:', editingReview);
+    setFieldValues(editingReview);
+    setViewForm(true);
   };
 
   return (
@@ -94,7 +116,7 @@ function ReviewList() {
           <Review
             key={review.id}
             review={review}
-            handleEdit={() => editReview(review, id)}
+            handleEdit={() => willEditReview(review)}
             handleDelete={() => deleteReview(review)}
           />
         ))}

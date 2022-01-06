@@ -3,6 +3,7 @@ function ReviewForm({
   handleChange,
   handleSubmit,
   changeToButton,
+  changeBF,
 }) {
   return (
     <>
@@ -61,6 +62,7 @@ function ReviewForm({
               onClick={() => {
                 handleSubmit();
                 changeToButton();
+                changeBF();
               }}
             >
               저장하기
