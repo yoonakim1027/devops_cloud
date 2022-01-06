@@ -62,7 +62,6 @@ function ReviewForm({
               onClick={() => {
                 handleSubmit();
                 changeToButton();
-                changeBF();
               }}
             >
               저장하기
