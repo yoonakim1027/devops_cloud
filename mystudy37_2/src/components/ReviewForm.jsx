@@ -65,7 +65,13 @@ function ReviewForm({
             >
               저장하기
             </button>
-            <button onClick={() => changeToButton()}>돌아가기</button>
+            <button
+              className="mr-5 flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded cursor-pointer margin-5 top-5"
+              type="button"
+              onClick={() => changeToButton()}
+            >
+              돌아가기
+            </button>
           </div>
         </div>
       </div>
