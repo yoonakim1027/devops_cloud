@@ -6,9 +6,11 @@ import { useState } from 'react';
 
 //handleEdit : 인자 없는 함수로 구 현, 수정 버튼 클릭 시에 호출
 //handleDelete : 인자 없는 함수로 구현, 삭제 버튼 클릭 시에 호출
+
 function Review({ review, onClick, handleDelete, handleEdit }) {
   const [showMenu, setShowMenu] = useState(false);
 
+  // 인자가 없다는 설계대로 처리가 될 것
   const handleClickedEditButton = () => {
     if (handleEdit) {
       handleEdit();

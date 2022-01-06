@@ -38,11 +38,14 @@ function ReviewList() {
     console.log('새로운 Review를 추가하겠습니다.');
     const reviewId = new Date().getTime();
     const review = { ...fieldValues, id: reviewId }; //fieldValues에서 다 가져와서 리뷰를 구성
-
     //unisecond 단위로 타임스탬프 만들어줌(임시)
-
     setReviewList((prevReviewList) => [...prevReviewList, review]);
     clearFieldValues();
+  };
+
+  const deleteReview = (deletingReview) => {
+    console.log('Deleting', deletingReview);
+    // TODO : reviewList 배열 상탯값에서 deletingReview에 해당하는 리뷰를 제거
   };
 
   return (
@@ -73,11 +76,17 @@ function ReviewList() {
             handleChange={handleChange}
             handleSubmit={appendReview}
             changeToButton={changeBF}
+            handleDelete={deleteReview}
           />
         )}
 
         {reviewList.map((review, index) => (
-          <Review review={review} />
+          <Review
+            key={review.id}
+            review={review}
+            handleEdit={() => console.log('Editing', review)}
+            handleDelete={() => console.log('Deleting', review)}
+          />
         ))}
       </div>
     </div>
