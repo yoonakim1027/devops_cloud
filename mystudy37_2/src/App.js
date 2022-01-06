@@ -6,7 +6,7 @@ import TopNav from 'components/TopNav';
 
 function App() {
   return (
-    <div>
+    <div className="app-center">
       <TopNav />
       <Routes>
         <Route path="/" element={<div>대문</div>} />

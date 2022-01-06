@@ -29,7 +29,7 @@ function NavLink({ to, children }) {
       pb-1
       border-blue-400 
     hover:text-blue-400
-    hover:border-r-4 duration-75
+    hover:border-b-4 duration-75
     text-m"
     >
       {children}
