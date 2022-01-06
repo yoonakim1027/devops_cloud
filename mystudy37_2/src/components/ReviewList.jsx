@@ -44,6 +44,10 @@ function ReviewList() {
   };
 
   const deleteReview = (deletingReview) => {
+    setReviewList((prevReviewList) =>
+      prevReviewList.filter((_, index) => index !== deletingReview),
+    );
+
     console.log('Deleting', deletingReview);
     // TODO : reviewList 배열 상탯값에서 deletingReview에 해당하는 리뷰를 제거
   };
@@ -76,16 +80,15 @@ function ReviewList() {
             handleChange={handleChange}
             handleSubmit={appendReview}
             changeToButton={changeBF}
-            handleDelete={deleteReview}
           />
         )}
 
-        {reviewList.map((review, index) => (
+        {reviewList.map((review, id) => (
           <Review
             key={review.id}
             review={review}
             handleEdit={() => console.log('Editing', review)}
-            handleDelete={() => console.log('Deleting', review)}
+            handleDelete={() => deleteReview(id)}
           />
         ))}
       </div>
