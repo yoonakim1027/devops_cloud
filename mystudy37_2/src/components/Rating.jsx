@@ -3,11 +3,11 @@ function Rating({ score }) {
     <ul className="flex">
       <li>
         <svg
-          aria-hidden="true"
+          ariaHidden="true"
           focusable="false"
-          data-prefix="fas"
-          data-icon="heart"
-          class="w-3.5 text-red-500 mr-1"
+          dataPrefix="fas"
+          dataIcon="heart"
+          className="w-3.5 text-red-500 mr-1"
           role="img"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -24,11 +24,11 @@ function Rating({ score }) {
       </li>
       <li>
         <svg
-          aria-hidden="true"
+          ariaHidden="true"
           focusable="false"
-          data-prefix="fas"
-          data-icon="heart"
-          class="w-3.5 text-red-500 mr-1"
+          dataPrefix="fas"
+          dataIcon="heart"
+          className="w-3.5 text-red-500 mr-1"
           role="img"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -45,11 +45,11 @@ function Rating({ score }) {
       </li>
       <li>
         <svg
-          aria-hidden="true"
+          ariaHidden="true"
           focusable="false"
-          data-prefix="fas"
-          data-icon="heart"
-          class="w-3.5 text-red-500 mr-1"
+          dataPrefix="fas"
+          dataIcon="heart"
+          className="w-3.5 text-red-500 mr-1"
           role="img"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -66,11 +66,11 @@ function Rating({ score }) {
       </li>
       <li>
         <svg
-          aria-hidden="true"
+          ariaHidden="true"
           focusable="false"
-          data-prefix="far"
-          data-icon="heart"
-          class="w-3.5 text-red-500 mr-1"
+          dataPrefix="far"
+          dataIcon="heart"
+          className="w-3.5 text-red-500 mr-1"
           role="img"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -87,11 +87,11 @@ function Rating({ score }) {
       </li>
       <li>
         <svg
-          aria-hidden="true"
+          ariaHidden="true"
           focusable="false"
-          data-prefix="far"
-          data-icon="heart"
-          class="w-3.5 text-red-500"
+          dataPrefix="far"
+          dataIcon="heart"
+          className="w-3.5 text-red-500"
           role="img"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
