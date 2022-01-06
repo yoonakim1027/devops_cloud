@@ -1,6 +1,6 @@
 import './App.css';
 // import PageTodoList from 'components/pages/PageTodoList';
-import PageReviewList from 'components/pages/PageReviewList';
+import PageReviewList from 'pages/PageReviewList';
 
 function App() {
   return (

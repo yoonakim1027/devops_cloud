@@ -1,10 +1,9 @@
-function ReviewForm({ fieldValues, handleChange, handleSubmit }) {
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit();
-    }
-  };
-
+function ReviewForm({
+  fieldValues,
+  handleChange,
+  handleSubmit,
+  changeToButton,
+}) {
   return (
     <>
       <div className="flex items-center text-center border-b border-red-500 py-2">
@@ -48,10 +47,9 @@ function ReviewForm({ fieldValues, handleChange, handleSubmit }) {
             cols="47"
             rows="5"
             type="text"
-            className="appearance-none block w-full h-full bg-gray-200 text-gray-700 border border-green-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-green-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
             id="grid-first-name"
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
             name="content"
             value={fieldValues.content}
           />
@@ -60,10 +58,14 @@ function ReviewForm({ fieldValues, handleChange, handleSubmit }) {
             <button
               className="text-center flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded cursor-pointer margin-5 top-5"
               type="button"
-              onClick={() => handleSubmit()}
+              onClick={() => {
+                handleSubmit();
+                changeToButton();
+              }}
             >
               저장하기
             </button>
+            <button onClick={() => changeToButton()}>돌아가기</button>
           </div>
         </div>
       </div>

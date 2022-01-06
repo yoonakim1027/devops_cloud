@@ -26,13 +26,20 @@ function ReviewList() {
   });
 
   const [viewForm, setViewForm] = useState(false);
+  // 이거는 그냥 실행 되면 알아서 prevState를 읽음
+  // 받을 인자가 없어서 -> 그냥 호출이되면? 바로 실행
+  // 저장하기 버튼을 누르면 바로 화면전환을 원하는 거라서
+  // 함수는 ? 인자가 없으면 호출되자마자 실행
+  // 인자가 있으면 그 인자를 꼭 !! 받아야 실행
+  const changeBF = () => {
+    setViewForm((prevState) => !prevState);
+  }; // 얘는 인자가 없어서 바로 실행. 실행되는 것 자체는?
 
-  // 해당하는 리뷰 -> 클릭 시 삭제
-  const removeReview = (reviewIndex) => {
-    setReviewList((prevReviewList) =>
-      prevReviewList.filter((_, index) => index !== reviewIndex),
-    );
-  };
+  // // 이거는 prevState이라는 인자가 있어야 실행됨
+  // const changeBFex = (prevState) => {
+  //   setViewForm(!prevState);
+  // };
+  // 현재 ReviewForm에서는 prevState라는 상탯값이 없기 때문에 인자로 받지 못함.
 
   // 리뷰 append
   const appendReview = () => {
@@ -44,42 +51,40 @@ function ReviewList() {
   };
 
   return (
-    <div className="md:flex md:items-center mb-6 text-center">
-      <hr />
-      <label
-        className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-        for="inline-full-name"
-      >
-        Review List
-      </label>
-      <br />
-      <hr />
-      <button
-        className="text-center flex-shrink-0 bg-teal-500
-         hover:bg-teal-700 border-teal-500 hover:border-teal-700 
-         text-xl
-         border-4
-          text-white 
-          py-3 px-40 
-          rounded"
-        type="button"
-        onClick={() => {
-          setViewForm(!viewForm);
-        }}
-      >
-        {viewForm ? '메인으로 돌아가기' : 'New Review'}
-      </button>
-      {viewForm && (
-        <ReviewForm
-          fieldValues={fieldValues}
-          handleChange={handleChange}
-          handleSubmit={appendReview}
-        />
-      )}
+    <div className="review-list">
+      <div className="md:flex md:items-center mb-6 text-center">
+        <hr />
+        <label
+          className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+          for="inline-full-name"
+        >
+          Review List
+        </label>
+        <br />
+        <hr />
+      </div>
+      <div>
+        {!viewForm && (
+          <button
+            className="block justify-center w-full"
+            onClick={() => changeBF()}
+          >
+            리뷰 작성
+          </button>
+        )}
+        {viewForm && (
+          <ReviewForm
+            fieldValues={fieldValues}
+            handleChange={handleChange}
+            handleSubmit={appendReview}
+            changeToButton={changeBF}
+          />
+        )}
 
-      {reviewList.map((review, index) => (
-        <Review review={review} onClick={() => removeReview(index)} />
-      ))}
+        {reviewList.map((review, index) => (
+          <Review review={review} />
+        ))}
+      </div>
     </div>
   );
 }
