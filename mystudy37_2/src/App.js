@@ -1,15 +1,15 @@
 import './App.css';
-import PageTodoList from 'components/pages/PageTodoList';
+import PageTodoList from 'pages/PageTodoList';
 import PageReviewList from 'pages/PageReviewList';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
     <div>
       <Routes>
-        <Route to="/" element={<div>대문</div>} />
-        <Route to="/reviews" element={<PageReviewList />} />
-        <Route to="/todos" element={<PageTodoList />} />
+        <Route path="/" element={<div>대문</div>} />
+        <Route path="/reviews" element={<PageReviewList />} />
+        <Route path="/todos" element={<PageTodoList />} />
       </Routes>
     </div>
   );
