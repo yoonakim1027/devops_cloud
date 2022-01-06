@@ -1,5 +1,3 @@
-import { Fragment } from 'react';
-
 const range = (size) => [...Array(size).keys()];
 
 function Rating({ score }) {

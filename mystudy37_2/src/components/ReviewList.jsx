@@ -27,6 +27,7 @@ function ReviewList() {
     rating: 5,
   });
 
+  const [editForm, setEditForm] = useState(false);
   const [viewForm, setViewForm] = useState(false);
 
   const changeBF = () => {
@@ -38,18 +39,23 @@ function ReviewList() {
     console.log('새로운 Review를 추가하겠습니다.');
     const reviewId = new Date().getTime();
     const review = { ...fieldValues, id: reviewId }; //fieldValues에서 다 가져와서 리뷰를 구성
-    //unisecond 단위로 타임스탬프 만들어줌(임시)
+
     setReviewList((prevReviewList) => [...prevReviewList, review]);
     clearFieldValues();
   };
 
   const deleteReview = (deletingReview) => {
     setReviewList((prevReviewList) =>
-      prevReviewList.filter((_, index) => index !== deletingReview),
-    );
+      prevReviewList.filter(
+        ({ id: reviewId }) => reviewId !== deletingReview.id,
+      ),
+    ); // 배열안에 있는 항목들이 하나씩 넘어옴
+  };
 
-    console.log('Deleting', deletingReview);
-    // TODO : reviewList 배열 상탯값에서 deletingReview에 해당하는 리뷰를 제거
+  const editReview = (editingReview, id) => {
+    setEditForm((prevReviewList) =>
+      prevReviewList.filter((_, index) => index === editingReview),
+    );
   };
 
   return (
@@ -88,8 +94,8 @@ function ReviewList() {
           <Review
             key={review.id}
             review={review}
-            handleEdit={() => console.log('Editing', review)}
-            handleDelete={() => deleteReview(id)}
+            handleEdit={() => editReview(review, id)}
+            handleDelete={() => deleteReview(review)}
           />
         ))}
       </div>
