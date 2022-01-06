@@ -3,6 +3,7 @@ import PageTodoList from 'pages/PageTodoList';
 import PageReviewList from 'pages/PageReviewList';
 import { Routes, Route, Link } from 'react-router-dom';
 import TopNav from 'components/TopNav';
+import PageNotFound from 'pages/PageNotFound';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<div>대문</div>} />
         <Route path="/reviews" element={<PageReviewList />} />
         <Route path="/todos" element={<PageTodoList />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
